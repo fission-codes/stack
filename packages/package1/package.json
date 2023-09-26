@@ -58,7 +58,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "../../node_modules/hd-scripts/eslint/index.js"
+      "@fission-codes"
     ],
     "env": {
       "mocha": true

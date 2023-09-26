@@ -13,8 +13,7 @@ Monorepo for the Fission stack.
 
 ## Packages
 
-- [package1](https://github.com/fission-codes/stack/tree/master/packages/package1) - description
-- [package2](https://github.com/fission-codes/stack/tree/master/packages/package2) - description
+- [eslint-config](https://github.com/fission-codes/stack/tree/master/packages/eslint-config) - Fission eslint, ts and prettier config.
 
 ## Examples
 

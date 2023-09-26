@@ -21,8 +21,8 @@
     "docs": "typedoc --out docs --plugin typedoc-plugin-missing-exports --plugin typedoc-plugin-zod"
   },
   "devDependencies": {
+    "@fission-codes/eslint-config": "workspace:^",
     "depcheck": "^1.4.6",
-    "hd-scripts": "^9.0.4",
     "lint-staged": "^14.0.1",
     "prettier": "3.0.3",
     "simple-git-hooks": "^2.9.0",
@@ -38,10 +38,10 @@
     "*.{js,ts,jsx,tsx,yml,json,css}": "prettier --write",
     "*": "eslint --fix"
   },
-  "prettier": "hd-scripts/prettier.config.js",
+  "prettier": "@fission-codes/eslint-config/prettier.config.js",
   "eslintConfig": {
     "extends": [
-      "./node_modules/hd-scripts/eslint/index.js"
+      "@fission-codes"
     ],
     "ignorePatterns": [
       "docs"
