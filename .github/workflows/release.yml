@@ -3,6 +3,8 @@ name: Release
 permissions:
   contents: write
   pull-requests: write
+  pages: write
+  id-token: write
 
 env:
   CI: true
