@@ -1,0 +1,12 @@
+{
+  "extends": "hd-scripts/tsconfig.json",
+  "typedocOptions": {
+    "entryPointStrategy": "packages",
+    "entryPoints": ["packages/package1"],
+    "excludeExternals": true,
+    "darkHighlightTheme": "github-dark",
+    "navigationLinks": {
+      "Github": "https://github.com/hugomrdias/hd-template"
+    }
+  }
+}
