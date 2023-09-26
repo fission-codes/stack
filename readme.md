@@ -13,15 +13,15 @@ Monorepo for the Fission stack.
 
 ## Packages
 
-- [eslint-config](https://github.com/fission-codes/stack/tree/master/packages/eslint-config) - Fission eslint, ts and prettier config.
+- [eslint-config](https://github.com/fission-codes/stack/tree/main/packages/eslint-config) - Fission eslint, ts and prettier config.
 
 ## Examples
 
-- [`demo`](https://github.com/fission-codes/stack/tree/master/examples/demo) - description
+- [`demo`](https://github.com/fission-codes/stack/tree/main/examples/demo) - description
 
 ### Checkout examples
 
-You can use [Codesandbox](https://githubbox.com/fission-codes/stack/tree/master/examples/demo) and start hacking right away.
+You can use [Codesandbox](https://githubbox.com/fission-codes/stack/tree/main/examples/demo) and start hacking right away.
 
 To clone it locally:
 
