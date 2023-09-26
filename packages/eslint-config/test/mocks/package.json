@@ -1,0 +1,7 @@
+{
+  "name": "hd-scripts",
+  "type": "module",
+  "eslintConfig": {
+    "extends": "../../src/index.js"
+  }
+}

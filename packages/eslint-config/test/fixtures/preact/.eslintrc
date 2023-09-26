@@ -1,0 +1,4 @@
+{
+  "extends": "../../../src/index.js",
+  "root": true
+}
