@@ -78,7 +78,10 @@
     ],
     "ignores": [
       "@types/*",
-      "assert"
+      "assert",
+      "eslint*",
+      "@typescript-eslint/*",
+      "preact"
     ]
   }
 }
