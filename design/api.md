@@ -135,16 +135,20 @@ We should support:
 
 ### Features
 
-- Providers SHOULD receive a set of capabilities and return a powerbox style UCAN with those capabilities.
-- Providers with local capabilities SHOULD handle device link
+- Providers SHOULD receive a Agent DID and a set of capabilities and return a powerbox style UCAN with those capabilities.
 - Providers SHOULD only depend on DID, Signatures and UCANs NOT on Agent or Storage. They can have other dependencies but they should be environment specific.
 
 ## Fission Client
 
 Client SHOULD only handle HTTP logic, it should receive UCAN delegations, set bearer tokens according to [Spec](https://github.com/ucan-wg/ucan-http-bearer-token) and handle HTTP requests.
 
-In the future this SHOULD be a generic UCAN-RPC client that can be used for any UCAN-RPC protocol, given a Capabilities Protocol.
+In the future this SHOULD be a generic UCAN-RPC client that can be used for any UCAN-RPC protocol, given a set of Capabilities.
 
 ## Agent
+
+- NEEDS Identifier Provider
+- SHOULD handle DID, Signatures, UCANs and Storage
+- SHOULD handle device link, Phase 0 device link SHOULD be just a qr code with a wildcard identifier delegation
+- AWAKE pubsub
 
 ## Ucan Protocol
