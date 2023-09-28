@@ -6,10 +6,15 @@ Table of Contents
 - [@fission/auth](#fissionauth)
   - [API](#api)
   - [Notes](#notes)
-- [Identifier Providers](#identifier-providers)
-  - [Features](#features)
-- [Fission Client](#fission-client)
-- [Agent](#agent)
+  - [Identifier Providers](#identifier-providers)
+    - [Types](#types)
+  - [Fission Client](#fission-client)
+  - [Agent](#agent)
+  - [Channels](#channels)
+  - [Auth Protocol](#auth-protocol)
+- [@fission/data](#fissiondata)
+  - [Notes](#notes-1)
+- [@fission/compute](#fissioncompute)
 - [Ucan Protocol](#ucan-protocol)
 
 ## Overview
@@ -124,31 +129,65 @@ interface IAuth {
 ### Notes
 
 - Should keep tabs in sync when in browser
+- Revocation api ?
 
-## Identifier Providers
+### Identifier Providers
 
-We should support:
+Providers SHOULD:
 
-- local webcrypto with device link
-- Passkeys synced and local (with device link?)
-- Metamask Ucan Snap
+- Depend only on UCAN (did:key, signer) and optionally on a [channel](#channels). They can have other dependencies but they should be environment specific. They SHOULD NOT depend on an [Agent](#agent).
+- Be able to receive a DID and a set of capabilities and return a powerbox style UCAN with those capabilities.
+- Be able to send a root delegation over a [channel](#channels) to another device or origin. (see [Delegated](#types))
 
-### Features
+A powerbox style delegation to an Agent should be treated as a Session.
 
-- Providers SHOULD receive a Agent DID and a set of capabilities and return a powerbox style UCAN with those capabilities.
-- Providers SHOULD only depend on DID, Signatures and UCANs NOT on Agent or Storage. They can have other dependencies but they should be environment specific.
+#### Types
 
-## Fission Client
+- Local: Only exists on device normally sandboxed to an origin (webcrypto, wallet, metamask snap and local passkeys)
+- Synced: Exists on device and is synced with a server (synced passkey)
+- Remote: The identifier lives in another device or origin and it needs a [channel](#channels) (websocket, MessageChannel) to request capabilities and receive UCANs. An example could be a personal lobby or a mobile app (wallet).
+- Delegated: The identifier has a wildcard delegation from a Remote Identifier Provider. Does NOT have the root keypair just a root delegation. This is useful for Phase 0 device link with QR Code. (same as local but with a wildcard delegation)
+
+### Fission Client
 
 Client SHOULD only handle HTTP logic, it should receive UCAN delegations, set bearer tokens according to [Spec](https://github.com/ucan-wg/ucan-http-bearer-token) and handle HTTP requests.
 
 In the future this SHOULD be a generic UCAN-RPC client that can be used for any UCAN-RPC protocol, given a set of Capabilities.
 
-## Agent
+### Agent
 
-- NEEDS Identifier Provider
-- SHOULD handle DID, Signatures, UCANs and Storage
-- SHOULD handle device link, Phase 0 device link SHOULD be just a qr code with a wildcard identifier delegation
-- AWAKE pubsub
+DID, UCAN, Storage and Channels
+
+- Depends on a Identifier Provider, DID resolver, Signer, Storage and Channels
+- Should provide persistent storage for UCANs and other data
+- Should provide Agent to Agent communication (see [Channels](#channels)), e.g., to sync WNFS keys
+- Should be able to delegate UCANs to other Agents.
+
+### Channels
+
+- pairing mechanics (qr-code, deep-link, shared id, etc)
+- transport (websocket, MessageChannel)
+- encryption (AWAKE MLS)
+
+Comms channel SHOULD a have a generic implementation that can be reused.
+
+### Auth Protocol
+
+Set of UCAN capabilities necessary for Identifier -> Agent -> Server communication
+
+Agent SHOULD only ask Identifier for capabilities it needs NOT wildcard delegation.
+
+## @fission/data
+
+WNFS
+
+### Notes
+
+- Needs to sync keys, we already have device link in auth, we should have a generic and safe comms channel implementation that can be reused or provided by the agent.
+-
+
+## @fission/compute
+
+IPVM
 
 ## Ucan Protocol
