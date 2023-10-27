@@ -18,11 +18,11 @@
     "package1": "*"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.0",
-    "@types/node": "^20.7.0",
-    "hd-scripts": "^9.0.4",
+    "@babel/core": "^7.23.2",
+    "@types/node": "^20.8.9",
+    "hd-scripts": "^9.0.6",
     "typescript": "5.2.2",
-    "vite": "^4.4.9"
+    "vite": "^4.5.0"
   },
   "eslintConfig": {
     "extends": [

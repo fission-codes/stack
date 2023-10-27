@@ -55,27 +55,16 @@ pnpm install @fission-codes/eslint-config
   "extends": "@fission-codes/eslint-config/tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "emitDeclarationOnly": true
+    "noEmit": true, // for apps or anything that is not published to npm
+    "emitDeclarationOnly": true, // for TS with JSDocs
+    "module": "NodeNext", // for TS packages
+    "moduleResolution": "NodeNext" // for TS packages
   },
-  "include": ["src", "test.js", "cli.js", "package.json"]
+  "include": ["src", "test"]
 }
 ```
 
-For typescript code bases:
-
-```json
-{
-  "extends": "@fission-codes/eslint-config/tsconfig.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext"
-  },
-  "include": ["src", "test.js", "cli.js", "package.json"]
-}
-```
-
-In monorepos you can install `@fission-codes/eslint-config` only in the root and extends the root `tsconfig.json` in the packages.
+In monorepos you can install `@fission-codes/eslint-config` only in the root and extend the root `tsconfig.json` in the packages.
 
 ## Contributing
 
