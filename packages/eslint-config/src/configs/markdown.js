@@ -7,7 +7,8 @@ const offRules = {
   'react/prop-types': 'off',
   'no-unused-vars': 'off',
   'no-undef': 'off',
-  '@typescript-eslint/no-unused-vars': 'off',
+  'no-console': 'off',
+  'unicorn/filename-case': 'off',
 }
 
 exports.config = [
