@@ -1,4 +1,4 @@
 {
-  "packages/package1": "0.0.1",
+  "packages/package1": "0.0.2",
   "packages/eslint-config": "0.0.3"
 }
