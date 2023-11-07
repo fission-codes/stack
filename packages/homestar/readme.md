@@ -33,6 +33,10 @@ if (error) {
 }
 ```
 
+## Docs
+
+Check <https://fission-codes.github.io/stack>
+
 ## TODO
 
 - count workflow tasks and match receipts then unsub with unsubscribe_run_workflow and client events
@@ -50,10 +54,6 @@ pub(crate) const SUBSCRIBE_NETWORK_EVENTS_ENDPOINT: &str = "subscribe_network_ev
 #[cfg(feature = "websocket-notify")]
 pub(crate) const UNSUBSCRIBE_NETWORK_EVENTS_ENDPOINT: &str = "unsubscribe_network_events";
 ```
-
-## Docs
-
-Check <https://fission-codes.github.io/stack>
 
 ## Contributing
 
