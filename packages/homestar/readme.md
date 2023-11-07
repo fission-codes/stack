@@ -1,22 +1,41 @@
-# Package 1 [![NPM Version](https://img.shields.io/npm/v/iso-base.svg)](https://www.npmjs.com/package/iso-base) [![License](https://img.shields.io/npm/l/iso-base.svg)](https://github.com/hugomrdias/iso-repo/blob/main/license) [![iso-base](https://github.com/hugomrdias/iso-repo/actions/workflows/iso-base.yml/badge.svg)](https://github.com/hugomrdias/iso-repo/actions/workflows/iso-base.yml)
+# Homestar
+
+[![npm (scoped)](https://img.shields.io/npm/v/%40fission-codes/homestar)](https://www.npmjs.com/package/@fission-codes/homestar)
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/fission-codes/stack/homestar.yml)](https://github.com/fission-codes/stack/actions/workflows/homestar.yml)
+[![Built by FISSION](https://img.shields.io/badge/built_by-⌘_Fission-purple.svg)](https://fission.codes)
+[![Discord](https://img.shields.io/discord/478735028319158273?&color=mediumslateblue)](https://discord.gg/zAQBDEq)
+[![Discourse users](<https://img.shields.io/discourse/users?server=https%3A%2F%2Ftalk.fission.codes&label=talk&color=rgb(14%2C%20118%2C%20178)>)](https://talk.fission.codes)
 
 ## Installation
 
 ```bash
-pnpm install package1
+pnpm install @fission-codes/homestar
 ```
 
 ## Usage
 
 ```js
-import { module } from 'package1'
+import { Homestar } from '@fission-codes/homestar'
+import { WebsocketTransport } from '@fission-codes/homestar/transports/ws'
+
+// if you need isomorphic support
+import { WebSocket } from 'unws'
+
+const hs = new Homestar({
+  transport: new WebsocketTransport('ws://localhost:8060', {
+    ws: WebSocket,
+  }),
+})
+
+const { error, result } = await hs.metrics()
+if (error) {
+  console.error(error)
+}
 ```
 
 ## TODO
 
-- CID in the `run` prop dag-cbor CID v1 (sha3-256)
 - count workflow tasks and match receipts then unsub with unsubscribe_run_workflow and client events
--
 
 ```rust
 /// Health endpoint.
@@ -39,10 +58,27 @@ pub(crate) const UNSUBSCRIBE_NETWORK_EVENTS_ENDPOINT: &str = "unsubscribe_networ
 
 ## Contributing
 
-Read contributing guidelines [here](../../.github/CONTRIBUTING.md).
+Read contributing guidelines [here](.github/CONTRIBUTING.md).
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/hugomrdias/hd-template)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/fission-codes/stack)
 
 ## License
 
-[MIT](../../license) © [Hugo Dias](http://hugodias.me)
+This project is licensed under either of
+
+- Apache License, Version 2.0, ([LICENSE-APACHE](./LICENSE-APACHE) or
+  [http://www.apache.org/licenses/LICENSE-2.0][apache])
+- MIT license ([LICENSE-MIT](./LICENSE-MIT) or
+  [http://opensource.org/licenses/MIT][mit])
+
+at your option.
+
+### Contribution
+
+Unless you explicitly state otherwise, any contribution intentionally
+submitted for inclusion in the work by you, as defined in the Apache-2.0
+license, shall be dual licensed as above, without any additional terms or
+conditions.
+
+[apache]: https://www.apache.org/licenses/LICENSE-2.0
+[mit]: http://opensource.org/licenses/MIT

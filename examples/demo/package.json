@@ -26,7 +26,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "./node_modules/hd-scripts/eslint/preact.js"
+      "@fission-codes"
     ],
     "ignorePatterns": [
       "dist"

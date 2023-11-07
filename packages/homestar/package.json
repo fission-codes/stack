@@ -18,6 +18,14 @@
     "./workflow": {
       "types": "./dist/src/workflow.d.ts",
       "default": "./src/workflow.js"
+    },
+    "./channel": {
+      "types": "./dist/src/channel/channel.d.ts",
+      "default": "./src/channel/channel.js"
+    },
+    "./channel/transports/ws": {
+      "types": "./dist/src/channel/transports/ws.d.ts",
+      "default": "./src/channel/transports/ws.js"
     }
   },
   "main": "src/index.js",
@@ -26,11 +34,19 @@
     "*": {
       "workflow": [
         "dist/src/workflow"
+      ],
+      "channel": [
+        "dist/src/channel/channel"
+      ],
+      "channel/transports/*": [
+        "dist/src/channel/transports/*"
       ]
     }
   },
   "files": [
     "src",
+    "dist/src/channel/*.d.ts",
+    "dist/src/channel/*.d.ts.map",
     "dist/src/*.d.ts",
     "dist/src/*.d.ts.map"
   ],
