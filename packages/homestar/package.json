@@ -54,7 +54,7 @@
   "devDependencies": {
     "@types/get-value": "^3.0.5",
     "@types/json-templates": "^3.0.3",
-    "@types/node": "^20.8.9",
+    "@types/node": "^20.8.10",
     "@types/object-path": "^0.11.4",
     "p-defer": "^4.0.0",
     "playwright-test": "^12.4.3",
