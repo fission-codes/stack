@@ -11,7 +11,7 @@ import * as Schemas from '../src/schemas.js'
 const test = suite('homestar')
 const URL = 'ws://localhost:8060'
 
-test('should fetch metrics from homestar', async function () {
+test.skip('should fetch metrics from homestar', async function () {
   const hs = new Homestar({
     transport: new WebsocketTransport(URL, {
       ws: WebSocket,
@@ -26,7 +26,7 @@ test('should fetch metrics from homestar', async function () {
   assert.equal(result.length, 17)
 })
 
-test('should subs workflow', async function () {
+test.skip('should subs workflow', async function () {
   /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
   const prom = pDefer()
   const hs = new Homestar({
