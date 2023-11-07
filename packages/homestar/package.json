@@ -56,7 +56,6 @@
     "@types/json-templates": "^3.0.3",
     "@types/node": "^20.8.9",
     "@types/object-path": "^0.11.4",
-    "delay": "^6.0.0",
     "p-defer": "^4.0.0",
     "playwright-test": "^12.4.3",
     "type-fest": "^4.6.0",
