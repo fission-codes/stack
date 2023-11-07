@@ -14,6 +14,7 @@ Monorepo for the Fission stack.
 ## Packages
 
 - [eslint-config](https://github.com/fission-codes/stack/tree/main/packages/eslint-config) - Fission eslint, ts and prettier config.
+- [homestar](https://github.com/fission-codes/stack/tree/main/packages/homestar) - Fission [Homestar](https://github.com/ipvm-wg/homestar) client.
 
 ## Examples
 

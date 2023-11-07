@@ -40,11 +40,6 @@ if (error) {
 ```rust
 /// Health endpoint.
 pub(crate) const HEALTH_ENDPOINT: &str = "health";
-/// Metrics endpoint for prometheus / openmetrics polling.
-pub(crate) const METRICS_ENDPOINT: &str = "metrics";
-/// Run a workflow and subscribe to that workflow's events.
-#[cfg(feature = "websocket-notify")]
-pub(crate) const SUBSCRIBE_RUN_WORKFLOW_ENDPOINT: &str = "subscribe_run_workflow";
 /// Unsubscribe from a workflow's events.
 #[cfg(feature = "websocket-notify")]
 pub(crate) const UNSUBSCRIBE_RUN_WORKFLOW_ENDPOINT: &str = "unsubscribe_run_workflow";
