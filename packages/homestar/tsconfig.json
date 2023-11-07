@@ -8,7 +8,7 @@
   "include": ["src", "test", "package.json"],
   "exclude": ["node_modules", "dist", "out"],
   "typedocOptions": {
-    "entryPoints": ["src/index.js", "src/module1.js"],
+    "entryPoints": ["src/index.js", "src/workflow.js"],
     "includeVersion": true,
     "excludeExternals": true,
     "internalModule": "<internal>"

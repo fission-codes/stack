@@ -1,7 +1,7 @@
 {
   "separate-pull-requests": true,
   "packages": {
-    "packages/package1": {},
+    "packages/homestar": {},
     "packages/eslint-config": {}
   }
 }
