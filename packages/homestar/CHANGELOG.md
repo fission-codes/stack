@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/fission-codes/stack/compare/homestar-v0.1.2...homestar-v0.2.0) (2023-11-08)
+
+
+### Features
+
+* **homestar:** base64 crop and blur ([f401c2e](https://github.com/fission-codes/stack/commit/f401c2eaa190a135b485adf17222fb58ef9a0697))
+
 ## [0.1.2](https://github.com/fission-codes/stack/compare/homestar-v0.1.1...homestar-v0.1.2) (2023-11-08)
 
 
