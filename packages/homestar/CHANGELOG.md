@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/fission-codes/stack/compare/homestar-v0.1.1...homestar-v0.1.2) (2023-11-08)
+
+
+### Bug Fixes
+
+* **homestart:** add close, auto unsub and error events ([3309bd9](https://github.com/fission-codes/stack/commit/3309bd929abb51d1529088fbe81886750e51ec74)), closes [#43](https://github.com/fission-codes/stack/issues/43) [#40](https://github.com/fission-codes/stack/issues/40)
+
 ## [0.1.1](https://github.com/fission-codes/stack/compare/homestar-v0.1.0...homestar-v0.1.1) (2023-11-07)
 
 
