@@ -51,6 +51,7 @@ export class WebsocketTransport extends Emittery {
     this.#ws.removeEventListener('error', this.#handleError)
     this.#ws.removeEventListener('close', this.#handleClose)
     this.#ws.close()
+    this.clearListeners()
   }
 
   /**

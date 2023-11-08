@@ -1,4 +1,5 @@
 import { decode } from '@ipld/dag-json'
+import Emittery from 'emittery'
 import { Channel } from './channel/channel.js'
 import { JsonRpcCodec } from './channel/codecs/jsonrpc.js'
 import * as Schemas from './schemas.js'
@@ -11,23 +12,31 @@ import * as Schemas from './schemas.js'
 
 /**
  * @typedef {{subscription: string, result: number[]}} SubscriptionNotification
+ * @typedef {import('./types.js').HomestarEvents} HomestarEvents
+ * @typedef {import('./types.js').HomestarOptions} HomestarOptions
  */
 
 /**
  * @class Homestar
+ * @extends {Emittery<HomestarEvents>}
  */
-export class Homestar {
+export class Homestar extends Emittery {
   /** @type {import('./channel/types.js').IChannel<import('./channel/codecs/types.js').IJsonRpcCodec>} */
   #channel
   /**
-   * @param {import("./types.js").HomestarOptions} opts
+   * @param {HomestarOptions} opts
    */
   constructor(opts) {
+    super()
     this.opts = opts
 
     this.#channel = new Channel({
       codec: new JsonRpcCodec(),
       transport: opts.transport,
+    })
+
+    this.#channel.on('error', (error) => {
+      this.emit('error', error)
     })
   }
 
@@ -55,19 +64,23 @@ export class Homestar {
   /**
    * Subscribe to a workflow
    *
-   * @param {any} workflow
+   * @param {Schemas.Workflow} workflow
    * @param {(data: MaybeResult<Schemas.WorkflowNotification, Schemas.WorkflowNotificationError>)=>void} [receiptCb] - Callback for workflow notifications
    */
   async runWorkflow(workflow, receiptCb) {
     const res = /** @type {MaybeResult<string, Error>} */ (
       await this.#channel.request({
         method: 'subscribe_run_workflow',
+        // @ts-ignore
         params: [workflow],
       })
     )
 
     if (res.result !== undefined) {
+      const tasksCount = workflow.workflow.tasks.length
+      let receiptCount = 0
       const subId = res.result
+      /** @type {import('emittery').UnsubscribeFunction} */
       let unsub
 
       if (receiptCb) {
@@ -76,6 +89,7 @@ export class Homestar {
           // @ts-ignore
           (/** @type {SubscriptionNotification} */ data) => {
             if (data.subscription === subId) {
+              receiptCount++
               const decoded = decode(new Uint8Array(data.result))
               const r = Schemas.WorkflowNotification.safeParse(decoded)
               if (r.success === false) {
@@ -83,16 +97,42 @@ export class Homestar {
               } else {
                 receiptCb({ result: r.data })
               }
+
+              if (tasksCount === receiptCount) {
+                unsub()
+                this.#channel
+                  .request({
+                    method: 'unsubscribe_run_workflow',
+                    params: [subId],
+                  })
+                  .then(
+                    (res) => {
+                      if (res.error) {
+                        return this.emit('error', res.error)
+                      }
+                    },
+                    (error) => {
+                      this.emit('error', error)
+                    }
+                  )
+              }
             }
           }
         )
       }
       return {
         result: subId,
-        unsubscribe: unsub,
       }
     }
 
     return { error: res.error }
+  }
+
+  /**
+   * Close homestar channel and clean listeners
+   */
+  close() {
+    this.#channel.close()
+    this.clearListeners()
   }
 }

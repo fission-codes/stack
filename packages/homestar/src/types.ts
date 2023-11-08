@@ -12,6 +12,10 @@ export interface HomestarOptions {
   transport: Transport
 }
 
+export interface HomestarEvents {
+  error: Error
+}
+
 export type Result<Out> = ['ok' | 'error', Out]
 
 export interface TemplateWorkflow<Args extends any[] = any[]> extends Workflow {
