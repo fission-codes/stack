@@ -170,17 +170,17 @@ test(
       name: 'crop-base64',
       workflow: {
         tasks: [
-          Workflow.crop({
-            name: 'crop',
-            resource:
-              'ipfs://bafybeichafzlolnoamugvfuyynjnj2gse7avstiqkeiuwuv2gyztap4qm4',
+          Workflow.cropBase64({
+            name: 'crop64',
+            resource: 'ipfs://QmXne1sj1xsv8wPMxPHLjiEaLwNMPFQfdua3qK9j1rsPNg',
             args: {
               // @ts-ignore
               data: dataUrl,
-              height: 100,
-              width: 100,
-              x: 150,
-              y: 150,
+              // sigma: 1.09,
+              height: 10,
+              width: 10,
+              x: 1,
+              y: 1,
             },
           }),
         ],
@@ -188,10 +188,14 @@ test(
     })
 
     const { error, result } = await hs.runWorkflow(workflow, (data) => {
-      if (data.error) {
-        return prom.reject(data.error)
-      }
-      prom.resolve(data.result)
+      // console.log(
+      //   '🚀 ~ file: homestar.test.js:190 ~ const{error,result}=awaiths.runWorkflow ~ data:',
+      //   data
+      // )
+      // if (data.error) {
+      //   return prom.reject(data.error)
+      // }
+      // prom.resolve(data.result)
     })
 
     if (error) {

@@ -76,6 +76,20 @@ export function crop(opts) {
 }
 
 /**
+ * @param {import('./types.js').CropOptions} opts
+ * @returns {import('./types.js').CropInvocation}
+ */
+export function cropBase64(opts) {
+  return baseInvocation(opts, 'crop-base64', [
+    opts.args.data,
+    opts.args.x,
+    opts.args.y,
+    opts.args.width,
+    opts.args.height,
+  ])
+}
+
+/**
  *
  * @param {import('./types.js').GrayscaleOptions} opts
  * @returns {import('./types.js').GrayscaleInvocation}
@@ -100,6 +114,15 @@ export function rotate90(opts) {
  */
 export function blur(opts) {
   return baseInvocation(opts, 'blur', [opts.args.data, opts.args.sigma])
+}
+
+/**
+ *
+ * @param {import('./types.js').BlurOptions} opts
+ * @returns {import('./types.js').BlurInvocation}
+ */
+export function blurBase64(opts) {
+  return baseInvocation(opts, 'blur-base64', [opts.args.data, opts.args.sigma])
 }
 
 /**
