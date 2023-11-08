@@ -1,7 +1,7 @@
 {
   "name": "@fission-codes/homestar",
   "type": "module",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Homestart Client.",
   "author": "Hugo Dias <hugomrdias@gmail.com> (hugodias.me)",
   "license": "MIT",
