@@ -73,7 +73,6 @@
     "@types/json-templates": "^3.0.3",
     "@types/node": "^20.9.0",
     "@types/object-path": "^0.11.4",
-    "delay": "^6.0.0",
     "iso-base": "^2.0.1",
     "p-defer": "^4.0.0",
     "playwright-test": "^12.4.3",
