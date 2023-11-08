@@ -79,8 +79,59 @@ test.skip('should subs workflow', async function () {
     return assert.fail(error)
   }
 
-  assert.ok(typeof result === 'number')
+  assert.ok(typeof result === 'string')
 
   const r = await prom.promise
   assert.equal(r.metadata.name, 'testtttt')
+})
+
+test.skip('should subs workflow for componentize', async function () {
+  /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
+  const prom = pDefer()
+  const hs = new Homestar({
+    transport: new WebsocketTransport(URL, {
+      ws: WebSocket,
+    }),
+  })
+
+  const workflow = {
+    name: 'componentize',
+    workflow: {
+      tasks: [
+        {
+          cause: null,
+          meta: {
+            memory: 4_294_967_296,
+            time: 100_000,
+          },
+          prf: [],
+          run: {
+            input: {
+              args: ['333ssssss'],
+              func: 'hello',
+            },
+            nnc: '',
+            op: 'wasm/run',
+            rsc: 'ipfs://QmfCSBVVuDFEwe3R2BSBG5QpdLJ6ZwLnQLzg3xXAHZ4b2V',
+          },
+        },
+      ],
+    },
+  }
+  // bafyrmiebde2msvtyaed66fn7a73ontcxaua6k53thq6yetphjvvptok3dy
+  const { error, result } = await hs.runWorkflow(workflow, (data) => {
+    if (data.error) {
+      return prom.reject(data.error)
+    }
+    prom.resolve(data.result)
+  })
+
+  if (error) {
+    return assert.fail(error)
+  }
+
+  assert.ok(typeof result === 'string')
+
+  const r = await prom.promise
+  assert.equal(r.metadata.name, 'componentize')
 })

@@ -170,6 +170,9 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
     devDependencies:
+      '@bytecodealliance/componentize-js':
+        specifier: ^0.4.1
+        version: 0.4.1
       '@types/get-value':
         specifier: ^3.0.5
         version: 3.0.5
@@ -407,6 +410,97 @@ packages:
 
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
+    dev: true
+
+  /@bytecodealliance/componentize-js@0.4.1:
+    resolution: {integrity: sha512-RlpGE8R6Oge4oAvbDXhfvrvZq7UWRmiFgQmubbYByAzGthZo+enzhZfHzQGXcMSDLBrrwcNUximh6vMZrmW8JQ==}
+    dependencies:
+      '@bytecodealliance/jco': 0.13.3
+      '@bytecodealliance/wizer': 3.0.1
+    dev: true
+
+  /@bytecodealliance/jco@0.13.3:
+    resolution: {integrity: sha512-BuixmVc8P0peSz6NbqAnF+h1Q8Qx6X4SmAIOlgW6vh4SisOamXdEiNycjICxArns9vIhl2QlqIJu9QMJJmTGsQ==}
+    hasBin: true
+    dependencies:
+      '@bytecodealliance/preview2-shim': 0.0.21
+      binaryen: 111.0.0
+      chalk-template: 0.4.0
+      commander: 9.5.0
+      mkdirp: 1.0.4
+      ora: 6.3.1
+      terser: 5.24.0
+    dev: true
+
+  /@bytecodealliance/preview2-shim@0.0.21:
+    resolution: {integrity: sha512-VSqfQ0aAd9CV0KwCtXV8CZnJUMIZLyf3pbDWRNIEbg3YRETYbCrcwCsWDdEXr4qwUAsqjpgY9daCHyicmGlDfQ==}
+    dev: true
+
+  /@bytecodealliance/wizer-darwin-arm64@3.0.1:
+    resolution: {integrity: sha512-/8KYSajyhO9koAE3qQhYfC6belZheJw9X3XqW7hrizTpj6n4z4OJFhhqwJmiYFUUsPtC7OxcXMFFPbTuSQPBcw==}
+    cpu: [arm64]
+    os: [darwin]
+    hasBin: true
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@bytecodealliance/wizer-darwin-x64@3.0.1:
+    resolution: {integrity: sha512-bMReultN/r+W/BRXV0F+28U5dZwbQT/ZO0k4icZlhUhrv5/wpQJix7Z/ZvBnVQ+/JHb0QDUpFk2/zCtgkRXP6Q==}
+    cpu: [x64]
+    os: [darwin]
+    hasBin: true
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@bytecodealliance/wizer-linux-arm64@3.0.1:
+    resolution: {integrity: sha512-35ZhAeYxWK3bTqqgwysbBWlGlrlMNKNng3ZITQV2PAtafpE7aCeqywl7VAS4lLRG5eTb7wxNgN7zf8d3wiIFTQ==}
+    cpu: [arm64]
+    os: [linux]
+    hasBin: true
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@bytecodealliance/wizer-linux-s390x@3.0.1:
+    resolution: {integrity: sha512-Smvy9mguEMtX0lupDLTPshXUzAHeOhgscr1bhGNjeCCLD1sd8rIjBvWV19Wtra0BL1zTuU2EPOHjR/4k8WoyDg==}
+    cpu: [s390x]
+    os: [linux]
+    hasBin: true
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@bytecodealliance/wizer-linux-x64@3.0.1:
+    resolution: {integrity: sha512-uUue78xl7iwndsGgTsagHLTLyLBVHhwzuywiwHt1xw8y0X0O8REKRLBoB7+LdM+pttDPdFtKJgbTFL4UPAA7Yw==}
+    cpu: [x64]
+    os: [linux]
+    hasBin: true
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@bytecodealliance/wizer-win32-x64@3.0.1:
+    resolution: {integrity: sha512-ycd38sx1UTZpHZwh8IfH/4N3n0OQUB8awxkUSLXf9PolEd088YbxoPB3noHy4E+L2oYN7KZMrg9517pX0z2RhQ==}
+    cpu: [x64]
+    os: [win32]
+    hasBin: true
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@bytecodealliance/wizer@3.0.1:
+    resolution: {integrity: sha512-f0NBiBHCNBkbFHTPRbA7aKf/t4KyNhi2KvSqw3QzCgi8wFF/uLZ0dhejj93rbiKO/iwWbmU7v9K3SVkW81mcjQ==}
+    engines: {node: '>=16'}
+    hasBin: true
+    optionalDependencies:
+      '@bytecodealliance/wizer-darwin-arm64': 3.0.1
+      '@bytecodealliance/wizer-darwin-x64': 3.0.1
+      '@bytecodealliance/wizer-linux-arm64': 3.0.1
+      '@bytecodealliance/wizer-linux-s390x': 3.0.1
+      '@bytecodealliance/wizer-linux-x64': 3.0.1
+      '@bytecodealliance/wizer-win32-x64': 3.0.1
     dev: true
 
   /@es-joy/jsdoccomment@0.40.1:
@@ -901,6 +995,13 @@ packages:
   /@jridgewell/set-array@1.1.2:
     resolution: {integrity: sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==}
     engines: {node: '>=6.0.0'}
+    dev: true
+
+  /@jridgewell/source-map@0.3.5:
+    resolution: {integrity: sha512-UTYAUj/wviwdsMfzoSJspJxbkH5o1snzwX0//0ENX1u/55kkZZkcTZP6u9bwKGkv+dkk9at4m1Cpt0uY80kcpQ==}
+    dependencies:
+      '@jridgewell/gen-mapping': 0.3.3
+      '@jridgewell/trace-mapping': 0.3.20
     dev: true
 
   /@jridgewell/sourcemap-codec@1.4.15:
@@ -1498,6 +1599,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /binaryen@111.0.0:
+    resolution: {integrity: sha512-PEXOSHFO85aj1aP4t+KGzvxQ00qXbjCysWlsDjlGkP1e9owNiYdpEkLej21Ax8LDD7xJ01rEmJDqZ/JPoW2GXw==}
+    hasBin: true
+    dev: true
+
   /bl@5.1.0:
     resolution: {integrity: sha512-tv1ZJHLfTDnXE6tMHv73YgSJaWR2AFuPwMntBe7XL/GBFHnT0CLnsHMogfk5+GzCDC5ZWarSCYaIGATZt9dNsQ==}
     dependencies:
@@ -1612,6 +1718,13 @@ packages:
     hasBin: true
     dev: false
 
+  /chalk-template@0.4.0:
+    resolution: {integrity: sha512-/ghrgmhfY8RaSdeo43hNXxpoHAtxdbskUHjPpfqUWGttFgycUhYPGx3YZBCnUCvOa7Doivn1IZec3DEGFoMgLg==}
+    engines: {node: '>=12'}
+    dependencies:
+      chalk: 4.1.2
+    dev: true
+
   /chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
     engines: {node: '>=4'}
@@ -1709,6 +1822,11 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
 
+  /clone@1.0.4:
+    resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
+    engines: {node: '>=0.8'}
+    dev: true
+
   /color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
     dependencies:
@@ -1738,6 +1856,15 @@ packages:
   /commander@11.1.0:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
+    dev: true
+
+  /commander@2.20.3:
+    resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
+    dev: true
+
+  /commander@9.5.0:
+    resolution: {integrity: sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==}
+    engines: {node: ^12.20.0 || >=14}
     dev: true
 
   /comment-parser@1.4.0:
@@ -1810,18 +1937,6 @@ packages:
     dependencies:
       ms: 2.1.3
 
-  /debug@4.3.4:
-    resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
-    engines: {node: '>=6.0'}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-    dependencies:
-      ms: 2.1.2
-    dev: false
-
   /debug@4.3.4(supports-color@8.1.1):
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
     engines: {node: '>=6.0'}
@@ -1841,6 +1956,12 @@ packages:
 
   /deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
+
+  /defaults@1.0.4:
+    resolution: {integrity: sha512-eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==}
+    dependencies:
+      clone: 1.0.4
+    dev: true
 
   /define-data-property@1.1.0:
     resolution: {integrity: sha512-UzGwzcjyv3OtAvolTj1GoyNYzfFR+iqbGjcnBEENZVCpM4/Ng1yhGNvS3lR/xDS74Tb2wGG9WzNSNIOS9UVb2g==}
@@ -3358,7 +3479,7 @@ packages:
   /iso-websocket@0.1.5:
     resolution: {integrity: sha512-K0rKzVj2KdD1emPLGVB6KJNurylkv0tVlaT1ysgMHrTbDTx/msbpZuZlsfEwTnDC/skBIPpJ5Rvk+zLpErHrBA==}
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       retry: 0.13.1
       typescript-event-target: 1.1.0
     transitivePeerDependencies:
@@ -3761,6 +3882,12 @@ packages:
   /minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
+  /mkdirp@1.0.4:
+    resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dev: true
+
   /mocha@10.2.0:
     resolution: {integrity: sha512-IDY7fl/BecMwFHzoqF2sg/SHHANeBoMMXFlS9r0OXKDssYE1M5O43wUY/9BVPeIvfH2zmEbBfseqN9gBQZzXkg==}
     engines: {node: '>= 14.0.0'}
@@ -3973,6 +4100,21 @@ packages:
       levn: 0.4.1
       prelude-ls: 1.2.1
       type-check: 0.4.0
+
+  /ora@6.3.1:
+    resolution: {integrity: sha512-ERAyNnZOfqM+Ao3RAvIXkYh5joP220yf59gVe2X/cI6SiCxIdi4c9HZKZD8R6q/RDXEje1THBju6iExiSsgJaQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      chalk: 5.3.0
+      cli-cursor: 4.0.0
+      cli-spinners: 2.9.1
+      is-interactive: 2.0.0
+      is-unicode-supported: 1.3.0
+      log-symbols: 5.1.0
+      stdin-discarder: 0.1.0
+      strip-ansi: 7.1.0
+      wcwidth: 1.0.1
+    dev: true
 
   /ora@7.0.1:
     resolution: {integrity: sha512-0TUxTiFJWv+JnjWm4o9yvuskpEJLXTcng8MJuKd+SzAzp2o+OP3HWqNhB4OdJRt1Vsd9/mR0oyaEYlOnL7XIRw==}
@@ -4739,6 +4881,17 @@ packages:
       unique-string: 3.0.0
     dev: true
 
+  /terser@5.24.0:
+    resolution: {integrity: sha512-ZpGR4Hy3+wBEzVEnHvstMvqpD/nABNelQn/z2r0fjVWGQsN3bpOLzQlqDxmb4CDZnXq5lpjnQ+mHQLAOpfM5iw==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      '@jridgewell/source-map': 0.3.5
+      acorn: 8.11.2
+      commander: 2.20.3
+      source-map-support: 0.5.21
+    dev: true
+
   /test-exclude@6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
     engines: {node: '>=8'}
@@ -5043,6 +5196,12 @@ packages:
 
   /vscode-textmate@8.0.0:
     resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
+    dev: true
+
+  /wcwidth@1.0.1:
+    resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
+    dependencies:
+      defaults: 1.0.4
     dev: true
 
   /which-boxed-primitive@1.0.2:

@@ -40,6 +40,7 @@ Check <https://fission-codes.github.io/stack>
 ## TODO
 
 - count workflow tasks and match receipts then unsub with unsubscribe_run_workflow and client events
+- try base64 encoding the payload
 
 ```rust
 /// Health endpoint.
