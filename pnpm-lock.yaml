@@ -185,6 +185,12 @@ importers:
       '@types/object-path':
         specifier: ^0.11.4
         version: 0.11.4
+      delay:
+        specifier: ^6.0.0
+        version: 6.0.0
+      iso-base:
+        specifier: ^2.0.1
+        version: 2.0.1
       p-defer:
         specifier: ^4.0.0
         version: 4.0.0
@@ -1801,8 +1807,17 @@ packages:
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
+  /base-x@4.0.0:
+    resolution: {integrity: sha512-FuwxlW4H5kh37X/oW59pwTzzTKRzfrrQwhmyspRM7swOEZcHtDZSCt45U6oKgtuFE+WYPblePMVIPR4RZrh/hw==}
+    dev: true
+
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
+    dev: true
+
+  /bigint-mod-arith@3.3.1:
+    resolution: {integrity: sha512-pX/cYW3dCa87Jrzv6DAr8ivbbJRzEX5yGhdt8IutnX/PCIXfpx+mabWNK/M8qqh+zQ0J3thftUBHW0ByuUlG0w==}
+    engines: {node: '>=10.4.0'}
     dev: true
 
   /binary-extensions@2.2.0:
@@ -2154,18 +2169,6 @@ packages:
     dependencies:
       ms: 2.1.3
 
-  /debug@4.3.4:
-    resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
-    engines: {node: '>=6.0'}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-    dependencies:
-      ms: 2.1.2
-    dev: false
-
   /debug@4.3.4(supports-color@8.1.1):
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
     engines: {node: '>=6.0'}
@@ -2215,6 +2218,11 @@ packages:
       define-data-property: 1.1.0
       has-property-descriptors: 1.0.0
       object-keys: 1.1.1
+
+  /delay@6.0.0:
+    resolution: {integrity: sha512-2NJozoOHQ4NuZuVIr5CWd0iiLVIRSDepakaovIN+9eIDHEhdCAEvSy2cuf1DCrPPQLvHmbqTHODlhHg8UCy4zw==}
+    engines: {node: '>=16'}
+    dev: true
 
   /depcheck@1.4.7:
     resolution: {integrity: sha512-1lklS/bV5chOxwNKA/2XUUk/hPORp8zihZsXflr8x0kLwmcZ9Y9BsS6Hs3ssvA+2wUVbG0U2Ciqvm1SokNjPkA==}
@@ -4091,10 +4099,17 @@ packages:
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
+  /iso-base@2.0.1:
+    resolution: {integrity: sha512-ip0nUW9oZP+LG6mslSgdJPt9NWZOq1qIOKpoUIdm8sq/87VwY8WZXw9ptCkhdJclY+r4feFbZuu9P/OFDqCvkQ==}
+    dependencies:
+      base-x: 4.0.0
+      bigint-mod-arith: 3.3.1
+    dev: true
+
   /iso-websocket@0.1.6:
     resolution: {integrity: sha512-PfkpWtpmu9p0VIPmkbgKkAry7+fjNYZF/HX7KsvFV0mmD2RLI4aeM7M3B+5qLRBmm6H+A5CTVd760Bn2a60KsA==}
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       retry: 0.13.1
       typescript-event-target: 1.1.0
     transitivePeerDependencies:

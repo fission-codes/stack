@@ -31,6 +31,8 @@ const { error, result } = await hs.metrics()
 if (error) {
   console.error(error)
 }
+
+hs.close()
 ```
 
 ## Docs

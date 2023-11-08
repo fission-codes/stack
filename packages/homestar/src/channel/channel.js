@@ -30,6 +30,7 @@ export class Channel extends Emittery {
     this.opts = { timeout: 5000, ...opts }
 
     this.opts.transport.on('response', this.#handleResponse)
+    this.opts.transport.on('error', this.#handleError)
   }
 
   /**
@@ -52,7 +53,12 @@ export class Channel extends Emittery {
     })
   }
 
+  #handleError = (/** @type {Error} */ error) => {
+    this.emit('error', new Error('Transport Error', { cause: error }))
+  }
+
   /**
+   * Handle response from transport
    *
    * @param {string | ArrayBuffer} data
    */
@@ -64,7 +70,7 @@ export class Channel extends Emittery {
     }
 
     if (id === undefined && decoded.error) {
-      this.emit('error', new Error('Codec Error', { cause: decoded }))
+      this.emit('error', new Error('Codec Error', { cause: decoded.error }))
     }
 
     if (decoded && id != null) {
@@ -90,7 +96,7 @@ export class Channel extends Emittery {
 
   close() {
     this.#queue.clear()
-    this.opts.transport.off('response', this.#handleResponse)
     this.opts.transport.close()
+    this.clearListeners()
   }
 }
