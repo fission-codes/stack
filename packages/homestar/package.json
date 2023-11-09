@@ -15,6 +15,9 @@
       "types": "./dist/src/index.d.ts",
       "default": "./src/index.js"
     },
+    "./types": {
+      "types": "./dist/src/types.d.ts"
+    },
     "./workflow": {
       "types": "./dist/src/workflow.d.ts",
       "default": "./src/workflow.js"
@@ -23,28 +26,45 @@
       "types": "./dist/src/channel/channel.d.ts",
       "default": "./src/channel/channel.js"
     },
-    "./channel/transports/ws": {
-      "types": "./dist/src/channel/transports/ws.d.ts",
-      "default": "./src/channel/transports/ws.js"
+    "./transports/*": {
+      "types": "./dist/src/channel/transports/*",
+      "default": "./src/channel/transports/*"
+    },
+    "./codecs/*": {
+      "types": "./dist/src/channel/codecs/*",
+      "default": "./src/channel/codecs/*"
     }
   },
   "main": "src/index.js",
   "types": "dist/src/index.d.ts",
   "typesVersions": {
     "*": {
+      ".": [
+        "dist/src/index"
+      ],
       "workflow": [
         "dist/src/workflow"
       ],
       "channel": [
         "dist/src/channel/channel"
       ],
-      "channel/transports/*": [
+      "transports/*": [
         "dist/src/channel/transports/*"
+      ],
+      "codecs/*": [
+        "dist/src/channel/codecs/*"
+      ],
+      "types": [
+        "dist/src/types"
       ]
     }
   },
   "files": [
     "src",
+    "dist/src/channel/codecs/*.d.ts",
+    "dist/src/channel/codecs/*.d.ts.map",
+    "dist/src/channel/transports/*.d.ts",
+    "dist/src/channel/transports/*.d.ts.map",
     "dist/src/channel/*.d.ts",
     "dist/src/channel/*.d.ts.map",
     "dist/src/*.d.ts",

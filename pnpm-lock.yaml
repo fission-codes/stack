@@ -204,6 +204,28 @@ importers:
         specifier: ^8.14.2
         version: 8.14.2
 
+  packages/homestar2:
+    dependencies:
+      '@fission-codes/homestar':
+        specifier: workspace:^
+        version: link:../homestar
+    devDependencies:
+      '@types/node':
+        specifier: ^20.9.0
+        version: 20.9.0
+      playwright-test:
+        specifier: ^12.6.0
+        version: 12.6.0
+      type-fest:
+        specifier: ^4.7.1
+        version: 4.7.1
+      unws:
+        specifier: ^0.2.4
+        version: 0.2.4(ws@8.14.2)
+      ws:
+        specifier: ^8.14.2
+        version: 8.14.2
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
@@ -1943,18 +1965,6 @@ packages:
     dependencies:
       ms: 2.1.3
 
-  /debug@4.3.4:
-    resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
-    engines: {node: '>=6.0'}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-    dependencies:
-      ms: 2.1.2
-    dev: false
-
   /debug@4.3.4(supports-color@8.1.1):
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
     engines: {node: '>=6.0'}
@@ -3428,7 +3438,7 @@ packages:
   /iso-websocket@0.1.6:
     resolution: {integrity: sha512-PfkpWtpmu9p0VIPmkbgKkAry7+fjNYZF/HX7KsvFV0mmD2RLI4aeM7M3B+5qLRBmm6H+A5CTVd760Bn2a60KsA==}
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@8.1.1)
       retry: 0.13.1
       typescript-event-target: 1.1.0
     transitivePeerDependencies:

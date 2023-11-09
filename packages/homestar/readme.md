@@ -16,7 +16,7 @@ pnpm install @fission-codes/homestar
 
 ```js
 import { Homestar } from '@fission-codes/homestar'
-import { WebsocketTransport } from '@fission-codes/homestar/channel/transports/ws'
+import { WebsocketTransport } from '@fission-codes/homestar/transports/ws.js'
 
 // if you need isomorphic support
 import { WebSocket } from 'unws'
@@ -41,11 +41,7 @@ Check <https://fission-codes.github.io/stack>
 
 ## TODO
 
-- try base64 encoding the payload
-
 ```rust
-/// Health endpoint.
-pub(crate) const HEALTH_ENDPOINT: &str = "health";
 /// Subscribe to network events.
 #[cfg(feature = "websocket-notify")]
 pub(crate) const SUBSCRIBE_NETWORK_EVENTS_ENDPOINT: &str = "subscribe_network_events";

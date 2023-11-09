@@ -1,7 +1,7 @@
 import { assert, suite } from 'playwright-test/taps'
 import { WebSocket } from 'unws'
 import pDefer from 'p-defer'
-import { Channel } from '../src/channel/channel.js'
+import { Channel } from '../src/channel/index.js'
 import { JsonRpcCodec } from '../src/channel/codecs/jsonrpc.js'
 import { WebsocketTransport } from '../src/channel/transports/ws.js'
 
