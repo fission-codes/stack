@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/fission-codes/stack/compare/homestar-v0.4.0...homestar-v0.5.0) (2023-11-09)
+
+
+### Features
+
+* improve the exports ([dd980af](https://github.com/fission-codes/stack/commit/dd980afa496c59a27c7eff0e9a4ce908cd2fbf38))
+
 ## [0.4.0](https://github.com/fission-codes/stack/compare/homestar-v0.3.0...homestar-v0.4.0) (2023-11-09)
 
 
