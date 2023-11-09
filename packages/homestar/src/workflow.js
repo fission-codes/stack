@@ -100,11 +100,29 @@ export function grayscale(opts) {
 
 /**
  *
+ * @param {import('./types.js').GrayscaleOptions} opts
+ * @returns {import('./types.js').GrayscaleInvocation}
+ */
+export function grayscaleBase64(opts) {
+  return baseInvocation(opts, 'grayscale-base64', [opts.args.data])
+}
+
+/**
+ *
  * @param {import('./types.js').Rotate90Options} opts
  * @returns {import('./types.js').Rotate90Invocation}
  */
 export function rotate90(opts) {
   return baseInvocation(opts, 'rotate90', [opts.args.data])
+}
+
+/**
+ *
+ * @param {import('./types.js').Rotate90Options} opts
+ * @returns {import('./types.js').Rotate90Invocation}
+ */
+export function rotate90Base64(opts) {
+  return baseInvocation(opts, 'rotate90-base64', [opts.args.data])
 }
 
 /**
@@ -187,7 +205,7 @@ function baseInvocation(opts, func, args) {
       },
       nnc: '',
       op: 'wasm/run',
-      rsc: opts.resource,
+      rsc: 'ipfs://' + opts.resource,
     },
   }
 }

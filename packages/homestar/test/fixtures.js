@@ -1,4 +1,7 @@
 /* eslint-disable unicorn/no-null */
+
+export const wasmCID = 'QmXne1sj1xsv8wPMxPHLjiEaLwNMPFQfdua3qK9j1rsPNg'
+export const imageCID = 'QmZ3VEcAWa2R7SQ7E1Y7Q5fL3Tzu8ijDrs3UkmF7KF2iXT'
 export const workflow1 = {
   tasks: [
     {

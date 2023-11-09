@@ -38,6 +38,7 @@ export interface TemplateInvocation<Args extends any[] = any[]>
 }
 
 export type Placeholder = `{{${string}${`:${string}` | ''}}}`
+export type DataURI = `data:${string};base64,${string}`
 
 export interface InvocationOptions<
   Args extends Record<string, any> = Record<string, any>,
@@ -45,33 +46,42 @@ export interface InvocationOptions<
   name: string
   needs?: string
   args: Args
+  /**
+   * The resource to use for the invocation. This should be a URI but for now just pass the CID string.
+   */
   resource: string
 }
 
 export type CropInvocation = TemplateInvocation<
-  [CID | Placeholder, number, number, number, number]
+  [CID | Placeholder | DataURI, number, number, number, number]
 >
 export type CropOptions = InvocationOptions<{
-  data: CID | Placeholder
+  data: CID | Placeholder | DataURI
   x: number
   y: number
   width: number
   height: number
 }>
 
-export type GrayscaleInvocation = TemplateInvocation<[CID | Placeholder]>
+export type GrayscaleInvocation = TemplateInvocation<
+  [CID | Placeholder | DataURI]
+>
 export type GrayscaleOptions = InvocationOptions<{
-  data: CID | Placeholder
+  data: CID | Placeholder | DataURI
 }>
 
-export type Rotate90Invocation = TemplateInvocation<[CID | Placeholder]>
+export type Rotate90Invocation = TemplateInvocation<
+  [CID | Placeholder | DataURI]
+>
 export type Rotate90Options = InvocationOptions<{
-  data: CID | Placeholder
+  data: CID | Placeholder | DataURI
 }>
 
-export type BlurInvocation = TemplateInvocation<[CID | Placeholder, number]>
+export type BlurInvocation = TemplateInvocation<
+  [CID | Placeholder | DataURI, number]
+>
 export type BlurOptions = InvocationOptions<{
-  data: CID | Placeholder
+  data: CID | Placeholder | DataURI
   sigma: number
 }>
 

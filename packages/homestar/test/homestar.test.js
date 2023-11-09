@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/no-null */
 import { assert, suite } from 'playwright-test/taps'
 import { WebSocket } from 'unws'
-import { base64 } from 'iso-base/rfc4648'
 import pDefer from 'p-defer'
 import { CID } from 'multiformats'
 import { WebsocketTransport } from '../src/channel/transports/ws.js'
@@ -10,13 +9,15 @@ import * as Workflow from '../src/workflow.js'
 
 // eslint-disable-next-line no-unused-vars
 import * as Schemas from '../src/schemas.js'
+import { imageCID, wasmCID } from './fixtures.js'
+import { createImageBitmap, getImgBlob } from './utils.js'
 
 const test = suite('homestar').skip
-const URL = 'ws://localhost:8060'
+const wsUrl = 'ws://localhost:8060'
 
 test('should fetch metrics from homestar', async function () {
   const hs = new Homestar({
-    transport: new WebsocketTransport(URL, {
+    transport: new WebsocketTransport(wsUrl, {
       ws: WebSocket,
     }),
   })
@@ -33,43 +34,29 @@ test('should subs workflow', async function () {
   /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
   const prom = pDefer()
   const hs = new Homestar({
-    transport: new WebsocketTransport(URL, {
+    transport: new WebsocketTransport(wsUrl, {
       ws: WebSocket,
     }),
   })
 
-  const workflow = {
-    name: 'testtttt',
+  const workflow = await Workflow.workflow({
+    name: 'subs',
     workflow: {
       tasks: [
-        {
-          cause: null,
-          meta: {
-            memory: 4_294_967_296,
-            time: 100_000,
+        Workflow.crop({
+          name: 'crop',
+          resource: wasmCID,
+          args: {
+            data: CID.parse(imageCID),
+            height: 100,
+            width: 100,
+            x: 150,
+            y: 150,
           },
-          prf: [],
-          run: {
-            input: {
-              args: [
-                {
-                  '/': 'QmZ3VEcAWa2R7SQ7E1Y7Q5fL3Tzu8ijDrs3UkmF7KF2iXT',
-                },
-                150,
-                350,
-                500,
-                500,
-              ],
-              func: 'crop',
-            },
-            nnc: '',
-            op: 'wasm/run',
-            rsc: 'ipfs://QmYtZSh2qzr8q7n6TMVDPpaecXKTjxQWBuj9n77Tccwcwp',
-          },
-        },
+        }),
       ],
     },
-  }
+  })
 
   const { error, result } = await hs.runWorkflow(workflow, (data) => {
     if (data.error) {
@@ -85,7 +72,7 @@ test('should subs workflow', async function () {
   assert.ok(typeof result === 'string')
 
   const r = await prom.promise
-  assert.equal(r.metadata.name, 'testtttt')
+  assert.equal(r.metadata.name, 'subs')
 })
 
 test(
@@ -94,7 +81,7 @@ test(
     /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(URL, {
+      transport: new WebsocketTransport(wsUrl, {
         ws: WebSocket,
       }),
     })
@@ -141,13 +128,6 @@ test(
   },
   { timeout: 60_000 }
 )
-/**
- *
- */
-async function getImgBlob() {
-  const resp = await fetch('/small.png')
-  return resp.ok ? resp.blob() : Promise.reject(resp.status)
-}
 
 test(
   'should process base64 image',
@@ -155,16 +135,11 @@ test(
     /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(URL, {
+      transport: new WebsocketTransport(wsUrl, {
         ws: WebSocket,
       }),
     })
-    const img = await getImgBlob()
-    const bmp = await createImageBitmap(img)
-    // const { width, height } = bmp
-    bmp.close() // free memory
-    const dataUrl =
-      'data:image/png;base64,' + base64.encode(await img.arrayBuffer())
+    const { dataUrl } = await getImgBlob()
 
     const workflow = await Workflow.workflow({
       name: 'crop-base64',
@@ -172,11 +147,9 @@ test(
         tasks: [
           Workflow.cropBase64({
             name: 'crop64',
-            resource: 'ipfs://QmXne1sj1xsv8wPMxPHLjiEaLwNMPFQfdua3qK9j1rsPNg',
+            resource: wasmCID,
             args: {
-              // @ts-ignore
               data: dataUrl,
-              // sigma: 1.09,
               height: 10,
               width: 10,
               x: 1,
@@ -188,14 +161,10 @@ test(
     })
 
     const { error, result } = await hs.runWorkflow(workflow, (data) => {
-      // console.log(
-      //   '🚀 ~ file: homestar.test.js:190 ~ const{error,result}=awaiths.runWorkflow ~ data:',
-      //   data
-      // )
-      // if (data.error) {
-      //   return prom.reject(data.error)
-      // }
-      // prom.resolve(data.result)
+      if (data.error) {
+        return prom.reject(data.error)
+      }
+      prom.resolve(data.result)
     })
 
     if (error) {
@@ -204,10 +173,16 @@ test(
 
     assert.ok(typeof result === 'string')
 
-    await prom.promise
+    const { receipt } = await prom.promise
+    assert.equal(receipt.meta.op, 'crop-base64')
+
+    const blob = new Blob([receipt.out[1]])
+    const bmp = await createImageBitmap(blob)
+    assert.equal(bmp.height, 10)
+    assert.equal(bmp.width, 10)
   },
   {
-    timeout: 120_000,
+    timeout: 30_000,
   }
 )
 
@@ -217,7 +192,7 @@ test(
     /** @type {import('p-defer').DeferredPromise<number>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(URL, {
+      transport: new WebsocketTransport(wsUrl, {
         ws: WebSocket,
       }),
     })
@@ -229,7 +204,7 @@ test(
         tasks: [
           Workflow.crop({
             name: 'crop',
-            resource: 'ipfs://QmYtZSh2qzr8q7n6TMVDPpaecXKTjxQWBuj9n77Tccwcwp',
+            resource: wasmCID,
             args: {
               data: CID.parse('QmZ3VEcAWa2R7SQ7E1Y7Q5fL3Tzu8ijDrs3UkmF7KF2iXT'),
               height: 100,
@@ -240,7 +215,7 @@ test(
           }),
           Workflow.crop({
             name: 'crop',
-            resource: 'ipfs://QmYtZSh2qzr8q7n6TMVDPpaecXKTjxQWBuj9n77Tccwcwp',
+            resource: wasmCID,
             args: {
               data: CID.parse('QmZ3VEcAWa2R7SQ7E1Y7Q5fL3Tzu8ijDrs3UkmF7KF2iXT'),
               height: 10,
