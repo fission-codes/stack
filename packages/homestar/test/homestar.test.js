@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/no-null */
 import { assert, suite } from 'playwright-test/taps'
+import * as Client from 'playwright-test/client'
 import { WebSocket } from 'unws'
 import pDefer from 'p-defer'
 import { CID } from 'multiformats'
@@ -10,7 +11,7 @@ import * as Workflow from '../src/workflow.js'
 // eslint-disable-next-line no-unused-vars
 import * as Schemas from '../src/schemas.js'
 import { imageCID, wasmCID } from './fixtures.js'
-import { createImageBitmap, getImgBlob } from './utils.js'
+import { getImgBlob } from './utils.js'
 
 const test = suite('homestar').skip
 const wsUrl = 'ws://localhost:8060'
@@ -183,6 +184,7 @@ test(
   },
   {
     timeout: 30_000,
+    skip: Client.mode === 'node',
   }
 )
 
