@@ -31,6 +31,23 @@ test('should fetch metrics from homestar', async function () {
   assert.equal(result.length, 17)
 })
 
+test('should fetch health from homestar', async function () {
+  const hs = new Homestar({
+    transport: new WebsocketTransport(wsUrl, {
+      ws: WebSocket,
+    }),
+  })
+
+  const { error, result } = await hs.health()
+  if (error) {
+    return assert.fail(error)
+  }
+
+  assert.equal(result.healthy, true)
+  assert.ok(result.nodeInfo)
+  assert.ok(typeof result.nodeInfo.peer_id === 'string')
+})
+
 test('should subs workflow', async function () {
   /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
   const prom = pDefer()
