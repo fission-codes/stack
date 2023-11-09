@@ -16,7 +16,7 @@ pnpm install @fission-codes/homestar
 
 ```js
 import { Homestar } from '@fission-codes/homestar'
-import { WebsocketTransport } from '@fission-codes/homestar/transports/ws'
+import { WebsocketTransport } from '@fission-codes/homestar/channel/transports/ws'
 
 // if you need isomorphic support
 import { WebSocket } from 'unws'

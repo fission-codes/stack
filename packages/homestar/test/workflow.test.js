@@ -169,8 +169,7 @@ test('should create crop task', async function () {
   assert.deepEqual(
     Workflow.crop({
       name: 'crop',
-      resource:
-        'ipfs://bafybeichafzlolnoamugvfuyynjnj2gse7avstiqkeiuwuv2gyztap4qm4',
+      resource: 'bafybeichafzlolnoamugvfuyynjnj2gse7avstiqkeiuwuv2gyztap4qm4',
       args: {
         data: CID.parse(
           'bafybeiejevluvtoevgk66plh5t6xiy3ikyuuxg3vgofuvpeckb6eadresm'
@@ -249,7 +248,7 @@ test('should workflow with help functions', async function () {
         Workflow.crop({
           name: 'crop',
           resource:
-            'ipfs://bafybeichafzlolnoamugvfuyynjnj2gse7avstiqkeiuwuv2gyztap4qm4',
+            'bafybeichafzlolnoamugvfuyynjnj2gse7avstiqkeiuwuv2gyztap4qm4',
           args: {
             data: CID.parse(
               'bafybeiejevluvtoevgk66plh5t6xiy3ikyuuxg3vgofuvpeckb6eadresm'
@@ -264,7 +263,7 @@ test('should workflow with help functions', async function () {
           name: 'grayscale',
           needs: 'crop',
           resource:
-            'ipfs://bafybeichafzlolnoamugvfuyynjnj2gse7avstiqkeiuwuv2gyztap4qm4',
+            'bafybeichafzlolnoamugvfuyynjnj2gse7avstiqkeiuwuv2gyztap4qm4',
           args: {
             data: '{{needs.crop.output}}',
           },
