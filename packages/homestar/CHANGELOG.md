@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/fission-codes/stack/compare/homestar-v0.3.0...homestar-v0.4.0) (2023-11-09)
+
+
+### Features
+
+* **homestar:** add health call ([2321868](https://github.com/fission-codes/stack/commit/23218684b51c3b60f54ac3962246fefea894b0f3))
+
 ## [0.3.0](https://github.com/fission-codes/stack/compare/homestar-v0.2.0...homestar-v0.3.0) (2023-11-09)
 
 
