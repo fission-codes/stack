@@ -264,6 +264,68 @@ test(
     assert.equal(count, 2)
   },
   {
-    timeout: 120_000,
+    timeout: 30_000,
+  }
+)
+
+test(
+  'should run workflow with deps',
+  async function () {
+    /** @type {import('p-defer').DeferredPromise<number>} */
+    const prom = pDefer()
+    const hs = new Homestar({
+      transport: new WebsocketTransport(wsUrl, {
+        ws: WebSocket,
+      }),
+    })
+    let count = 0
+    const { dataUrl } = await getImgBlob()
+    const workflow = await Workflow.workflow({
+      name: 'test-template',
+      workflow: {
+        tasks: [
+          Workflow.cropBase64({
+            name: 'crop64',
+            resource: wasmCID,
+            args: {
+              data: dataUrl,
+              height: 10,
+              width: 10,
+              x: 1,
+              y: 1,
+            },
+          }),
+          Workflow.blur({
+            name: 'blur',
+            needs: 'crop64',
+            resource: wasmCID,
+            args: {
+              sigma: 0.1,
+              data: '{{needs.crop64.output}}',
+            },
+          }),
+        ],
+      },
+    })
+
+    const { error, result } = await hs.runWorkflow(workflow, (data) => {
+      count++
+      if (count === 2) {
+        prom.resolve(2)
+      }
+    })
+
+    if (error) {
+      return assert.fail(error)
+    }
+
+    assert.ok(typeof result === 'string')
+
+    await prom.promise
+    assert.equal(count, 2)
+  },
+  {
+    timeout: 30_000,
+    skip: Client.mode === 'node',
   }
 )

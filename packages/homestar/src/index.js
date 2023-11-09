@@ -1,6 +1,6 @@
 import { decode } from '@ipld/dag-json'
 import Emittery from 'emittery'
-import { Channel } from './channel/channel.js'
+import { Channel } from './channel/index.js'
 import { JsonRpcCodec } from './channel/codecs/jsonrpc.js'
 import * as Schemas from './schemas.js'
 
