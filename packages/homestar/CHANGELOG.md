@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/fission-codes/stack/compare/homestar-v0.2.0...homestar-v0.3.0) (2023-11-09)
+
+
+### Features
+
+* base64 variants ([0d6a60a](https://github.com/fission-codes/stack/commit/0d6a60a29b48d8c4e8e9eb85bffe554c21335537))
+
 ## [0.2.0](https://github.com/fission-codes/stack/compare/homestar-v0.1.2...homestar-v0.2.0) (2023-11-08)
 
 
