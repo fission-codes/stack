@@ -62,6 +62,27 @@ export class Homestar extends Emittery {
   }
 
   /**
+   * Homestar Health info
+   *
+   * @returns {Promise<MaybeResult<Schemas.Health, Schemas.HealthError>>}
+   */
+  async health() {
+    const res = await this.#channel.request({
+      method: 'health',
+    })
+
+    const parsed = Schemas.Health.safeParse(res.result)
+
+    if (parsed.success) {
+      return { result: parsed.data }
+    }
+
+    return {
+      error: parsed.error,
+    }
+  }
+
+  /**
    * Subscribe to a workflow
    *
    * @param {Schemas.Workflow} workflow

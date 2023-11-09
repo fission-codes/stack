@@ -4,10 +4,12 @@ import { CID } from 'multiformats/cid'
 /**
  * @typedef {import('zod').z.infer<typeof Receipt>} Receipt
  * @typedef {import('zod').z.infer<typeof Metrics>} Metrics
+ * @typedef {import('zod').z.infer<typeof Health>} Health
  * @typedef {import('zod').z.infer<typeof Invocation>} Invocation
  * @typedef {import('zod').z.infer<typeof Task>} Task
  * @typedef {import('zod').z.infer<typeof Workflow>} Workflow
  * @typedef {import('./types.js').InferError<typeof Metrics>} MetricsError
+ * @typedef {import('./types.js').InferError<typeof Health>} HealthError
  * @typedef {import('zod').z.infer<typeof WorkflowNotification>} WorkflowNotification
  * @typedef {import('./types.js').InferError<typeof WorkflowNotification>} WorkflowNotificationError
  */
@@ -30,6 +32,13 @@ export const Metrics = z
     ),
   })
   .transform((val) => val.metrics)
+
+export const Health = z.object({
+  healthy: z.boolean(),
+  nodeInfo: z.object({
+    peer_id: z.string(),
+  }),
+})
 
 export const CIDInstance =
   /** @type {typeof z.custom<import('multiformats').Link>} */ (z.custom)(
