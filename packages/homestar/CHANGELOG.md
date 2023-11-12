@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/fission-codes/stack/compare/homestar-v0.5.0...homestar-v0.5.1) (2023-11-12)
+
+
+### Bug Fixes
+
+* fix workflow promise CIDs, better validations and types ([9955a34](https://github.com/fission-codes/stack/commit/9955a34a3c0c70f6769111b75e7bd23506745521))
+
 ## [0.5.0](https://github.com/fission-codes/stack/compare/homestar-v0.4.0...homestar-v0.5.0) (2023-11-09)
 
 
