@@ -1,11 +1,13 @@
 import { get } from 'object-path'
 
 /**
+ * Check if the given value is a plain object.
+ *
  * @template {unknown} Value
  * @param {unknown} value
  * @returns {value is Record<PropertyKey, Value>}
  */
-export function isPlainObject(value) {
+function isPlainObject(value) {
   // From: https://github.com/sindresorhus/is-plain-obj/blob/main/index.js
   if (typeof value !== 'object' || value === null) {
     return false
@@ -28,7 +30,7 @@ export function isPlainObject(value) {
  * @template {import('./types.js').TemplateInput} T
  * @template {import('./types.js').TemplateOutput<T>} R
  * @param {T} value
- * @param {import('./types.js').WorkflowContext} context
+ * @param {Record<string,any>} context
  * @returns {R}
  */
 export function parse(value, context) {
@@ -51,50 +53,56 @@ export function parse(value, context) {
 /**
  * Constructs a parameter object from a match result.
  * e.g. "['{{foo}}']" --> { key: "foo" }
- * e.g. "['{{foo:bar}}']" --> { key: "foo", defaultValue: "bar" }
+ * e.g. "['{{foo:bar}}']" --> { key: "foo", param: "bar" }
  *
- * @param {string} match
+ * @param {string }str
+ * @returns {{placeholder: string, key: string, param?: string}[]}
  */
-function parameter(match) {
-  const matchValue = match.slice(2, 2 + match.length - 4).trim()
-  const i = matchValue.indexOf(':')
-
-  const param =
-    i === -1
-      ? { key: matchValue }
-      : {
-          key: matchValue.slice(0, Math.max(0, i)),
-          defaultValue: matchValue.slice(i + 1),
-        }
-
-  return param
+function extractMatches(str) {
+  const regex = /{{\s*(?:([\w.-]+)|([\w.-]+):(\w+))\s*}}/g
+  const matches = [...str.matchAll(regex)]
+  return matches.map((match) => {
+    return {
+      placeholder: match[0],
+      key: match[1] || match[2],
+      param: match[3],
+    }
+  })
 }
 
 /**
  * Parses string with handlebars.
  *
- * @param {string } value
- * @param {import('./types.js').WorkflowContext} context
+ * @param {string} value
+ * @param {Record<string,any>} context
  * @returns {string}
  */
-export function parseString(value, context) {
-  const regex = /{{(&?\w|:|[\s$()*+,./=?@_-])+}}/g
-  const matches = value.match(regex)
-  if (matches) {
+function parseString(value, context) {
+  const matches = extractMatches(value)
+  if (matches.length > 0) {
     // eslint-disable-next-line unicorn/no-array-reduce
     return matches.reduce((acc, match) => {
-      const param = parameter(match)
-      const paramValue = get(context, param.key, param.defaultValue)
+      const { placeholder, key, param } = match
+      /** @type {any} */
+      const contextValue = get(context, key, param)
 
-      if (matches.length === 1) {
-        if (typeof paramValue === 'function' && paramValue !== undefined) {
-          // @ts-ignore
-          return paramValue(param.defaultValue)
-        }
-        return paramValue
+      if (contextValue === undefined) {
+        throw new Error(`Could not find value for key "${key}" in context`)
       }
 
-      return paramValue === undefined ? acc : acc.replace(match, paramValue)
+      if (matches.length === 1 && placeholder === value) {
+        if (typeof contextValue === 'function') {
+          return contextValue(param)
+        }
+        return contextValue
+      }
+
+      return acc.replace(
+        placeholder,
+        typeof contextValue === 'string'
+          ? contextValue
+          : JSON.stringify(contextValue)
+      )
     }, value)
   }
   return value
@@ -104,7 +112,7 @@ export function parseString(value, context) {
  * Parses non-leaf-nodes in the template object that are objects.
  *
  * @param {Record<string, any>} object
- * @param {import('./types.js').WorkflowContext} context
+ * @param {Record<string,any>} context
  */
 function parseObject(object, context) {
   const children = Object.keys(object).map((key) => ({
@@ -123,7 +131,7 @@ function parseObject(object, context) {
  * Parses non-leaf-nodes in the template object that are arrays.
  *
  * @param {any[]} array
- * @param {import('./types.js').WorkflowContext} context
+ * @param {Record<string,any>} context
  */
 function parseArray(array, context) {
   return array.map((i) => parse(i, context))

@@ -85,7 +85,7 @@ export class Homestar extends Emittery {
   /**
    * Subscribe to a workflow
    *
-   * @param {Schemas.Workflow} workflow
+   * @param {import('./workflow/index.js').Workflow} workflow
    * @param {(data: MaybeResult<Schemas.WorkflowNotification, Schemas.WorkflowNotificationError>)=>void} [receiptCb] - Callback for workflow notifications
    */
   async runWorkflow(workflow, receiptCb) {

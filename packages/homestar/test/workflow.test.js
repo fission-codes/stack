@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/no-null */
 import { assert, suite } from 'playwright-test/taps'
 import { CID } from 'multiformats'
-import * as Schemas from '../src/schemas.js'
-import * as Workflow from '../src/workflow.js'
-import { workflow1 } from './fixtures.js'
+import * as Schemas from '../src/workflow/schemas.js'
+import * as Workflow from '../src/workflow/index.js'
+import { wasmCID, workflow1 } from './fixtures.js'
 
 const test = suite('workflow')
 
@@ -275,4 +275,87 @@ test('should workflow with help functions', async function () {
     name: 'test-template',
     workflow: workflow1,
   })
+})
+
+test('should throw on bad workflow', async function () {
+  const workflow = {
+    name: 'testtttt',
+    workflow: {},
+  }
+
+  await assert.rejects(
+    async () => {
+      // @ts-expect-error - we're testing bad input
+      await Workflow.workflow(workflow)
+    },
+    (err) => {
+      const error = /** @type {Error} */ (err)
+      assert.equal(error.name, 'ZodError')
+      assert.deepEqual(
+        error.message,
+        JSON.stringify(
+          [
+            {
+              code: 'invalid_type',
+              expected: 'array',
+              received: 'undefined',
+              path: ['workflow', 'tasks'],
+              message: 'Required',
+            },
+          ],
+          null,
+          2
+        )
+      )
+      return true
+    }
+  )
+})
+
+test('should throw on bad dependencies', async function () {
+  /** @type {import('../src/workflow/index.js').TemplateWorkflow} */
+  const workflow = {
+    name: 'testtttt',
+    workflow: {
+      tasks: [
+        Workflow.crop({
+          name: 'crop',
+          resource: wasmCID,
+          args: {
+            data: CID.parse(
+              'bafybeiejevluvtoevgk66plh5t6xiy3ikyuuxg3vgofuvpeckb6eadresm'
+            ),
+            height: 500,
+            width: 500,
+            x: 150,
+            y: 350,
+          },
+        }),
+        Workflow.blur({
+          name: 'blur',
+          needs: 'crop',
+          resource: wasmCID,
+          args: {
+            data: '{{needs.random-task.output}}',
+            sigma: 0.1,
+          },
+        }),
+      ],
+    },
+  }
+
+  await assert.rejects(
+    async () => {
+      await Workflow.workflow(workflow)
+    },
+    (err) => {
+      const error = /** @type {Error} */ (err)
+      assert.equal(error.name, 'Error')
+      assert.deepEqual(
+        error.message,
+        'Could not find value for key "needs.random-task.output" in context'
+      )
+      return true
+    }
+  )
 })
