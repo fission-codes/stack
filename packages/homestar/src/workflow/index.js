@@ -1,18 +1,47 @@
+/* eslint-disable unicorn/no-null */
 import { CID } from 'multiformats/cid'
 import * as codec from '@ipld/dag-cbor'
 import { sha3256 } from '@multiformats/sha3'
 
 import { parse } from './template.js'
+import { TemplateWorkflow } from './schemas.js'
 
-/* eslint-disable unicorn/no-null */
 /**
- * @param {import('./types.js').TemplateWorkflow} template
- * @returns {Promise<import('./schemas.js').Workflow>}
+ * @typedef {import('./types.js').TemplateWorkflow} TemplateWorkflow
+ * @typedef {import('./types.js').Workflow} Workflow
+ * @typedef {import('./types.js').WorkflowContext} WorkflowContext
+ *
+ * @typedef {import('./types.js').CropInvocation} CropInvocation
+ * @typedef {import('./types.js').GrayscaleInvocation} GrayscaleInvocation
+ * @typedef {import('./types.js').Rotate90Invocation} Rotate90Invocation
+ * @typedef {import('./types.js').BlurInvocation} BlurInvocation
+ * @typedef {import('./types.js').AddOneInvocation} AddOneInvocation
+ * @typedef {import('./types.js').AppendStringInvocation} AppendStringInvocation
+ * @typedef {import('./types.js').JoinStringsInvocation} JoinStringsInvocation
+ * @typedef {import('./types.js').TransposeInvocation} TransposeInvocation
+ *
+ * @typedef {import('./types.js').InvocationOptions} InvocationOptions
+ * @typedef {import('./types.js').CropOptions} CropOptions
+ * @typedef {import('./types.js').GrayscaleOptions} GrayscaleOptions
+ * @typedef {import('./types.js').Rotate90Options} Rotate90Options
+ * @typedef {import('./types.js').BlurOptions} BlurOptions
+ * @typedef {import('./types.js').AddOneOptions} AddOneOptions
+ * @typedef {import('./types.js').AppendStringOptions} AppendStringOptions
+ * @typedef {import('./types.js').JoinStringsOptions} JoinStringsOptions
+ * @typedef {import('./types.js').TransposeOptions} TransposeOptions
+ */
+
+/**
+ * Build a workflow from a template
+ *
+ * @param {TemplateWorkflow} template
+ * @returns {Promise<Workflow>}
  */
 export async function workflow(template) {
-  /** @type {Set<import('./schemas.js').Task>} */
+  TemplateWorkflow.parse(template)
+  /** @type {Set<import('../schemas.js').Task>} */
   const parsedTasks = new Set()
-  /** @type { import('./types.js').WorkflowContext} */
+  /** @type {WorkflowContext} */
   const context = {
     needs: {},
     cid: (cid) => {
@@ -37,16 +66,14 @@ export async function workflow(template) {
       context.needs[task.name] = {}
     }
     context.needs[task.name].output = {
-      'await/ok': cid.toJSON(),
+      'await/ok': cid,
     }
 
-    const r = parse(taskParsed, context)
-
-    parsedTasks.add(r)
+    parsedTasks.add(taskParsed)
   }
 
-  /** @type {import('./schemas.js').Invocation[]} */
-  const _tasks = [...parsedTasks].map((task, index) => {
+  /** @type {import('../schemas.js').Invocation[]} */
+  const tasks = [...parsedTasks].map((task, index) => {
     return {
       ...template.workflow.tasks[index],
       run: task,
@@ -56,14 +83,14 @@ export async function workflow(template) {
   return {
     name: template.name,
     workflow: {
-      tasks: _tasks,
+      tasks,
     },
   }
 }
 
 /**
- * @param {import('./types.js').CropOptions} opts
- * @returns {import('./types.js').CropInvocation}
+ * @param {CropOptions} opts
+ * @returns {CropInvocation}
  */
 export function crop(opts) {
   return baseInvocation(opts, 'crop', [
@@ -76,8 +103,8 @@ export function crop(opts) {
 }
 
 /**
- * @param {import('./types.js').CropOptions} opts
- * @returns {import('./types.js').CropInvocation}
+ * @param {CropOptions} opts
+ * @returns {CropInvocation}
  */
 export function cropBase64(opts) {
   return baseInvocation(opts, 'crop-base64', [
@@ -91,8 +118,8 @@ export function cropBase64(opts) {
 
 /**
  *
- * @param {import('./types.js').GrayscaleOptions} opts
- * @returns {import('./types.js').GrayscaleInvocation}
+ * @param {GrayscaleOptions} opts
+ * @returns {GrayscaleInvocation}
  */
 export function grayscale(opts) {
   return baseInvocation(opts, 'grayscale', [opts.args.data])
@@ -100,8 +127,8 @@ export function grayscale(opts) {
 
 /**
  *
- * @param {import('./types.js').GrayscaleOptions} opts
- * @returns {import('./types.js').GrayscaleInvocation}
+ * @param {GrayscaleOptions} opts
+ * @returns {GrayscaleInvocation}
  */
 export function grayscaleBase64(opts) {
   return baseInvocation(opts, 'grayscale-base64', [opts.args.data])
@@ -109,8 +136,8 @@ export function grayscaleBase64(opts) {
 
 /**
  *
- * @param {import('./types.js').Rotate90Options} opts
- * @returns {import('./types.js').Rotate90Invocation}
+ * @param {Rotate90Options} opts
+ * @returns {Rotate90Invocation}
  */
 export function rotate90(opts) {
   return baseInvocation(opts, 'rotate90', [opts.args.data])
@@ -118,8 +145,8 @@ export function rotate90(opts) {
 
 /**
  *
- * @param {import('./types.js').Rotate90Options} opts
- * @returns {import('./types.js').Rotate90Invocation}
+ * @param {Rotate90Options} opts
+ * @returns {Rotate90Invocation}
  */
 export function rotate90Base64(opts) {
   return baseInvocation(opts, 'rotate90-base64', [opts.args.data])
@@ -127,8 +154,8 @@ export function rotate90Base64(opts) {
 
 /**
  *
- * @param {import('./types.js').BlurOptions} opts
- * @returns {import('./types.js').BlurInvocation}
+ * @param {BlurOptions} opts
+ * @returns {BlurInvocation}
  */
 export function blur(opts) {
   return baseInvocation(opts, 'blur', [opts.args.data, opts.args.sigma])
@@ -136,8 +163,8 @@ export function blur(opts) {
 
 /**
  *
- * @param {import('./types.js').BlurOptions} opts
- * @returns {import('./types.js').BlurInvocation}
+ * @param {BlurOptions} opts
+ * @returns {BlurInvocation}
  */
 export function blurBase64(opts) {
   return baseInvocation(opts, 'blur-base64', [opts.args.data, opts.args.sigma])
@@ -145,8 +172,8 @@ export function blurBase64(opts) {
 
 /**
  *
- * @param {import('./types.js').AddOneOptions} opts
- * @returns {import('./types.js').AddOneInvocation}
+ * @param {AddOneOptions} opts
+ * @returns {AddOneInvocation}
  */
 export function addOne(opts) {
   return baseInvocation(opts, 'add-one', [opts.args.a])
@@ -154,8 +181,8 @@ export function addOne(opts) {
 
 /**
  *
- * @param {import('./types.js').AppendStringOptions} opts
- * @returns {import('./types.js').AppendStringInvocation}
+ * @param {AppendStringOptions} opts
+ * @returns {AppendStringInvocation}
  */
 export function appendString(opts) {
   return baseInvocation(opts, 'append-string', [opts.args.a])
@@ -163,8 +190,8 @@ export function appendString(opts) {
 
 /**
  *
- * @param {import('./types.js').JoinStringsOptions} opts
- * @returns {import('./types.js').JoinStringsInvocation}
+ * @param {JoinStringsOptions} opts
+ * @returns {JoinStringsInvocation}
  */
 export function joinStrings(opts) {
   return baseInvocation(opts, 'join-strings', [opts.args.a, opts.args.b])
@@ -172,8 +199,8 @@ export function joinStrings(opts) {
 
 /**
  *
- * @param {import('./types.js').TransposeOptions} opts
- * @returns {import('./types.js').TransposeInvocation}
+ * @param {TransposeOptions} opts
+ * @returns {TransposeInvocation}
  */
 export function transpose(opts) {
   return baseInvocation(opts, 'transpose', [opts.args.matrix])
@@ -183,10 +210,10 @@ export function transpose(opts) {
  * Base invocation
  *
  * @template {any[]} Args
- * @param {import('./types.js').InvocationOptions} opts
+ * @param {InvocationOptions} opts
  * @param {string} func
  * @param {Args} args
- * @returns {import('./types.js').TemplateInvocation<Args>}
+ * @returns {import('./types').TemplateInvocation<Args>}
  */
 function baseInvocation(opts, func, args) {
   return {
@@ -213,8 +240,8 @@ function baseInvocation(opts, func, args) {
 /**
  * Generate CID from task and stringify cids
  *
- * @param {import('./schemas.js').Task} task
- * @returns {Promise<{ cid: CID, task: import('./schemas.js').Task }>}
+ * @param {import('../schemas.js').Task} task
+ * @returns {Promise<{ cid: CID, task: import('../schemas.js').Task }>}
  */
 async function cidFromTask(task) {
   const dag = codec.encode(task)

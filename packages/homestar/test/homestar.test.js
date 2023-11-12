@@ -6,7 +6,7 @@ import pDefer from 'p-defer'
 import { CID } from 'multiformats'
 import { WebsocketTransport } from '../src/channel/transports/ws.js'
 import { Homestar } from '../src/index.js'
-import * as Workflow from '../src/workflow.js'
+import * as Workflow from '../src/workflow/index.js'
 
 // eslint-disable-next-line no-unused-vars
 import * as Schemas from '../src/schemas.js'
@@ -327,5 +327,78 @@ test(
   {
     timeout: 30_000,
     skip: Client.mode === 'node',
+  }
+)
+
+test(
+  'should run workflow with multiple deps',
+  async function () {
+    /** @type {import('p-defer').DeferredPromise<string>} */
+    const prom = pDefer()
+    const hs = new Homestar({
+      transport: new WebsocketTransport(wsUrl, {
+        ws: WebSocket,
+      }),
+    })
+    let count = 0
+    const workflow = await Workflow.workflow({
+      name: 'test-template-multiple',
+      workflow: {
+        tasks: [
+          Workflow.appendString({
+            name: 'append',
+            resource: wasmCID,
+            args: {
+              a: 'hello1111',
+            },
+          }),
+          Workflow.joinStrings({
+            name: 'append1',
+            resource: wasmCID,
+            args: {
+              a: '{{needs.append.output}}',
+              b: '111111',
+            },
+          }),
+          Workflow.joinStrings({
+            name: 'append2',
+            resource: wasmCID,
+            args: {
+              a: '{{needs.append.output}}',
+              b: '2222111',
+            },
+          }),
+          Workflow.joinStrings({
+            name: 'join',
+            needs: ['append1', 'append2'],
+            resource: wasmCID,
+            args: {
+              a: '{{needs.append1.output}}',
+              b: '{{needs.append2.output}}',
+            },
+          }),
+        ],
+      },
+    })
+
+    const { error, result } = await hs.runWorkflow(workflow, (data) => {
+      count++
+      if (count === 4) {
+        prom.resolve(data.result?.receipt.out[1])
+      }
+    })
+
+    if (error) {
+      return assert.fail(error)
+    }
+
+    assert.ok(typeof result === 'string')
+
+    const r = await prom.promise
+    assert.equal(count, 4)
+    assert.equal(r, 'hello1111\nworld111111hello1111\nworld2222111')
+  },
+  {
+    timeout: 30_000,
   }
 )

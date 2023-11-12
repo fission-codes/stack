@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "input": {
+      "type": "object",
+      "required": ["func"],
+      "properties": {
+        "func": {
+          "type": "string",
+          "description": "Function to call"
+        },
+        "args": {
+          "type": "array",
+          "description": "Arguments to pass to the function",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "array"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "required": ["name", "op", "rsc", "input"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Task name"
+        },
+        "nnc": {
+          "type": "string",
+          "description": "Task nonce"
+        },
+        "op": {
+          "type": "string",
+          "description": "Wasm Operation",
+          "default": "wasm/run"
+        },
+        "rsc": {
+          "type": "string",
+          "description": "Resource to operate on.",
+          "examples": [
+            "ipfs://bafybeiczefaiu7464ehupezpzulnti5jvcwnvdalqrdliugnnwcdz6ljia"
+          ]
+        },
+        "input": {
+          "$ref": "#/definitions/input",
+          "description": "Input to the task. \nAvailable expression contexts: `needs`. \nAvailable expression functions: `cid`."
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["memory", "time"],
+      "properties": {
+        "memory": {
+          "type": "number",
+          "description": "Memory used in bytes",
+          "default": 4294967296
+        },
+        "time": {
+          "type": "number",
+          "description": "Time used in milliseconds",
+          "default": 100000
+        }
+      }
+    },
+    "invocation": {
+      "type": "object",
+      "required": ["run", "prf", "meta"],
+      "properties": {
+        "v": {
+          "type": "string",
+          "description": "Version"
+        },
+        "run": {
+          "$ref": "#/definitions/task",
+          "description": "Task to run"
+        },
+        "cause": {
+          "type": "null",
+          "description": "Cause of the invocation",
+          "default": null
+        },
+        "auth": {
+          "type": "string"
+        },
+        "meta": {
+          "$ref": "#/definitions/meta"
+        },
+        "prf": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": ["name", "tasks"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the workflow",
+      "default": "Homestar Workflow"
+    },
+
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/invocation"
+      }
+    }
+  },
+  "description": "Configuration Schema for Homestar Workflows",
+  "id": "https://json.schemastore.org/homestar.json",
+  "title": "Homestar Workflow Schema",
+  "type": "object"
+}
