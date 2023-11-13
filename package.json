@@ -23,7 +23,7 @@
   "devDependencies": {
     "@fission-codes/eslint-config": "workspace:^",
     "depcheck": "^1.4.7",
-    "lint-staged": "^15.0.2",
+    "lint-staged": "^15.1.0",
     "prettier": "3.0.3",
     "simple-git-hooks": "^2.9.0",
     "typedoc": "^0.25.3",

@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -15,8 +15,8 @@ importers:
         specifier: ^1.4.7
         version: 1.4.7
       lint-staged:
-        specifier: ^15.0.2
-        version: 15.0.2
+        specifier: ^15.1.0
+        version: 15.1.0
       prettier:
         specifier: 3.0.3
         version: 3.0.3
@@ -191,28 +191,6 @@ importers:
       p-defer:
         specifier: ^4.0.0
         version: 4.0.0
-      playwright-test:
-        specifier: ^12.6.0
-        version: 12.6.0
-      type-fest:
-        specifier: ^4.7.1
-        version: 4.7.1
-      unws:
-        specifier: ^0.2.4
-        version: 0.2.4(ws@8.14.2)
-      ws:
-        specifier: ^8.14.2
-        version: 8.14.2
-
-  packages/homestar2:
-    dependencies:
-      '@fission-codes/homestar':
-        specifier: workspace:^
-        version: link:../homestar
-    devDependencies:
-      '@types/node':
-        specifier: ^20.9.0
-        version: 20.9.0
       playwright-test:
         specifier: ^12.6.0
         version: 12.6.0
@@ -3612,8 +3590,8 @@ packages:
       - supports-color
     dev: true
 
-  /lint-staged@15.0.2:
-    resolution: {integrity: sha512-vnEy7pFTHyVuDmCAIFKR5QDO8XLVlPFQQyujQ/STOxe40ICWqJ6knS2wSJ/ffX/Lw0rz83luRDh+ET7toN+rOw==}
+  /lint-staged@15.1.0:
+    resolution: {integrity: sha512-ZPKXWHVlL7uwVpy8OZ7YQjYDAuO5X4kMh0XgZvPNxLcCCngd0PO5jKQyy3+s4TL2EnHoIXIzP1422f/l3nZKMw==}
     engines: {node: '>=18.12.0'}
     hasBin: true
     dependencies:
@@ -3626,7 +3604,7 @@ packages:
       micromatch: 4.0.5
       pidtree: 0.6.0
       string-argv: 0.3.2
-      yaml: 2.3.3
+      yaml: 2.3.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5273,11 +5251,6 @@ packages:
 
   /yaml@2.3.1:
     resolution: {integrity: sha512-2eHWfjaoXgTBC2jNM1LRef62VQa0umtvRiDSk6HSzW7RvS5YtkabJrwYLLEKWBc8a5U2PTSCs+dJjUTJdlHsWQ==}
-    engines: {node: '>= 14'}
-    dev: true
-
-  /yaml@2.3.3:
-    resolution: {integrity: sha512-zw0VAJxgeZ6+++/su5AFoqBbZbrEakwu+X0M5HmcwUiBL7AzcuPKjj5we4xfQLp78LkEMpD0cOnUhmgOVy3KdQ==}
     engines: {node: '>= 14'}
     dev: true
 
