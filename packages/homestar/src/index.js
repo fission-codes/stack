@@ -150,6 +150,66 @@ export class Homestar extends Emittery {
   }
 
   /**
+   * Subscribe to a network events
+   *
+   * @param {(data: MaybeResult<Schemas.EventNotification, Schemas.EventNotificationError>)=>void} [receiptCb] - Callback for network events
+   */
+  async networkEvents(receiptCb) {
+    const res = /** @type {MaybeResult<string, Error>} */ (
+      await this.#channel.request({
+        method: 'subscribe_network_events',
+      })
+    )
+
+    if (res.result !== undefined) {
+      const subId = res.result
+      /** @type {import('emittery').UnsubscribeFunction} */
+      let unsub
+
+      if (receiptCb) {
+        unsub = this.#channel.on(
+          'notification',
+          // @ts-ignore
+          (/** @type {SubscriptionNotification} */ data) => {
+            if (data.subscription === subId) {
+              const decoded = decode(new Uint8Array(data.result))
+              const r = Schemas.EventNotification.safeParse(decoded)
+              if (r.success === false) {
+                receiptCb({ error: r.error })
+              } else {
+                receiptCb({ result: r.data })
+              }
+            }
+          }
+        )
+      }
+      return {
+        result: subId,
+        unsub: () => {
+          unsub()
+          this.#channel
+            .request({
+              method: 'unsubscribe_network_events',
+              params: [subId],
+            })
+            .then(
+              (res) => {
+                if (res.error) {
+                  return this.emit('error', res.error)
+                }
+              },
+              (error) => {
+                this.emit('error', error)
+              }
+            )
+        },
+      }
+    }
+
+    return { error: res.error }
+  }
+
+  /**
    * Close homestar channel and clean listeners
    */
   close() {

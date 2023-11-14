@@ -31,6 +31,11 @@
     "typedoc-plugin-zod": "^1.1.0",
     "typescript": "5.2.2"
   },
+  "pnpm": {
+    "patchedDependencies": {
+      "ipfs-utils@9.0.14": "patches/ipfs-utils@9.0.14.patch"
+    }
+  },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
   },
