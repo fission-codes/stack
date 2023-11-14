@@ -126,7 +126,8 @@
     "ignores": [
       "@types/*",
       "hd-scripts",
-      "assert"
+      "assert",
+      "homestar-runtime"
     ]
   }
 }
