@@ -6,7 +6,7 @@ import { JsonRpcCodec } from '../src/channel/codecs/jsonrpc.js'
 import { WebsocketTransport } from '../src/channel/transports/ws.js'
 
 const test = suite('channel')
-const URL = 'ws://localhost:8080'
+const URL = 'ws://localhost:8082'
 
 test('should echo and match correct request', async function () {
   const codec = new JsonRpcCodec()
