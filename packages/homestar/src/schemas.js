@@ -11,6 +11,8 @@ import { CID } from 'multiformats/cid'
  * @typedef {import('./types.js').InferError<typeof Health>} HealthError
  * @typedef {import('zod').z.infer<typeof WorkflowNotification>} WorkflowNotification
  * @typedef {import('./types.js').InferError<typeof WorkflowNotification>} WorkflowNotificationError
+ * @typedef {import('zod').z.infer<typeof EventNotification>} EventNotification
+ * @typedef {import('./types.js').InferError<typeof EventNotification>} EventNotificationError
  */
 
 export const Metrics = z
@@ -95,4 +97,10 @@ export const WorkflowNotification = z.object({
   metadata: WorkflowMetadata,
   receipt: Receipt,
   receipt_cid: CIDInstance,
+})
+
+export const EventNotification = z.object({
+  type: z.string(),
+  timestamp: z.number(),
+  data: z.any(),
 })

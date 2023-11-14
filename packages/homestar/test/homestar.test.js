@@ -3,18 +3,32 @@ import { assert, suite } from 'playwright-test/taps'
 import * as Client from 'playwright-test/client'
 import { WebSocket } from 'unws'
 import pDefer from 'p-defer'
-import { CID } from 'multiformats'
 import { WebsocketTransport } from '../src/channel/transports/ws.js'
 import { Homestar } from '../src/index.js'
 import * as Workflow from '../src/workflow/index.js'
 
 // eslint-disable-next-line no-unused-vars
 import * as Schemas from '../src/schemas.js'
-import { imageCID, wasmCID } from './fixtures.js'
-import { getImgBlob } from './utils.js'
+import { addFileToIPFS, getImgBlob } from './utils.js'
 
-const test = suite('homestar').skip
+const test = suite('homestar')
 const wsUrl = 'ws://localhost:8060'
+
+/**
+ * @type {string}
+ */
+let wasmCID
+
+/**
+ * @type {import('multiformats').CID}
+ */
+let imageCID
+
+test.before(async () => {
+  // eslint-disable-next-line unicorn/no-await-expression-member
+  wasmCID = (await addFileToIPFS('/example_test.wasm')).toString()
+  imageCID = await addFileToIPFS('/logo.png')
+})
 
 test('should fetch metrics from homestar', async function () {
   const hs = new Homestar({
@@ -29,6 +43,7 @@ test('should fetch metrics from homestar', async function () {
   }
 
   assert.equal(result.length, 17)
+  hs.close()
 })
 
 test('should fetch health from homestar', async function () {
@@ -46,6 +61,7 @@ test('should fetch health from homestar', async function () {
   assert.equal(result.healthy, true)
   assert.ok(result.nodeInfo)
   assert.ok(typeof result.nodeInfo.peer_id === 'string')
+  hs.close()
 })
 
 test('should subs workflow', async function () {
@@ -65,11 +81,11 @@ test('should subs workflow', async function () {
           name: 'crop',
           resource: wasmCID,
           args: {
-            data: CID.parse(imageCID),
+            data: imageCID,
             height: 100,
             width: 100,
-            x: 150,
-            y: 150,
+            x: 1,
+            y: 1,
           },
         }),
       ],
@@ -91,9 +107,10 @@ test('should subs workflow', async function () {
 
   const r = await prom.promise
   assert.equal(r.metadata.name, 'subs')
+  hs.close()
 })
 
-test(
+test.skip(
   'should subs workflow for componentize',
   async function () {
     /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
@@ -143,6 +160,7 @@ test(
 
     const r = await prom.promise
     assert.equal(r.metadata.name, 'componentize')
+    hs.close()
   },
   { timeout: 60_000 }
 )
@@ -198,6 +216,7 @@ test(
     const bmp = await createImageBitmap(blob)
     assert.equal(bmp.height, 10)
     assert.equal(bmp.width, 10)
+    hs.close()
   },
   {
     timeout: 30_000,
@@ -218,14 +237,14 @@ test(
     let count = 0
 
     const workflow = await Workflow.workflow({
-      name: 'crop',
+      name: 'crop-twice-unsub',
       workflow: {
         tasks: [
           Workflow.crop({
-            name: 'crop',
+            name: 'crop1',
             resource: wasmCID,
             args: {
-              data: CID.parse('QmZ3VEcAWa2R7SQ7E1Y7Q5fL3Tzu8ijDrs3UkmF7KF2iXT'),
+              data: imageCID,
               height: 100,
               width: 100,
               x: 150,
@@ -233,14 +252,14 @@ test(
             },
           }),
           Workflow.crop({
-            name: 'crop',
+            name: 'crop2',
             resource: wasmCID,
             args: {
-              data: CID.parse('QmZ3VEcAWa2R7SQ7E1Y7Q5fL3Tzu8ijDrs3UkmF7KF2iXT'),
+              data: imageCID,
               height: 10,
-              width: 10,
-              x: 150,
-              y: 150,
+              width: 100,
+              x: 1,
+              y: 1,
             },
           }),
         ],
@@ -262,6 +281,7 @@ test(
 
     await prom.promise
     assert.equal(count, 2)
+    hs.close()
   },
   {
     timeout: 30_000,
@@ -323,6 +343,7 @@ test(
 
     await prom.promise
     assert.equal(count, 2)
+    hs.close()
   },
   {
     timeout: 30_000,
@@ -397,6 +418,93 @@ test(
     const r = await prom.promise
     assert.equal(count, 4)
     assert.equal(r, 'hello1111\nworld111111hello1111\nworld2222111')
+    hs.close()
+  },
+  {
+    timeout: 30_000,
+  }
+)
+
+test(
+  'should receive network events',
+  async function () {
+    /** @type {import('p-defer').DeferredPromise<any>} */
+    const prom = pDefer()
+    const hs = new Homestar({
+      transport: new WebsocketTransport(wsUrl, {
+        ws: WebSocket,
+      }),
+    })
+
+    const hs1 = new Homestar({
+      transport: new WebsocketTransport('ws://localhost:8070', {
+        ws: WebSocket,
+      }),
+    })
+
+    await hs1.networkEvents((result) => {
+      if (result.error) {
+        console.error(result.error)
+      } else {
+        count++
+        if (count === 4) {
+          prom.resolve(result.result)
+        }
+      }
+    })
+
+    let count = 0
+    const workflow = await Workflow.workflow({
+      name: 'test-network-events',
+      workflow: {
+        tasks: [
+          Workflow.appendString({
+            name: 'append',
+            resource: wasmCID,
+            args: {
+              a: 'hello',
+            },
+          }),
+          Workflow.joinStrings({
+            name: 'append1',
+            resource: wasmCID,
+            args: {
+              a: '{{needs.append.output}}',
+              b: '1',
+            },
+          }),
+          Workflow.joinStrings({
+            name: 'append2',
+            resource: wasmCID,
+            args: {
+              a: '{{needs.append.output}}',
+              b: '2',
+            },
+          }),
+          Workflow.joinStrings({
+            name: 'join',
+            needs: ['append1', 'append2'],
+            resource: wasmCID,
+            args: {
+              a: '{{needs.append1.output}}',
+              b: '{{needs.append2.output}}',
+            },
+          }),
+        ],
+      },
+    })
+
+    const { error, result } = await hs.runWorkflow(workflow)
+
+    if (error) {
+      return assert.fail(error)
+    }
+
+    assert.ok(typeof result === 'string')
+
+    await prom.promise
+    assert.equal(count, 4)
+    hs.close()
   },
   {
     timeout: 30_000,

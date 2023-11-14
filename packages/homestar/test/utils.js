@@ -1,5 +1,6 @@
 import * as Client from 'playwright-test/client'
 import { base64 } from 'iso-base/rfc4648'
+import { create, urlSource } from 'kubo-rpc-client'
 
 /**
  *
@@ -24,4 +25,24 @@ export async function getImgBlob() {
   } else {
     throw new Error('failed to fetch image')
   }
+}
+
+/**
+ * Add file to IPFS
+ *
+ * @param {string} path - path to file ie. '/small.png'
+ */
+export async function addFileToIPFS(path) {
+  const ipfs = create({
+    port: Number(process.env.IPFS_PORT ?? '5001'),
+  })
+
+  const file = await ipfs.add(
+    urlSource(new URL(path, Client.server).toString()),
+    {
+      cidVersion: 1,
+    }
+  )
+
+  return file.cid
 }

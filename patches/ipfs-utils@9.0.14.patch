@@ -1,0 +1,12 @@
+diff --git a/src/http/fetch.js b/src/http/fetch.js
+index 1a2712989a7326d2e6a398a4ebc803f4a63dbdd7..e5df9bca11ac000ee7f44c7de4df9bd17f26fa97 100644
+--- a/src/http/fetch.js
++++ b/src/http/fetch.js
+@@ -17,6 +17,6 @@ if (typeof XMLHttpRequest === 'function') {
+ }
+ 
+ /** @type {fetchImpl} */
+-const fetch = require(implName)
++const fetch = require('./fetch.node')
+ 
+ module.exports = fetch
