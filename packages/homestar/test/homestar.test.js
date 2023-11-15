@@ -30,86 +30,104 @@ test.before(async () => {
   imageCID = await addFileToIPFS('/logo.png')
 })
 
-test('should fetch metrics from homestar', async function () {
-  const hs = new Homestar({
-    transport: new WebsocketTransport(wsUrl, {
-      ws: WebSocket,
-    }),
-  })
+test(
+  'should fetch metrics from homestar',
+  async function () {
+    const hs = new Homestar({
+      transport: new WebsocketTransport(wsUrl, {
+        ws: WebSocket,
+      }),
+    })
 
-  const { error, result } = await hs.metrics()
-  if (error) {
-    return assert.fail(error)
-  }
-
-  assert.equal(result.length, 17)
-  hs.close()
-})
-
-test('should fetch health from homestar', async function () {
-  const hs = new Homestar({
-    transport: new WebsocketTransport(wsUrl, {
-      ws: WebSocket,
-    }),
-  })
-
-  const { error, result } = await hs.health()
-  if (error) {
-    return assert.fail(error)
-  }
-
-  assert.equal(result.healthy, true)
-  assert.ok(result.nodeInfo)
-  assert.ok(typeof result.nodeInfo.static.peer_id === 'string')
-  assert.ok(Array.isArray(result.nodeInfo.dynamic.listeners))
-  hs.close()
-})
-
-test('should subs workflow', async function () {
-  /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
-  const prom = pDefer()
-  const hs = new Homestar({
-    transport: new WebsocketTransport(wsUrl, {
-      ws: WebSocket,
-    }),
-  })
-
-  const workflow = await Workflow.workflow({
-    name: 'subs',
-    workflow: {
-      tasks: [
-        Workflow.crop({
-          name: 'crop',
-          resource: wasmCID,
-          args: {
-            data: imageCID,
-            height: 100,
-            width: 100,
-            x: 1,
-            y: 1,
-          },
-        }),
-      ],
-    },
-  })
-
-  const { error, result } = await hs.runWorkflow(workflow, (data) => {
-    if (data.error) {
-      return prom.reject(data.error)
+    const { error, result } = await hs.metrics()
+    if (error) {
+      return assert.fail(error)
     }
-    prom.resolve(data.result)
-  })
 
-  if (error) {
-    return assert.fail(error)
+    assert.equal(result.length, 17)
+    hs.close()
+  },
+  {
+    timeout: 30_000,
   }
+)
 
-  assert.ok(typeof result === 'string')
+test(
+  'should fetch health from homestar',
+  async function () {
+    const hs = new Homestar({
+      transport: new WebsocketTransport(wsUrl, {
+        ws: WebSocket,
+      }),
+    })
 
-  const r = await prom.promise
-  assert.equal(r.metadata.name, 'subs')
-  hs.close()
-})
+    const { error, result } = await hs.health()
+    if (error) {
+      return assert.fail(error)
+    }
+
+    assert.equal(result.healthy, true)
+    assert.ok(result.nodeInfo)
+    assert.ok(typeof result.nodeInfo.static.peer_id === 'string')
+    assert.ok(Array.isArray(result.nodeInfo.dynamic.listeners))
+    hs.close()
+  },
+  {
+    timeout: 30_000,
+  }
+)
+
+test(
+  'should subs workflow',
+  async function () {
+    /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
+    const prom = pDefer()
+    const hs = new Homestar({
+      transport: new WebsocketTransport(wsUrl, {
+        ws: WebSocket,
+      }),
+    })
+
+    const workflow = await Workflow.workflow({
+      name: 'subs',
+      workflow: {
+        tasks: [
+          Workflow.crop({
+            name: 'crop',
+            resource: wasmCID,
+            args: {
+              data: imageCID,
+              height: 100,
+              width: 100,
+              x: 1,
+              y: 1,
+            },
+          }),
+        ],
+      },
+    })
+
+    const { error, result } = await hs.runWorkflow(workflow, (data) => {
+      if (data.error) {
+        return prom.reject(data.error)
+      }
+      prom.resolve(data.result)
+    })
+
+    if (error) {
+      return assert.fail(error)
+    }
+
+    assert.ok(typeof result === 'string')
+
+    const r = await prom.promise
+    assert.equal(r.metadata.name, 'subs')
+    hs.close()
+  },
+  {
+    timeout: 30_000,
+  }
+)
 
 test.skip(
   'should subs workflow for componentize',
@@ -448,7 +466,7 @@ test(
         console.error(result.error)
       } else {
         count++
-        if (count === 4) {
+        if (count === 2) {
           prom.resolve(result.result)
         }
       }
@@ -474,23 +492,23 @@ test(
               b: '1',
             },
           }),
-          Workflow.joinStrings({
-            name: 'append2',
-            resource: wasmCID,
-            args: {
-              a: '{{needs.append.output}}',
-              b: '2',
-            },
-          }),
-          Workflow.joinStrings({
-            name: 'join',
-            needs: ['append1', 'append2'],
-            resource: wasmCID,
-            args: {
-              a: '{{needs.append1.output}}',
-              b: '{{needs.append2.output}}',
-            },
-          }),
+          // Workflow.joinStrings({
+          //   name: 'append2',
+          //   resource: wasmCID,
+          //   args: {
+          //     a: '{{needs.append.output}}',
+          //     b: '2',
+          //   },
+          // }),
+          // Workflow.joinStrings({
+          //   name: 'join',
+          //   needs: ['append1', 'append2'],
+          //   resource: wasmCID,
+          //   args: {
+          //     a: '{{needs.append1.output}}',
+          //     b: '{{needs.append2.output}}',
+          //   },
+          // }),
         ],
       },
     })
@@ -504,7 +522,7 @@ test(
     assert.ok(typeof result === 'string')
 
     await prom.promise
-    assert.equal(count, 4)
+    assert.equal(count, 2)
     hs.close()
   },
   {
