@@ -37,7 +37,8 @@ export const Metrics = z
 export const Health = z.object({
   healthy: z.boolean(),
   nodeInfo: z.object({
-    peer_id: z.string(),
+    static: z.object({ peer_id: z.string() }),
+    dynamic: z.object({ listeners: z.array(z.string()) }),
   }),
 })
 
