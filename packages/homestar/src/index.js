@@ -33,6 +33,7 @@ export class Homestar extends Emittery {
     this.#channel = new Channel({
       codec: new JsonRpcCodec(),
       transport: opts.transport,
+      timeout: 15_000,
     })
 
     this.#channel.on('error', (error) => {
