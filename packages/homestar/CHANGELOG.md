@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/fission-codes/stack/compare/homestar-v0.6.0...homestar-v0.6.1) (2023-11-15)
+
+
+### Bug Fixes
+
+* update health schema ([5face9b](https://github.com/fission-codes/stack/commit/5face9bc3fb0943298c43f390607ed9dbbd022db))
+
 ## [0.6.0](https://github.com/fission-codes/stack/compare/homestar-v0.5.1...homestar-v0.6.0) (2023-11-14)
 
 
