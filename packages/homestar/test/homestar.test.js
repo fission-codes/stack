@@ -60,7 +60,8 @@ test('should fetch health from homestar', async function () {
 
   assert.equal(result.healthy, true)
   assert.ok(result.nodeInfo)
-  assert.ok(typeof result.nodeInfo.peer_id === 'string')
+  assert.ok(typeof result.nodeInfo.static.peer_id === 'string')
+  assert.ok(Array.isArray(result.nodeInfo.dynamic.listeners))
   hs.close()
 })
 
