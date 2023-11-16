@@ -178,6 +178,9 @@ importers:
       '@bytecodealliance/componentize-js':
         specifier: ^0.4.1
         version: 0.4.1
+      '@ts-ast-parser/core':
+        specifier: ^0.6.2
+        version: 0.6.2(typescript@5.2.2)
       '@types/get-value':
         specifier: ^3.0.5
         version: 3.0.5
@@ -1127,7 +1130,7 @@ packages:
       '@libp2p/interface-connection': 4.0.0
       '@libp2p/interface-peer-id': 2.0.2
       '@libp2p/interfaces': 3.3.2
-      it-pushable: 3.2.2
+      it-pushable: 3.2.3
       uint8arraylist: 2.4.3
     transitivePeerDependencies:
       - supports-color
@@ -1138,11 +1141,11 @@ packages:
     dependencies:
       '@multiformats/multiaddr': 12.1.10
       abortable-iterator: 5.0.1
-      it-pushable: 3.2.2
+      it-pushable: 3.2.3
       it-stream-types: 2.0.1
       multiformats: 12.1.3
       p-defer: 4.0.0
-      race-signal: 1.0.1
+      race-signal: 1.0.2
       uint8arraylist: 2.4.3
     transitivePeerDependencies:
       - supports-color
@@ -1308,6 +1311,26 @@ packages:
   /@sindresorhus/merge-streams@1.0.0:
     resolution: {integrity: sha512-rUV5WyJrJLoloD4NDN1V1+LDMDWOa4OTsT4yYJwQNpTU6FWxkxHpL7eu4w+DmiH8x/EAM1otkPE1+LaspIbplw==}
     engines: {node: '>=18'}
+    dev: true
+
+  /@ts-ast-parser/comment@0.1.0:
+    resolution: {integrity: sha512-SLN5vUMcu0FwhsW7ngVFhwCI9p5r5MGIRT1nGyVKlrXSXMHGcKnU9oulH5Gz9s6epRQooA2TJmU/4hW9z8zy9A==}
+    engines: {node: ^16.0.0 || ^18.0.0 || ^20.0.0}
+    dependencies:
+      tslib: 2.6.2
+    dev: true
+
+  /@ts-ast-parser/core@0.6.2(typescript@5.2.2):
+    resolution: {integrity: sha512-sRTMMdNLrt++mUXzEN2Cg6mDBhdCPMxB/05kC/h8SLzY0mIVHQrRKkRtbO+XGu/bnZ3wB3XVHyFYkzEKyKhcFA==}
+    engines: {node: ^16.0.0 || ^18.0.0 || ^20.0.0}
+    peerDependencies:
+      typescript: ^4.6.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x
+    dependencies:
+      '@ts-ast-parser/comment': 0.1.0
+      globby: 13.2.2
+      package-json-type: 1.0.3
+      tslib: 2.6.2
+      typescript: 5.2.2
     dev: true
 
   /@types/assert@1.5.9:
@@ -3542,7 +3565,7 @@ packages:
     dependencies:
       dir-glob: 3.0.1
       fast-glob: 3.3.2
-      ignore: 5.2.4
+      ignore: 5.3.0
       merge2: 1.4.1
       slash: 4.0.0
     dev: true
@@ -3553,7 +3576,7 @@ packages:
     dependencies:
       '@sindresorhus/merge-streams': 1.0.0
       fast-glob: 3.3.2
-      ignore: 5.2.4
+      ignore: 5.3.0
       path-type: 5.0.0
       slash: 5.1.0
       unicorn-magic: 0.1.0
@@ -3654,32 +3677,32 @@ packages:
       parse-passwd: 1.0.0
     dev: true
 
-  /homestar-darwin-arm64@0.0.3:
-    resolution: {integrity: sha512-br8kHn79Tx+uE44qVrE9wt8gLCuBdfqFMKPP4y+BAr2jmRI4JM1PTEbg0rsNy4348jnlOGTNIGljAkJbYhx1ig==}
+  /homestar-darwin-arm64@0.0.4:
+    resolution: {integrity: sha512-iAW3rn6KGH3PmvBvY+yPYT9l0abhp6ipRb+twum6WMgymDiREAXCQU7rlXGMuRfrrHjobvY6/k3ZTE0ujlAzyQ==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /homestar-darwin-x64@0.0.3:
-    resolution: {integrity: sha512-lxgsHmGNiyYnfUTuGvMI2YvAuwuB+8/Y6VwFGnGz4GS1o8m0ad5OFnDpUKc44yQXH6wcdzJe9/8vKXaSYs6yRg==}
+  /homestar-darwin-x64@0.0.4:
+    resolution: {integrity: sha512-XUeKoXXqlyNLA+UxAqBkf5vZyVVkDVq0+Rjnc39/AEQMVKbz3TJk3RpWI3odHZk8iB8++n2zXqd1q+vEYEUa+A==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /homestar-linux-arm64@0.0.3:
-    resolution: {integrity: sha512-UPf0qjwdigQwl8F95I5pZ5Jq2pSwwYtbiRoV7WQLcMRFWDkPEXbJx51yYssB7tSjFFbTRiGDcJtyFczAFkgiCw==}
+  /homestar-linux-arm64@0.0.4:
+    resolution: {integrity: sha512-XRfrH0Y0lDURqSJW5x9DDuivTS66fR++zE6Nosjr/RXZ3VdgvOcGx7RmxRiC1h5TLO45Sc7KqSmphMZNZPE32g==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /homestar-linux-x64@0.0.3:
-    resolution: {integrity: sha512-TfkVaLqAGzELsKD37TvxyGauaMIvsxyxwfpavba6tX4ubcWDN6/1Docq1KO0d9+gunls/NwaBdFdNyeKF/EZMg==}
+  /homestar-linux-x64@0.0.4:
+    resolution: {integrity: sha512-8Cuo8PPYuTgIVB6r9e7CbbuoIMi5aa7XF1MA+CjsYxMoY+d0CCo7sJqWA5wh8ghE4aVHQKQfWLaB8i3PNRridA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -3692,10 +3715,10 @@ packages:
     dependencies:
       execa: 8.0.1
     optionalDependencies:
-      homestar-darwin-arm64: 0.0.3
-      homestar-darwin-x64: 0.0.3
-      homestar-linux-arm64: 0.0.3
-      homestar-linux-x64: 0.0.3
+      homestar-darwin-arm64: 0.0.4
+      homestar-darwin-x64: 0.0.4
+      homestar-linux-arm64: 0.0.4
+      homestar-linux-x64: 0.0.4
     dev: true
 
   /hosted-git-info@2.8.9:
@@ -3737,6 +3760,11 @@ packages:
   /ignore@5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
+
+  /ignore@5.3.0:
+    resolution: {integrity: sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==}
+    engines: {node: '>= 4'}
+    dev: true
 
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -4196,8 +4224,8 @@ packages:
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dev: true
 
-  /it-pushable@3.2.2:
-    resolution: {integrity: sha512-eGY2lKZxa4hNNRPNuL4r7Eluk//j6jL4zEmQUzAHYKG912sY/RzzEpfJedZcnEdf6zB7b8NdHOf0chCm2sL/xw==}
+  /it-pushable@3.2.3:
+    resolution: {integrity: sha512-gzYnXYK8Y5t5b/BnJUr7glfQLO4U5vyb05gPx/TyTw+4Bv1zM9gFk4YsOrnulWefMewlphCjKkakFvj1y99Tcg==}
     dependencies:
       p-defer: 4.0.0
     dev: true
@@ -5034,6 +5062,10 @@ packages:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
 
+  /package-json-type@1.0.3:
+    resolution: {integrity: sha512-Bey4gdRuOwDbS8Fj1qA3/pTq5r8pqiI5E3tjSqCdhaLSsyGG364VFzXLTIexN5AaNGe/vgdBzLfoKdr7EVg2KQ==}
+    dev: true
+
   /package1@0.0.0:
     resolution: {integrity: sha512-U4a0VTa026SElK/J6JbW7/pzFZHddrAQ3OEbgCHFwXV/Ytt+Ece37GppLjP+GBRBqge7dZS9qlEOOou8m/1Fiw==}
     dev: false
@@ -5283,8 +5315,8 @@ packages:
     resolution: {integrity: sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==}
     dev: true
 
-  /race-signal@1.0.1:
-    resolution: {integrity: sha512-a5un4dInIWoB7+76DieVE+Xv+wmyochKJ3P2GVs9dUKIzGuPyFR5iU3gEWJvztde/15fSOGkslbIsPxi+Loosw==}
+  /race-signal@1.0.2:
+    resolution: {integrity: sha512-o3xNv0iTcIDQCXFlF6fPAMEBRjFxssgGoRqLbg06m+AdzEXXLUmoNOoUHTVz2NoBI8hHwKFKoC6IqyNtWr2bww==}
     dev: true
 
   /randombytes@2.1.0:

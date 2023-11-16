@@ -82,7 +82,7 @@ test('should timeout', async function () {
     throw new Error('Expected error')
   }
 
-  assert.equal(r.error.message, 'Timeout')
+  assert.equal(r.error.message, 'Request 0 timed out after 100ms.')
 })
 
 test('should receive notification', async function () {

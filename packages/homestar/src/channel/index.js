@@ -45,7 +45,7 @@ export class Channel extends Emittery {
           this.#queue.delete(id)
 
           resolve({
-            error: new Error('Timeout'),
+            error: new Error(`Request ${id} timed out after ${timeout}ms.`),
           })
         }, timeout)
       }
@@ -95,8 +95,8 @@ export class Channel extends Emittery {
   }
 
   close() {
-    this.#queue.clear()
     this.opts.transport.close()
+    this.#queue.clear()
     this.clearListeners()
   }
 }
