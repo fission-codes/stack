@@ -355,6 +355,7 @@ test(
     })
 
     if (error) {
+      hs.close()
       return assert.fail(error)
     }
 
@@ -429,6 +430,7 @@ test(
     })
 
     if (error) {
+      hs.close()
       return assert.fail(error)
     }
 

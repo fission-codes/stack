@@ -123,13 +123,17 @@ host = '127.0.0.1'
 port = ${httpPort}
     `
     )
+
     hs1 = execa('homestar', ['start', '-c', workflow1, '--db', db1], {
-      // stdio: 'pipe',
       preferLocal: true,
+
+      // stdio: 'inherit',
       // env: {
       //   RUST_LOG: 'homestar=debug,homestar_runtime=debug',
       // },
     })
+    hs1.stdout.on('data', (data) => {})
+    hs1.stderr.on('data', (data) => {})
 
     const dir2 = temporaryDirectory()
     const workflow2 = path.join(dir2, 'test_workflow2.toml')
@@ -162,15 +166,18 @@ port = ${httpPort}
   },
 
   async afterTests() {
+    await container.stop()
     for (const client of server.clients) {
       client.terminate()
     }
     server.removeAllListeners()
     server.close()
-    hs1.kill()
-    hs2.kill()
-
-    await container.stop()
+    hs1.kill('SIGTERM', {
+      forceKillAfterTimeout: 100,
+    })
+    hs2.kill('SIGTERM', {
+      forceKillAfterTimeout: 100,
+    })
   },
 }
 
