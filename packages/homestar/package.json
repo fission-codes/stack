@@ -2,7 +2,7 @@
   "name": "@fission-codes/homestar",
   "type": "module",
   "version": "0.6.1",
-  "description": "Homestart Client.",
+  "description": "Homestar Client.",
   "author": "Hugo Dias <hugomrdias@gmail.com> (hugodias.me)",
   "license": "MIT",
   "homepage": "https://github.com/fission-codes/stack/tree/main/packages/homestar",
@@ -61,6 +61,8 @@
   },
   "files": [
     "src",
+    "dist/src/workflow/*.d.ts",
+    "dist/src/workflow/*.d.ts.map",
     "dist/src/channel/codecs/*.d.ts",
     "dist/src/channel/codecs/*.d.ts.map",
     "dist/src/channel/transports/*.d.ts",
