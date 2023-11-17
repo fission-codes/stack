@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2](https://github.com/fission-codes/stack/compare/homestar-v0.6.1...homestar-v0.6.2) (2023-11-17)
+
+
+### Bug Fixes
+
+* add workflow files to npm ([de00ae0](https://github.com/fission-codes/stack/commit/de00ae0f1f50ce4fc1121dc0821fa98c6efa99ca))
+
 ## [0.6.1](https://github.com/fission-codes/stack/compare/homestar-v0.6.0...homestar-v0.6.1) (2023-11-15)
 
 
