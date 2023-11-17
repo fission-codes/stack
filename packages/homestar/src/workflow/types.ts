@@ -20,10 +20,10 @@ export type TemplateInput = string | Record<string, any> | any[]
 export type TemplateOutput<T extends TemplateInput> = T extends string
   ? string
   : T extends any[]
-  ? any[]
-  : T extends Record<string, any>
-  ? TemplateTask<any>
-  : T
+    ? any[]
+    : T extends Record<string, any>
+      ? TemplateTask<any>
+      : T
 
 export interface TemplateWorkflow<Args extends any[] = any[]>
   extends z.infer<typeof Schemas.TemplateWorkflow> {
