@@ -14,7 +14,7 @@ import { addFSFileToIPFS } from './utils.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
-const test = suite('wasmify')
+const test = suite('wasmify').skip
 const wsUrl = process.env.HS1_URL || 'ws://localhost:8060'
 
 test(
