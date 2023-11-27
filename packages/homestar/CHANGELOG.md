@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/fission-codes/stack/compare/homestar-v0.6.2...homestar-v1.0.0) (2023-11-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove `needs`, resource must include `ipfs://` and export more types
+
+### Features
+
+* remove `needs`, resource must include `ipfs://` and export more types ([6103c8f](https://github.com/fission-codes/stack/commit/6103c8f1db9872a43eb157f644708118ca55f6a9))
+
 ## [0.6.2](https://github.com/fission-codes/stack/compare/homestar-v0.6.1...homestar-v0.6.2) (2023-11-17)
 
 
