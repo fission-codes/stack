@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-null */
 import { assert, suite } from 'playwright-test/taps'
 import * as Client from 'playwright-test/client'
 import { WebSocket } from 'unws'
@@ -94,7 +93,7 @@ test(
         tasks: [
           Workflow.crop({
             name: 'crop',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               data: imageCID,
               height: 100,
@@ -129,61 +128,6 @@ test(
   }
 )
 
-test.skip(
-  'should subs workflow for componentize',
-  async function () {
-    /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
-    const prom = pDefer()
-    const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
-        ws: WebSocket,
-      }),
-    })
-
-    const workflow = {
-      name: 'componentize',
-      workflow: {
-        tasks: [
-          {
-            cause: null,
-            meta: {
-              memory: 4_294_967_296,
-              time: 100_000,
-            },
-            prf: [],
-            run: {
-              input: {
-                args: ['hugo'],
-                func: 'hello',
-              },
-              nnc: '',
-              op: 'wasm/run',
-              rsc: 'ipfs://QmfCSBVVuDFEwe3R2BSBG5QpdLJ6ZwLnQLzg3xXAHZ4b2V',
-            },
-          },
-        ],
-      },
-    }
-    const { error, result } = await hs.runWorkflow(workflow, (data) => {
-      if (data.error) {
-        return prom.reject(data.error)
-      }
-      prom.resolve(data.result)
-    })
-
-    if (error) {
-      return assert.fail(error)
-    }
-
-    assert.ok(typeof result === 'string')
-
-    const r = await prom.promise
-    assert.equal(r.metadata.name, 'componentize')
-    hs.close()
-  },
-  { timeout: 60_000 }
-)
-
 test(
   'should process base64 image',
   async function () {
@@ -202,7 +146,7 @@ test(
         tasks: [
           Workflow.cropBase64({
             name: 'crop64',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               data: dataUrl,
               height: 10,
@@ -261,7 +205,7 @@ test(
         tasks: [
           Workflow.crop({
             name: 'crop1',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               data: imageCID,
               height: 100,
@@ -272,7 +216,7 @@ test(
           }),
           Workflow.crop({
             name: 'crop2',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               data: imageCID,
               height: 10,
@@ -325,7 +269,7 @@ test(
         tasks: [
           Workflow.cropBase64({
             name: 'crop64',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               data: dataUrl,
               height: 10,
@@ -336,8 +280,7 @@ test(
           }),
           Workflow.blur({
             name: 'blur',
-            needs: 'crop64',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               sigma: 0.1,
               data: '{{needs.crop64.output}}',
@@ -388,14 +331,14 @@ test(
         tasks: [
           Workflow.appendString({
             name: 'append',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               a: 'hello1111',
             },
           }),
           Workflow.joinStrings({
             name: 'append1',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               a: '{{needs.append.output}}',
               b: '111111',
@@ -403,7 +346,7 @@ test(
           }),
           Workflow.joinStrings({
             name: 'append2',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               a: '{{needs.append.output}}',
               b: '2222111',
@@ -411,8 +354,7 @@ test(
           }),
           Workflow.joinStrings({
             name: 'join',
-            needs: ['append1', 'append2'],
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               a: '{{needs.append1.output}}',
               b: '{{needs.append2.output}}',
@@ -481,36 +423,19 @@ test(
         tasks: [
           Workflow.appendString({
             name: 'append',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               a: 'hello',
             },
           }),
           Workflow.joinStrings({
             name: 'append1',
-            resource: wasmCID,
+            resource: `ipfs://${wasmCID}`,
             args: {
               a: '{{needs.append.output}}',
               b: '1',
             },
           }),
-          // Workflow.joinStrings({
-          //   name: 'append2',
-          //   resource: wasmCID,
-          //   args: {
-          //     a: '{{needs.append.output}}',
-          //     b: '2',
-          //   },
-          // }),
-          // Workflow.joinStrings({
-          //   name: 'join',
-          //   needs: ['append1', 'append2'],
-          //   resource: wasmCID,
-          //   args: {
-          //     a: '{{needs.append1.output}}',
-          //     b: '{{needs.append2.output}}',
-          //   },
-          // }),
         ],
       },
     })

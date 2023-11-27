@@ -1,3 +1,4 @@
+import fs from 'fs/promises'
 import * as Client from 'playwright-test/client'
 import { base64 } from 'iso-base/rfc4648'
 import { create, urlSource } from 'kubo-rpc-client'
@@ -39,6 +40,28 @@ export async function addFileToIPFS(path) {
 
   const file = await ipfs.add(
     urlSource(new URL(path, Client.server).toString()),
+    {
+      cidVersion: 1,
+    }
+  )
+
+  return file.cid
+}
+
+/**
+ * Add file to IPFS
+ *
+ * @param {string} path - path to file ie. '/small.png'
+ */
+export async function addFSFileToIPFS(path) {
+  const ipfs = create({
+    port: Number(process.env.IPFS_PORT ?? '5001'),
+  })
+
+  const file = await ipfs.add(
+    {
+      content: await fs.readFile(path),
+    },
     {
       cidVersion: 1,
     }

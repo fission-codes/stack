@@ -46,17 +46,26 @@ export interface TemplateInvocation<Args extends any[] = any[]>
 
 export type Placeholder = `{{${string}${`:${string}` | ''}}}`
 export type DataURI = `data:${string};base64,${string}`
+export type Resource = `ipfs://${string}`
 
-export interface InvocationOptions<
+export interface InvocationOptions<Args extends any[] = any[]> {
+  name: string
+  args: Args
+  func: string
+  resource: Resource
+}
+
+export interface TemplateOptions<
   Args extends Record<string, any> = Record<string, any>,
 > {
   name: string
-  needs?: string | string[]
   args: Args
   /**
-   * The resource to use for the invocation. This should be a URI but for now just pass the CID string.
+   * The resource URI to use for the invocation.
+   *
+   * @example `ipfs://Qm...`
    */
-  resource: string
+  resource: Resource
 }
 
 /**
@@ -66,7 +75,7 @@ export interface InvocationOptions<
 export type CropInvocation = TemplateInvocation<
   [CID | Placeholder | DataURI, number, number, number, number]
 >
-export type CropOptions = InvocationOptions<{
+export type CropOptions = TemplateOptions<{
   data: CID | Placeholder | DataURI
   x: number
   y: number
@@ -77,44 +86,44 @@ export type CropOptions = InvocationOptions<{
 export type GrayscaleInvocation = TemplateInvocation<
   [CID | Placeholder | DataURI]
 >
-export type GrayscaleOptions = InvocationOptions<{
+export type GrayscaleOptions = TemplateOptions<{
   data: CID | Placeholder | DataURI
 }>
 
 export type Rotate90Invocation = TemplateInvocation<
   [CID | Placeholder | DataURI]
 >
-export type Rotate90Options = InvocationOptions<{
+export type Rotate90Options = TemplateOptions<{
   data: CID | Placeholder | DataURI
 }>
 
 export type BlurInvocation = TemplateInvocation<
   [CID | Placeholder | DataURI, number]
 >
-export type BlurOptions = InvocationOptions<{
+export type BlurOptions = TemplateOptions<{
   data: CID | Placeholder | DataURI
   sigma: number
 }>
 
 export type AddOneInvocation = TemplateInvocation<[number | Placeholder]>
-export type AddOneOptions = InvocationOptions<{
+export type AddOneOptions = TemplateOptions<{
   a: number | Placeholder
 }>
 
 export type AppendStringInvocation = TemplateInvocation<[string | Placeholder]>
-export type AppendStringOptions = InvocationOptions<{
+export type AppendStringOptions = TemplateOptions<{
   a: string | Placeholder
 }>
 
 export type JoinStringsInvocation = TemplateInvocation<
   [string | Placeholder, string | Placeholder]
 >
-export type JoinStringsOptions = InvocationOptions<{
+export type JoinStringsOptions = TemplateOptions<{
   a: string | Placeholder
   b: string | Placeholder
 }>
 
 export type TransposeInvocation = TemplateInvocation<[[[number]] | Placeholder]>
-export type TransposeOptions = InvocationOptions<{
+export type TransposeOptions = TemplateOptions<{
   matrix: [[number]] | Placeholder
 }>

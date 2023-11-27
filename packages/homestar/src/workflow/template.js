@@ -1,4 +1,6 @@
-import { get } from 'object-path'
+import pkg from 'object-path'
+
+const { get } = pkg
 
 /**
  * Check if the given value is a plain object.
