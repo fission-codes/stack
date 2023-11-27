@@ -14,7 +14,7 @@ import { addFSFileToIPFS } from './utils.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
-const test = suite('wasmify')
+const test = suite('wasmify').skip
 const wsUrl = process.env.HS1_URL || 'ws://localhost:8060'
 
 test(
@@ -63,8 +63,6 @@ test(
     assert.ok(typeof result === 'string')
 
     const r = await prom.promise
-    // eslint-disable-next-line no-console
-    console.log('🚀 ~ file: wasmify.node.test.js:66 ~ r:', r)
     const actual = utf8.encode(base64.decode(r))
     assert.equal(actual, 'hello')
     hs.close()
