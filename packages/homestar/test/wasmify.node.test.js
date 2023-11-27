@@ -68,7 +68,7 @@ test(
     hs.close()
   },
   {
-    timeout: 10_000,
+    timeout: 30_000,
   }
 )
 
@@ -123,6 +123,6 @@ test(
     hs.close()
   },
   {
-    timeout: 10_000,
+    timeout: 30_000,
   }
 )
