@@ -11,9 +11,22 @@ import * as Schemas from './schemas.js'
  */
 
 /**
+ * @template Out
+ * @typedef {import('./types.js').Receipt<Out>} Receipt
+ */
+
+/**
  * @typedef {{subscription: string, result: number[]}} SubscriptionNotification
  * @typedef {import('./types.js').HomestarEvents} HomestarEvents
  * @typedef {import('./types.js').HomestarOptions} HomestarOptions
+ * @typedef {import('./types.js').Metrics} Metrics
+ * @typedef {import('./types.js').MetricsError} MetricsError
+ * @typedef {import('./types.js').Health} Health
+ * @typedef {import('./types.js').HealthError} HealthError
+ * @typedef {import('./types.js').WorkflowNotification} WorkflowNotification
+ * @typedef {import('./types.js').WorkflowNotificationError} WorkflowNotificationError
+ * @typedef {import('./types.js').EventNotification} EventNotification
+ * @typedef {import('./types.js').EventNotificationError} EventNotificationError
  */
 
 /**

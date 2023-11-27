@@ -7,6 +7,11 @@ import { parse } from './template.js'
 import { TemplateWorkflow } from './schemas.js'
 
 /**
+ * @template {any[]} [Args=any[]]
+ * @typedef {import('./types.js').InvocationOptions<Args>} InvocationOptions
+ */
+
+/**
  * @typedef {import('./types.js').TemplateWorkflow} TemplateWorkflow
  * @typedef {import('./types.js').Workflow} Workflow
  * @typedef {import('./types.js').WorkflowContext} WorkflowContext
@@ -20,7 +25,7 @@ import { TemplateWorkflow } from './schemas.js'
  * @typedef {import('./types.js').JoinStringsInvocation} JoinStringsInvocation
  * @typedef {import('./types.js').TransposeInvocation} TransposeInvocation
  *
- * @typedef {import('./types.js').InvocationOptions} InvocationOptions
+ *
  * @typedef {import('./types.js').CropOptions} CropOptions
  * @typedef {import('./types.js').GrayscaleOptions} GrayscaleOptions
  * @typedef {import('./types.js').Rotate90Options} Rotate90Options
@@ -93,13 +98,17 @@ export async function workflow(template) {
  * @returns {CropInvocation}
  */
 export function crop(opts) {
-  return baseInvocation(opts, 'crop', [
-    opts.args.data,
-    opts.args.x,
-    opts.args.y,
-    opts.args.width,
-    opts.args.height,
-  ])
+  return invocation({
+    ...opts,
+    args: [
+      opts.args.data,
+      opts.args.x,
+      opts.args.y,
+      opts.args.width,
+      opts.args.height,
+    ],
+    func: 'crop',
+  })
 }
 
 /**
@@ -107,13 +116,17 @@ export function crop(opts) {
  * @returns {CropInvocation}
  */
 export function cropBase64(opts) {
-  return baseInvocation(opts, 'crop-base64', [
-    opts.args.data,
-    opts.args.x,
-    opts.args.y,
-    opts.args.width,
-    opts.args.height,
-  ])
+  return invocation({
+    ...opts,
+    args: [
+      opts.args.data,
+      opts.args.x,
+      opts.args.y,
+      opts.args.width,
+      opts.args.height,
+    ],
+    func: 'crop-base64',
+  })
 }
 
 /**
@@ -122,7 +135,11 @@ export function cropBase64(opts) {
  * @returns {GrayscaleInvocation}
  */
 export function grayscale(opts) {
-  return baseInvocation(opts, 'grayscale', [opts.args.data])
+  return invocation({
+    ...opts,
+    args: [opts.args.data],
+    func: 'grayscale',
+  })
 }
 
 /**
@@ -131,7 +148,11 @@ export function grayscale(opts) {
  * @returns {GrayscaleInvocation}
  */
 export function grayscaleBase64(opts) {
-  return baseInvocation(opts, 'grayscale-base64', [opts.args.data])
+  return invocation({
+    ...opts,
+    args: [opts.args.data],
+    func: 'grayscale-base64',
+  })
 }
 
 /**
@@ -140,7 +161,11 @@ export function grayscaleBase64(opts) {
  * @returns {Rotate90Invocation}
  */
 export function rotate90(opts) {
-  return baseInvocation(opts, 'rotate90', [opts.args.data])
+  return invocation({
+    ...opts,
+    args: [opts.args.data],
+    func: 'rotate90',
+  })
 }
 
 /**
@@ -149,7 +174,11 @@ export function rotate90(opts) {
  * @returns {Rotate90Invocation}
  */
 export function rotate90Base64(opts) {
-  return baseInvocation(opts, 'rotate90-base64', [opts.args.data])
+  return invocation({
+    ...opts,
+    args: [opts.args.data],
+    func: 'rotate90-base64',
+  })
 }
 
 /**
@@ -158,7 +187,11 @@ export function rotate90Base64(opts) {
  * @returns {BlurInvocation}
  */
 export function blur(opts) {
-  return baseInvocation(opts, 'blur', [opts.args.data, opts.args.sigma])
+  return invocation({
+    ...opts,
+    args: [opts.args.data, opts.args.sigma],
+    func: 'blur',
+  })
 }
 
 /**
@@ -167,7 +200,11 @@ export function blur(opts) {
  * @returns {BlurInvocation}
  */
 export function blurBase64(opts) {
-  return baseInvocation(opts, 'blur-base64', [opts.args.data, opts.args.sigma])
+  return invocation({
+    ...opts,
+    args: [opts.args.data, opts.args.sigma],
+    func: 'blur-base64',
+  })
 }
 
 /**
@@ -176,7 +213,11 @@ export function blurBase64(opts) {
  * @returns {AddOneInvocation}
  */
 export function addOne(opts) {
-  return baseInvocation(opts, 'add-one', [opts.args.a])
+  return invocation({
+    ...opts,
+    args: [opts.args.a],
+    func: 'add-one',
+  })
 }
 
 /**
@@ -185,7 +226,11 @@ export function addOne(opts) {
  * @returns {AppendStringInvocation}
  */
 export function appendString(opts) {
-  return baseInvocation(opts, 'append-string', [opts.args.a])
+  return invocation({
+    ...opts,
+    args: [opts.args.a],
+    func: 'append-string',
+  })
 }
 
 /**
@@ -194,7 +239,11 @@ export function appendString(opts) {
  * @returns {JoinStringsInvocation}
  */
 export function joinStrings(opts) {
-  return baseInvocation(opts, 'join-strings', [opts.args.a, opts.args.b])
+  return invocation({
+    ...opts,
+    args: [opts.args.a, opts.args.b],
+    func: 'join-strings',
+  })
 }
 
 /**
@@ -203,19 +252,21 @@ export function joinStrings(opts) {
  * @returns {TransposeInvocation}
  */
 export function transpose(opts) {
-  return baseInvocation(opts, 'transpose', [opts.args.matrix])
+  return invocation({
+    ...opts,
+    args: [opts.args.matrix],
+    func: 'transpose',
+  })
 }
 
 /**
  * Base invocation
  *
  * @template {any[]} Args
- * @param {InvocationOptions} opts
- * @param {string} func
- * @param {Args} args
+ * @param {InvocationOptions<Args>} opts
  * @returns {import('./types').TemplateInvocation<Args>}
  */
-function baseInvocation(opts, func, args) {
+export function invocation(opts) {
   return {
     cause: null,
     meta: {
@@ -225,14 +276,13 @@ function baseInvocation(opts, func, args) {
     prf: [],
     run: {
       name: opts.name,
-      needs: opts.needs,
       input: {
-        args,
-        func,
+        args: opts.args,
+        func: opts.func,
       },
       nnc: '',
       op: 'wasm/run',
-      rsc: 'ipfs://' + opts.resource,
+      rsc: opts.resource,
     },
   }
 }

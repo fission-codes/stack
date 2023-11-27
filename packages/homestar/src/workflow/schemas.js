@@ -22,7 +22,6 @@ export const Placeholder =
 
 export const TemplateTask = Task.extend({
   name: z.string(),
-  needs: z.string().or(z.array(z.string())).optional(),
 })
 
 export const TemplateInvocation = Invocation.extend({
