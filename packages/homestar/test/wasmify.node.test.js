@@ -63,6 +63,8 @@ test(
     assert.ok(typeof result === 'string')
 
     const r = await prom.promise
+    // eslint-disable-next-line no-console
+    console.log('🚀 ~ file: wasmify.node.test.js:66 ~ r:', r)
     const actual = utf8.encode(base64.decode(r))
     assert.equal(actual, 'hello')
     hs.close()
