@@ -10,7 +10,7 @@ import { build } from '../src/wasmify/index.js'
 import { Homestar } from '../src/index.js'
 import { WebsocketTransport } from '../src/channel/transports/ws.js'
 import { invocation, workflow } from '../src/workflow/index.js'
-import { addFSFileToIPFS } from './utils.js'
+import { addFSFileToIPFS } from './utils-node.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
