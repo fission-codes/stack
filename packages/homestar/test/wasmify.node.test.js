@@ -14,8 +14,8 @@ import { addFSFileToIPFS } from './utils-node.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
-const test = suite('wasmify').skip
-const wsUrl = process.env.HS1_URL || 'ws://localhost:8060'
+const test = suite('wasmify')
+const HS1_URL = process.env.HS1_URL || 'ws://localhost:8060'
 
 test(
   'should wasmify',
@@ -28,7 +28,7 @@ test(
     /** @type {import('p-defer').DeferredPromise<string>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
+      transport: new WebsocketTransport(HS1_URL, {
         ws: WebSocket,
       }),
     })
@@ -49,18 +49,13 @@ test(
         ],
       },
     })
-    const { error, result } = await hs.runWorkflow(workflow1, (data) => {
-      if (data.error) {
-        return prom.reject(data.error)
-      }
-      prom.resolve(data.result?.receipt.out[1])
+    const { error } = await hs.runWorkflow(workflow1, (data) => {
+      prom.resolve(data.receipt.out[1])
     })
 
     if (error) {
       return assert.fail(error)
     }
-
-    assert.ok(typeof result === 'string')
 
     const r = await prom.promise
     const actual = utf8.encode(base64.decode(r))
@@ -83,7 +78,7 @@ test(
     /** @type {import('p-defer').DeferredPromise<Uint8Array>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
+      transport: new WebsocketTransport(HS1_URL, {
         ws: WebSocket,
       }),
     })
@@ -104,18 +99,13 @@ test(
         ],
       },
     })
-    const { error, result } = await hs.runWorkflow(workflow1, (data) => {
-      if (data.error) {
-        return prom.reject(data.error)
-      }
-      prom.resolve(data.result?.receipt.out[1])
+    const { error } = await hs.runWorkflow(workflow1, (data) => {
+      prom.resolve(data.receipt.out[1])
     })
 
     if (error) {
       return assert.fail(error)
     }
-
-    assert.ok(typeof result === 'string')
 
     const r = await prom.promise
     const actual = base64.encode(r)

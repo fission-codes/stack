@@ -11,7 +11,8 @@ import * as Schemas from '../src/schemas.js'
 import { addFileToIPFS, getImgBlob } from './utils.js'
 
 const test = suite('homestar')
-const wsUrl = 'ws://localhost:8060'
+const HS1_URL = process.env.HS1_URL || 'ws://localhost:8020'
+const HS2_URL = process.env.HS2_URL || 'ws://localhost:8030'
 
 /**
  * @type {string}
@@ -33,7 +34,7 @@ test(
   'should fetch metrics from homestar',
   async function () {
     const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
+      transport: new WebsocketTransport(HS1_URL, {
         ws: WebSocket,
       }),
     })
@@ -55,7 +56,7 @@ test(
   'should fetch health from homestar',
   async function () {
     const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
+      transport: new WebsocketTransport(HS1_URL, {
         ws: WebSocket,
       }),
     })
@@ -82,7 +83,7 @@ test(
     /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
+      transport: new WebsocketTransport(HS1_URL, {
         ws: WebSocket,
       }),
     })
@@ -106,18 +107,13 @@ test(
       },
     })
 
-    const { error, result } = await hs.runWorkflow(workflow, (data) => {
-      if (data.error) {
-        return prom.reject(data.error)
-      }
-      prom.resolve(data.result)
+    const { error } = await hs.runWorkflow(workflow, (data) => {
+      prom.resolve(data)
     })
 
     if (error) {
       return assert.fail(error)
     }
-
-    assert.ok(typeof result === 'string')
 
     const r = await prom.promise
     assert.equal(r.metadata.name, 'subs')
@@ -134,7 +130,7 @@ test(
     /** @type {import('p-defer').DeferredPromise<Schemas.WorkflowNotification>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
+      transport: new WebsocketTransport(HS1_URL, {
         ws: WebSocket,
       }),
     })
@@ -159,18 +155,13 @@ test(
       },
     })
 
-    const { error, result } = await hs.runWorkflow(workflow, (data) => {
-      if (data.error) {
-        return prom.reject(data.error)
-      }
-      prom.resolve(data.result)
+    const { error } = await hs.runWorkflow(workflow, (data) => {
+      prom.resolve(data)
     })
 
     if (error) {
       return assert.fail(error)
     }
-
-    assert.ok(typeof result === 'string')
 
     const { receipt } = await prom.promise
     assert.equal(receipt.meta.op, 'crop-base64')
@@ -193,7 +184,7 @@ test(
     /** @type {import('p-defer').DeferredPromise<number>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
+      transport: new WebsocketTransport(HS1_URL, {
         ws: WebSocket,
       }),
     })
@@ -229,7 +220,7 @@ test(
       },
     })
 
-    const { error, result } = await hs.runWorkflow(workflow, (data) => {
+    const { error } = await hs.runWorkflow(workflow, (data) => {
       count++
       if (count === 2) {
         prom.resolve(2)
@@ -239,8 +230,6 @@ test(
     if (error) {
       return assert.fail(error)
     }
-
-    assert.ok(typeof result === 'string')
 
     await prom.promise
     assert.equal(count, 2)
@@ -257,7 +246,7 @@ test(
     /** @type {import('p-defer').DeferredPromise<number>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
+      transport: new WebsocketTransport(HS1_URL, {
         ws: WebSocket,
       }),
     })
@@ -290,7 +279,7 @@ test(
       },
     })
 
-    const { error, result } = await hs.runWorkflow(workflow, (data) => {
+    const { error } = await hs.runWorkflow(workflow, (data) => {
       count++
       if (count === 2) {
         prom.resolve(2)
@@ -301,8 +290,6 @@ test(
       hs.close()
       return assert.fail(error)
     }
-
-    assert.ok(typeof result === 'string')
 
     await prom.promise
     assert.equal(count, 2)
@@ -320,7 +307,7 @@ test(
     /** @type {import('p-defer').DeferredPromise<string>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
+      transport: new WebsocketTransport(HS1_URL, {
         ws: WebSocket,
       }),
     })
@@ -364,10 +351,10 @@ test(
       },
     })
 
-    const { error, result } = await hs.runWorkflow(workflow, (data) => {
+    const { error } = await hs.runWorkflow(workflow, (data) => {
       count++
       if (count === 4) {
-        prom.resolve(data.result?.receipt.out[1])
+        prom.resolve(data.receipt.out[1])
       }
     })
 
@@ -375,8 +362,6 @@ test(
       hs.close()
       return assert.fail(error)
     }
-
-    assert.ok(typeof result === 'string')
 
     const r = await prom.promise
     assert.equal(count, 4)
@@ -394,25 +379,21 @@ test(
     /** @type {import('p-defer').DeferredPromise<any>} */
     const prom = pDefer()
     const hs = new Homestar({
-      transport: new WebsocketTransport(wsUrl, {
+      transport: new WebsocketTransport(HS1_URL, {
         ws: WebSocket,
       }),
     })
 
     const hs1 = new Homestar({
-      transport: new WebsocketTransport('ws://localhost:8070', {
+      transport: new WebsocketTransport(HS2_URL, {
         ws: WebSocket,
       }),
     })
 
     await hs1.networkEvents((result) => {
-      if (result.error) {
-        console.error(result.error)
-      } else {
-        count++
-        if (count === 2) {
-          prom.resolve(result.result)
-        }
+      count++
+      if (count === 2) {
+        prom.resolve(result)
       }
     })
 
@@ -440,16 +421,87 @@ test(
       },
     })
 
-    const { error, result } = await hs.runWorkflow(workflow)
+    const { error } = await hs.runWorkflow(workflow)
 
     if (error) {
       return assert.fail(error)
     }
 
-    assert.ok(typeof result === 'string')
-
     await prom.promise
     assert.equal(count, 2)
+    hs.close()
+  },
+  {
+    timeout: 30_000,
+  }
+)
+
+test(
+  'should receive network events with iterator',
+  async function () {
+    /** @type {import('p-defer').DeferredPromise<number>} */
+    const prom = pDefer()
+    const hs = new Homestar({
+      transport: new WebsocketTransport(HS1_URL, {
+        ws: WebSocket,
+      }),
+    })
+
+    const hs1 = new Homestar({
+      transport: new WebsocketTransport(HS2_URL, {
+        ws: WebSocket,
+      }),
+    })
+
+    const events = await hs1.networkEventsIterator()
+
+    if (events.error) {
+      return assert.fail(events.error)
+    }
+
+    setTimeout(async () => {
+      let count = 0
+      // eslint-disable-next-line no-unused-vars
+      for await (const _event of events.result) {
+        count++
+        if (count === 2) {
+          break
+        }
+      }
+      prom.resolve(count)
+    }, 1)
+
+    const workflow = await Workflow.workflow({
+      name: 'test-network-events',
+      workflow: {
+        tasks: [
+          Workflow.appendString({
+            name: 'append',
+            resource: `ipfs://${wasmCID}`,
+            args: {
+              a: 'hello',
+            },
+          }),
+          Workflow.joinStrings({
+            name: 'append1',
+            resource: `ipfs://${wasmCID}`,
+            args: {
+              a: '{{needs.append.output}}',
+              b: '1',
+            },
+          }),
+        ],
+      },
+    })
+
+    const { error } = await hs.runWorkflow(workflow, () => {})
+
+    if (error) {
+      return assert.fail(error)
+    }
+
+    const r = await prom.promise
+    assert.equal(r, 2)
     hs.close()
   },
   {
