@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -30,7 +30,7 @@ importers:
         version: 2.9.0
       typedoc:
         specifier: ^0.25.4
-        version: 0.25.4(typescript@5.2.2)
+        version: 0.25.4(typescript@5.3.2)
       typedoc-plugin-missing-exports:
         specifier: ^2.1.0
         version: 2.1.0(typedoc@0.25.4)
@@ -38,8 +38,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(typedoc@0.25.4)
       typescript:
-        specifier: 5.2.2
-        version: 5.2.2
+        specifier: 5.3.2
+        version: 5.3.2
 
   examples/demo:
     dependencies:
@@ -6444,7 +6444,7 @@ packages:
     peerDependencies:
       typedoc: 0.24.x || 0.25.x
     dependencies:
-      typedoc: 0.25.4(typescript@5.2.2)
+      typedoc: 0.25.4(typescript@5.3.2)
     dev: true
 
   /typedoc-plugin-zod@1.1.0(typedoc@0.25.4):
@@ -6452,10 +6452,10 @@ packages:
     peerDependencies:
       typedoc: 0.23.x || 0.24.x || 0.25.x
     dependencies:
-      typedoc: 0.25.4(typescript@5.2.2)
+      typedoc: 0.25.4(typescript@5.3.2)
     dev: true
 
-  /typedoc@0.25.4(typescript@5.2.2):
+  /typedoc@0.25.4(typescript@5.3.2):
     resolution: {integrity: sha512-Du9ImmpBCw54bX275yJrxPVnjdIyJO/84co0/L9mwe0R3G4FSR6rQ09AlXVRvZEGMUg09+z/usc8mgygQ1aidA==}
     engines: {node: '>= 16'}
     hasBin: true
@@ -6466,18 +6466,12 @@ packages:
       marked: 4.3.0
       minimatch: 9.0.3
       shiki: 0.14.5
-      typescript: 5.2.2
+      typescript: 5.3.2
     dev: true
 
   /typescript-event-target@1.1.0:
     resolution: {integrity: sha512-PMrzUVryhnUq2n8M7tjNHNRuIHlUqly5RfGltBTpPCdVpbytgALTRDegF/t6+mFmmtBVhOqEYlbjVNBxwabIug==}
     dev: false
-
-  /typescript@5.2.2:
-    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-    dev: true
 
   /typescript@5.3.2:
     resolution: {integrity: sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==}
