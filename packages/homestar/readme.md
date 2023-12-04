@@ -27,6 +27,10 @@ const hs = new Homestar({
   }),
 })
 
+hs.on('error', (error) => {
+  console.error(error)
+})
+
 const { error, result } = await hs.metrics()
 if (error) {
   console.error(error)

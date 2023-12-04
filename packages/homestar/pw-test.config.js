@@ -98,21 +98,17 @@ async function startHomestar(httpPort) {
   await fs.writeFile(
     config1,
     `
-[monitoring]
-process_collector_interval = 500
-console_subscriber_port = 5600
-
-
 [node]
+[node.network.metrics]
+port = 4020
 
-[node.network]
-metrics_port = 4060
-events_buffer_len = 1000
-rpc_port = 9840
-webserver_port = 8060
+[node.network.rpc]
+port = 9820
+
+[node.network.webserver]
+port = 8020
 
 [node.network.ipfs]
-host = '127.0.0.1'
 port = ${httpPort}
     `
   )
@@ -131,21 +127,17 @@ port = ${httpPort}
   await fs.writeFile(
     config2,
     `
-[monitoring]
-process_collector_interval = 500
-console_subscriber_port = 5600
-
-
 [node]
+[node.network.metrics]
+port = 4030
 
-[node.network]
-metrics_port = 4070
-events_buffer_len = 1000
-rpc_port = 9850
-webserver_port = 8070
+[node.network.rpc]
+port = 9830
+
+[node.network.webserver]
+port = 8030
 
 [node.network.ipfs]
-host = '127.0.0.1'
 port = ${httpPort}
     `
   )
@@ -159,8 +151,8 @@ port = ${httpPort}
   return {
     hs1,
     hs2,
-    hs1Url: 'ws://localhost:8060',
-    hs2Url: 'ws://localhost:8070',
+    hs1Url: 'ws://127.0.0.1:8020',
+    hs2Url: 'ws://127.0.0.1:8030',
   }
 }
 /**
