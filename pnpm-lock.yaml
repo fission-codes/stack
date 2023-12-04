@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -81,8 +81,8 @@ importers:
         specifier: ^17.1.0
         version: 17.1.0(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0)
       eslint-config-standard-with-typescript:
-        specifier: ^39.1.1
-        version: 39.1.1(@typescript-eslint/eslint-plugin@6.13.2)(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0)(typescript@5.3.2)
+        specifier: ^40.0.0
+        version: 40.0.0(@typescript-eslint/eslint-plugin@6.13.2)(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0)(typescript@5.3.2)
       eslint-plugin-eslint-comments:
         specifier: ^3.2.0
         version: 3.2.0(eslint@8.55.0)
@@ -3095,6 +3095,29 @@ packages:
       typescript: 5.3.2
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /eslint-config-standard-with-typescript@40.0.0(@typescript-eslint/eslint-plugin@6.13.2)(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0)(typescript@5.3.2):
+    resolution: {integrity: sha512-GXUJcwIXiTQaS3H4etv8a1lejVVdZYaxZNz3g7vt6GoJosQqMTurbmSC4FVGyHiGT/d1TjFr3+47A3xsHhsG+Q==}
+    peerDependencies:
+      '@typescript-eslint/eslint-plugin': ^6.4.0
+      eslint: ^8.0.1
+      eslint-plugin-import: ^2.25.2
+      eslint-plugin-n: '^15.0.0 || ^16.0.0 '
+      eslint-plugin-promise: ^6.0.0
+      typescript: '*'
+    dependencies:
+      '@typescript-eslint/eslint-plugin': 6.13.2(@typescript-eslint/parser@6.13.2)(eslint@8.55.0)(typescript@5.3.2)
+      '@typescript-eslint/parser': 6.13.2(eslint@8.55.0)(typescript@5.3.2)
+      eslint: 8.55.0
+      eslint-config-standard: 17.1.0(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0)
+      eslint-plugin-import: 2.29.0(@typescript-eslint/parser@6.13.2)(eslint@8.55.0)
+      eslint-plugin-n: 16.3.1(eslint@8.55.0)
+      eslint-plugin-promise: 6.1.1(eslint@8.55.0)
+      typescript: 5.3.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /eslint-config-standard@17.1.0(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0):
     resolution: {integrity: sha512-IwHwmaBNtDK4zDHQukFDW5u/aTb8+meQWZvNFWkiGmbWjD6bqyuSSBxxXKkCftCUzc1zwCH2m/baCNDLGmuO5Q==}
