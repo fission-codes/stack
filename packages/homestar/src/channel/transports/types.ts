@@ -1,13 +1,18 @@
 import type Emittery from 'emittery'
-import type { CodecType, DataType } from '../codecs/types'
+import type { CodecEncoded } from '../codecs/types'
 
-export interface TransportEvents {
-  response: DataType
-  error: Error
+export type Data = string | ArrayBufferLike | Blob | ArrayBufferView
+
+export interface TransportEvents<D, E extends Error = Error> {
+  response: D
+  error: E
   close: undefined
 }
-export interface Transport extends Emittery<TransportEvents> {
-  type: CodecType
-  send: (data: unknown, timeout?: number) => Promise<any>
+
+export interface TransportSendOptions {
+  timeout?: number
+}
+export interface Transport<D = any> extends Emittery<TransportEvents<D>> {
+  send: (data: CodecEncoded<D>, options?: TransportSendOptions) => Promise<any>
   close: () => void
 }

@@ -2,7 +2,6 @@
 import Emittery from 'emittery'
 
 /**
- * @typedef {import('./codecs/types').CodecType} CodecType
  * @typedef {import('./codecs/types').Codec} Codec
  */
 
@@ -87,11 +86,11 @@ export class Channel extends Emittery {
 
   /** @type {IChannel<C>['request']} */
   request(data, timeout = this.opts.timeout) {
-    const { id, data: encoded } = this.opts.codec.encode(data)
+    const encoded = this.opts.codec.encode(data)
 
-    this.opts.transport.send(encoded, timeout)
+    this.opts.transport.send(encoded, { timeout })
 
-    return this.#queueRequest(id.toString(), timeout)
+    return this.#queueRequest(encoded.id.toString(), timeout)
   }
 
   close() {

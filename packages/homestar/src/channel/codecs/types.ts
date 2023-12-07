@@ -10,21 +10,28 @@ export type MaybeResult<ResultType = unknown, ErrorType = Error> =
       error?: undefined
     }
 
-export type CodecType = 'text' | 'binary'
-export type DataType = string | ArrayBuffer
+/**
+ * Codec
+ */
+
+export interface CodecEncoded<DataType> {
+  id: number | string
+  data: DataType
+}
+
+export interface CodecDecoded<Out = any, Err extends Error = Error> {
+  id?: number | string | null
+  data: MaybeResult<Out, Err>
+}
 
 export interface Codec<
-  Type extends CodecType = 'text',
+  DataType = any,
   In = any,
   Out = any,
   Err extends Error = Error,
 > {
-  type: Type
-  encode: (data: In) => { id: number | string; data: DataType }
-  decode: (data: DataType) => {
-    id?: number | string | null
-    data: MaybeResult<Out, Err>
-  }
+  encode: (data: In) => CodecEncoded<DataType>
+  decode: (data: DataType) => CodecDecoded<Out, Err>
 }
 
 /**
@@ -51,7 +58,7 @@ export type JsonRpcResponse =
   | {
       jsonrpc: '2.0'
       id: number | string | null
-      result: JsonValue
+      result: JsonArray | JsonObject
       error?: undefined
     }
   | {
@@ -62,7 +69,7 @@ export type JsonRpcResponse =
     }
 
 export type IJsonRpcCodec = Codec<
-  'text',
+  string,
   {
     method: string
     params?: JsonRpcParams

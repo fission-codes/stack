@@ -37,12 +37,8 @@ export class JsonRpcCodec {
   /** @type {() => number | string} */
   #nextId
 
-  /** @type {IJsonRpcCodec['type']} */
-  type
-
   constructor() {
     this.#nextId = defaultNextID()
-    this.type = 'text'
   }
 
   /** @type {IJsonRpcCodec['encode']} */
@@ -61,39 +57,42 @@ export class JsonRpcCodec {
 
   /** @type {IJsonRpcCodec['decode']} */
   decode(data) {
-    if (typeof data === 'string') {
-      const parsed = /** @type {JsonRpcResponse | JsonRpcRequest} */ (
-        JSON.parse(data)
-      )
-
-      if (isJsonRpcRequest(parsed)) {
-        return {
-          id: parsed.id,
-          data: {
-            result: parsed.params ?? null,
-          },
-        }
-      }
-
-      if (parsed.result) {
-        return { id: parsed.id, data: { result: parsed.result } }
-      }
-      if (parsed.error) {
-        return {
-          id: parsed.id,
-          data: {
-            error: new Error(parsed.error.message, {
-              cause: parsed.error.data,
-            }),
-          },
-        }
+    if (typeof data !== 'string') {
+      return {
+        data: {
+          error: new Error(
+            `Invalid channel data type expected string got ${typeof data}.`
+          ),
+        },
       }
     }
 
-    return {
-      data: {
-        error: new Error('Invalid response'),
-      },
+    const parsed = /** @type {JsonRpcResponse | JsonRpcRequest} */ (
+      JSON.parse(data)
+    )
+
+    // Handle notifications
+    if (isJsonRpcRequest(parsed)) {
+      return {
+        id: parsed.id,
+        data: {
+          result: parsed.params ?? null,
+        },
+      }
     }
+
+    // Handle responses and errors
+    if (parsed.error) {
+      return {
+        id: parsed.id,
+        data: {
+          error: new Error(parsed.error.message, {
+            cause: parsed.error.data,
+          }),
+        },
+      }
+    }
+
+    return { id: parsed.id, data: { result: parsed.result } }
   }
 }

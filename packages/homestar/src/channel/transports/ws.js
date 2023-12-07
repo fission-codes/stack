@@ -2,14 +2,19 @@ import Emittery from 'emittery'
 import { WS } from 'iso-websocket'
 
 /**
- * @typedef {import('./types.js').Transport} Transport
- * @typedef {import('../codecs/types.js').CodecType} CodecType
+ * @typedef {import('./types.js').Data} Data
+ */
+
+/**
+ * @template {Data} [DataType=Data]
+ * @typedef {import('./types.js').Transport<DataType>} Transport
  */
 
 /**
  * @class WebsocketTransport
- * @extends {Emittery<import('./types.js').TransportEvents>}
- * @implements {Transport}
+ * @template {Data} [DataType=Data]
+ * @extends {Emittery<import('./types.js').TransportEvents<DataType>>}
+ * @implements {Transport<DataType>}
  */
 export class WebsocketTransport extends Emittery {
   /** @type {WS} */
@@ -22,7 +27,6 @@ export class WebsocketTransport extends Emittery {
   constructor(url, opts) {
     super()
     this.#ws = new WS(url, opts)
-    this.type = /** @type {CodecType} */ ('text')
     this.#ws.addEventListener('message', this.#handleMessage)
     this.#ws.addEventListener('error', this.#handleError)
     this.#ws.addEventListener('close', this.#handleClose)
@@ -55,10 +59,9 @@ export class WebsocketTransport extends Emittery {
   }
 
   /**
-   * @param {unknown} data
+   * @param {import('../codecs/types.js').CodecEncoded<DataType>} data
    */
   async send(data) {
-    // @ts-ignore
-    this.#ws.send(data)
+    this.#ws.send(data.data)
   }
 }
