@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -81,8 +81,8 @@ importers:
         specifier: ^17.1.0
         version: 17.1.0(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0)
       eslint-config-standard-with-typescript:
-        specifier: ^39.1.1
-        version: 39.1.1(@typescript-eslint/eslint-plugin@6.13.2)(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0)(typescript@5.3.2)
+        specifier: ^42.0.0
+        version: 42.0.0(@typescript-eslint/eslint-plugin@6.13.2)(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0)(typescript@5.3.2)
       eslint-plugin-eslint-comments:
         specifier: ^3.2.0
         version: 3.2.0(eslint@8.55.0)
@@ -3095,6 +3095,29 @@ packages:
       typescript: 5.3.2
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /eslint-config-standard-with-typescript@42.0.0(@typescript-eslint/eslint-plugin@6.13.2)(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0)(typescript@5.3.2):
+    resolution: {integrity: sha512-m1/2g/Sicun1uFZOFigJVeOqo9fE7OkMsNtilcpHwdCdcGr21qsGqYiyxYSvvHfJwY7w5OTQH0hxk8sM2N5Ohg==}
+    peerDependencies:
+      '@typescript-eslint/eslint-plugin': ^6.4.0
+      eslint: ^8.0.1
+      eslint-plugin-import: ^2.25.2
+      eslint-plugin-n: '^15.0.0 || ^16.0.0 '
+      eslint-plugin-promise: ^6.0.0
+      typescript: '*'
+    dependencies:
+      '@typescript-eslint/eslint-plugin': 6.13.2(@typescript-eslint/parser@6.13.2)(eslint@8.55.0)(typescript@5.3.2)
+      '@typescript-eslint/parser': 6.13.2(eslint@8.55.0)(typescript@5.3.2)
+      eslint: 8.55.0
+      eslint-config-standard: 17.1.0(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0)
+      eslint-plugin-import: 2.29.0(@typescript-eslint/parser@6.13.2)(eslint@8.55.0)
+      eslint-plugin-n: 16.3.1(eslint@8.55.0)
+      eslint-plugin-promise: 6.1.1(eslint@8.55.0)
+      typescript: 5.3.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /eslint-config-standard@17.1.0(eslint-plugin-import@2.29.0)(eslint-plugin-n@16.3.1)(eslint-plugin-promise@6.1.1)(eslint@8.55.0):
     resolution: {integrity: sha512-IwHwmaBNtDK4zDHQukFDW5u/aTb8+meQWZvNFWkiGmbWjD6bqyuSSBxxXKkCftCUzc1zwCH2m/baCNDLGmuO5Q==}
@@ -3935,32 +3958,32 @@ packages:
       parse-passwd: 1.0.0
     dev: true
 
-  /homestar-darwin-arm64@0.1.0-rc.1701724624:
-    resolution: {integrity: sha512-rvkvunHFk4zNK0c0z4IuNWNtw0q3ZmjgFWlhKs4PHapux13fCmTuwkRuYB44OA1LbXgbdxxiW4DF4PDtt5k4QA==}
+  /homestar-darwin-arm64@0.1.0-rc.1701883766:
+    resolution: {integrity: sha512-cpXu3FCr/2HgQ1TYYK6U5k4t/xcv1daLzNIdCymVczruFpM9nJk5XcROzRMkFGV6/fJ34jn5ViLZ0TsMkhzGLw==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /homestar-darwin-x64@0.1.0-rc.1701724627:
-    resolution: {integrity: sha512-VUgrg6OOIJoS2Y/1uE2N8JIGqwhaHKKI9DtrjfDASS2qsGoeJ2fJdMKQ1f5Ty0xa83W1NVyW+37OzsCzh/Co4A==}
+  /homestar-darwin-x64@0.1.0-rc.1701883771:
+    resolution: {integrity: sha512-lPM4N8U/RhuiHXOfcYfQWeX6+FjR9gR/A41vjaQtcIkZ4k9quF1gdMYaUVXBsVwxn4uW1WkEc859Bs/C05Dg2Q==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /homestar-linux-arm64@0.1.0-rc.1701724624:
-    resolution: {integrity: sha512-C3+ahSTd7eK1mOxYP9wSqjZjq98M3H57zm6rtXoTSwgIZbx830rq30Xt4H4qR1dEMU589TCClxTrJw9z14VKng==}
+  /homestar-linux-arm64@0.1.0-rc.1701883761:
+    resolution: {integrity: sha512-mYhRrN3HuvYdSVvnfikE6v32JhdEhPGphVxhPaFjP7eeC1iDSHWdq3ZOFvLtenAqb03aWzG1+QudxdIWsAE/cA==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /homestar-linux-x64@0.1.0-rc.1701724623:
-    resolution: {integrity: sha512-+Of1pcfcQAAvyc/1cq2SoSjgoFwxWciPp3JunnFvjeo87LlGXyjY4Yhne0DFNyfwFb0od45NuySOSSOmAkB3Qw==}
+  /homestar-linux-x64@0.1.0-rc.1701883771:
+    resolution: {integrity: sha512-qd08NIe/2Vw9fImstJIUyx7OxkdrDXVFsc6ApwUb6DRm35jEvhm8wiFCSSRwuCk4oOuGmX369yiiJbJMwiwTSw==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -3973,15 +3996,15 @@ packages:
     dependencies:
       execa: 8.0.1
     optionalDependencies:
-      homestar-darwin-arm64: 0.1.0-rc.1701724624
-      homestar-darwin-x64: 0.1.0-rc.1701724627
-      homestar-linux-arm64: 0.1.0-rc.1701724624
-      homestar-linux-x64: 0.1.0-rc.1701724623
-      homestar-windows-x64: 0.1.0-rc.1701724628
+      homestar-darwin-arm64: 0.1.0-rc.1701883766
+      homestar-darwin-x64: 0.1.0-rc.1701883771
+      homestar-linux-arm64: 0.1.0-rc.1701883761
+      homestar-linux-x64: 0.1.0-rc.1701883771
+      homestar-windows-x64: 0.1.0-rc.1701883762
     dev: true
 
-  /homestar-windows-x64@0.1.0-rc.1701724628:
-    resolution: {integrity: sha512-eJf+918ObmwOVRDYZTSztgFKkTxF0HOXZk1SfZA0ym9sNdgf5EXwb/w4s6utxHJOv2MQSv+1p+oMYFcXZLuUyA==}
+  /homestar-windows-x64@0.1.0-rc.1701883762:
+    resolution: {integrity: sha512-cX495SW/1lNN+EuBa3Don965uB71b987lFqKQCE3/Jd8a8vtY6Z+PnjYAoKJhIUz49Hb8tRM39crRschvtFuSA==}
     cpu: [x64]
     os: [windows]
     requiresBuild: true
