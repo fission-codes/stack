@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -187,8 +187,8 @@ importers:
         version: 3.22.4
     devDependencies:
       '@bytecodealliance/componentize-js':
-        specifier: ^0.4.1
-        version: 0.4.1
+        specifier: ^0.5.0
+        version: 0.5.0
       '@types/get-value':
         specifier: ^3.0.5
         version: 3.0.5
@@ -495,18 +495,18 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@bytecodealliance/componentize-js@0.4.1:
-    resolution: {integrity: sha512-RlpGE8R6Oge4oAvbDXhfvrvZq7UWRmiFgQmubbYByAzGthZo+enzhZfHzQGXcMSDLBrrwcNUximh6vMZrmW8JQ==}
+  /@bytecodealliance/componentize-js@0.5.0:
+    resolution: {integrity: sha512-wR7u7lO9j+6ZgUGLbGvteATaEqoE02Em+Sj7fxSzRJqzU0F8wrjaBTMFm/tR5akl7i2ihSsAxOMeEcSDokxwYg==}
     dependencies:
-      '@bytecodealliance/jco': 0.13.3
+      '@bytecodealliance/jco': 0.14.1
       '@bytecodealliance/wizer': 3.0.1
     dev: true
 
-  /@bytecodealliance/jco@0.13.3:
-    resolution: {integrity: sha512-BuixmVc8P0peSz6NbqAnF+h1Q8Qx6X4SmAIOlgW6vh4SisOamXdEiNycjICxArns9vIhl2QlqIJu9QMJJmTGsQ==}
+  /@bytecodealliance/jco@0.14.1:
+    resolution: {integrity: sha512-nKquA7x9ddyCPMP20WN5bt2yVGunI0Zlawd42vx9E2hRYqBan8BDPl67J0rQJWVRpJgK9B8/uW3k/HABdUmt8A==}
     hasBin: true
     dependencies:
-      '@bytecodealliance/preview2-shim': 0.0.21
+      '@bytecodealliance/preview2-shim': 0.14.1
       binaryen: 111.0.0
       chalk-template: 0.4.0
       commander: 9.5.0
@@ -515,8 +515,8 @@ packages:
       terser: 5.25.0
     dev: true
 
-  /@bytecodealliance/preview2-shim@0.0.21:
-    resolution: {integrity: sha512-VSqfQ0aAd9CV0KwCtXV8CZnJUMIZLyf3pbDWRNIEbg3YRETYbCrcwCsWDdEXr4qwUAsqjpgY9daCHyicmGlDfQ==}
+  /@bytecodealliance/preview2-shim@0.14.1:
+    resolution: {integrity: sha512-yYFUAtTt1rZ31M8ZQ00AwnCCzC4yu/bXC8ITjJWsxg9WwyCNPwZEohF23wu0FX5jhe6SEN2wB0yP6Njrksqk/A==}
     dev: true
 
   /@bytecodealliance/wizer-darwin-arm64@3.0.1:
