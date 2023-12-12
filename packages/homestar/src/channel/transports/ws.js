@@ -1,15 +1,18 @@
 import Emittery from 'emittery'
 import { WS } from 'iso-websocket'
 
+// eslint-disable-next-line no-unused-vars
+import * as T from '../types.js'
+
 /**
- * @typedef {import('./types.js').Transport} Transport
- * @typedef {import('../codecs/types.js').CodecType} CodecType
+ * @typedef {T.Transport.Transport<T.Transport.Data>} IWebsocketTransport
  */
 
 /**
  * @class WebsocketTransport
- * @extends {Emittery<import('./types.js').TransportEvents>}
- * @implements {Transport}
+ * @template {T.Transport.Data} Data
+ * @extends {Emittery<import('./types.js').TransportEvents<Data>>}
+ * @implements {T.Transport.Transport<Data>}
  */
 export class WebsocketTransport extends Emittery {
   /** @type {WS} */
@@ -22,7 +25,6 @@ export class WebsocketTransport extends Emittery {
   constructor(url, opts) {
     super()
     this.#ws = new WS(url, opts)
-    this.type = /** @type {CodecType} */ ('text')
     this.#ws.addEventListener('message', this.#handleMessage)
     this.#ws.addEventListener('error', this.#handleError)
     this.#ws.addEventListener('close', this.#handleClose)
@@ -54,11 +56,8 @@ export class WebsocketTransport extends Emittery {
     this.clearListeners()
   }
 
-  /**
-   * @param {unknown} data
-   */
-  async send(data) {
-    // @ts-ignore
-    this.#ws.send(data)
+  /** @type {T.Transport.Transport<Data>['send']} */
+  send(data) {
+    this.#ws.send(data.data)
   }
 }

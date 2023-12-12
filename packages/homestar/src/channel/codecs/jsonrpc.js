@@ -1,8 +1,9 @@
 /* eslint-disable unicorn/no-null */
+// eslint-disable-next-line no-unused-vars
+import * as T from '../types.js'
+
 /**
- * @typedef {import('./types').IJsonRpcCodec} IJsonRpcCodec
- * @typedef {import('./types').JsonRpcRequest} JsonRpcRequest
- * @typedef {import('./types').JsonRpcResponse} JsonRpcResponse
+ * @typedef {T.Codec.IJsonRpcCodec} IJsonRpcCodec
  */
 
 /**
@@ -17,7 +18,7 @@ function defaultNextID() {
  * Check if the value is a JsonRpcRequest
  *
  * @param {unknown} value
- * @returns {value is JsonRpcRequest}
+ * @returns {value is T.Codec.JsonRpcRequest}
  */
 function isJsonRpcRequest(value) {
   return (
@@ -31,18 +32,16 @@ function isJsonRpcRequest(value) {
 }
 
 /**
+ * JSON RPC Codec
+ *
  * @implements {IJsonRpcCodec}
  */
 export class JsonRpcCodec {
   /** @type {() => number | string} */
   #nextId
 
-  /** @type {IJsonRpcCodec['type']} */
-  type
-
   constructor() {
     this.#nextId = defaultNextID()
-    this.type = 'text'
   }
 
   /** @type {IJsonRpcCodec['encode']} */
@@ -61,39 +60,44 @@ export class JsonRpcCodec {
 
   /** @type {IJsonRpcCodec['decode']} */
   decode(data) {
-    if (typeof data === 'string') {
-      const parsed = /** @type {JsonRpcResponse | JsonRpcRequest} */ (
+    if (typeof data !== 'string') {
+      return {
+        data: {
+          error: new Error(
+            `Invalid channel data type expected string got ${typeof data}.`,
+            { cause: data }
+          ),
+        },
+      }
+    }
+
+    const parsed =
+      /** @type {T.Codec.JsonRpcResponse | T.Codec.JsonRpcRequest} */ (
         JSON.parse(data)
       )
 
-      if (isJsonRpcRequest(parsed)) {
-        return {
-          id: parsed.id,
-          data: {
-            result: parsed.params ?? null,
-          },
-        }
-      }
-
-      if (parsed.result) {
-        return { id: parsed.id, data: { result: parsed.result } }
-      }
-      if (parsed.error) {
-        return {
-          id: parsed.id,
-          data: {
-            error: new Error(parsed.error.message, {
-              cause: parsed.error.data,
-            }),
-          },
-        }
+    // Handle notifications
+    if (isJsonRpcRequest(parsed)) {
+      return {
+        id: parsed.id,
+        data: {
+          result: parsed.params ?? null,
+        },
       }
     }
 
-    return {
-      data: {
-        error: new Error('Invalid response'),
-      },
+    // Handle responses and errors
+    if (parsed.error) {
+      return {
+        id: parsed.id,
+        data: {
+          error: new Error(parsed.error.message, {
+            cause: parsed.error,
+          }),
+        },
+      }
     }
+
+    return { id: parsed.id, data: { result: parsed.result } }
   }
 }

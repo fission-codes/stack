@@ -2,31 +2,28 @@ import { decode } from '@ipld/dag-json'
 import Emittery from 'emittery'
 import { Channel } from './channel/index.js'
 import { JsonRpcCodec } from './channel/codecs/jsonrpc.js'
-import * as Schemas from './schemas.js'
+
+// eslint-disable-next-line no-unused-vars
+import * as T from './types.js'
 
 /**
- * @template R
- * @template E
- * @typedef {import('./channel/codecs/types.js').MaybeResult<R, E>} MaybeResult
+ * @template {unknown} [R=unknown]
+ * @template {Error} [E=Error]
+ * @typedef {T.Codec.Result<R, E>} Result
  */
 
 /**
  * @template Out
- * @typedef {import('./types.js').Receipt<Out>} Receipt
+ * @typedef {T.Receipt<Out>} Receipt
  */
 
 /**
- * @typedef {{subscription: string, result: number[]}} SubscriptionNotification
- * @typedef {import('./types.js').HomestarEvents} HomestarEvents
- * @typedef {import('./types.js').HomestarOptions} HomestarOptions
- * @typedef {import('./types.js').Metrics} Metrics
- * @typedef {import('./types.js').MetricsError} MetricsError
- * @typedef {import('./types.js').Health} Health
- * @typedef {import('./types.js').HealthError} HealthError
- * @typedef {import('./types.js').WorkflowNotification} WorkflowNotification
- * @typedef {import('./types.js').WorkflowNotificationError} WorkflowNotificationError
- * @typedef {import('./types.js').EventNotification} EventNotification
- * @typedef {import('./types.js').EventNotificationError} EventNotificationError
+ * @typedef {T.HomestarEvents} HomestarEvents
+ * @typedef {T.HomestarOptions} HomestarOptions
+ * @typedef {T.Metrics} Metrics
+ * @typedef {T.Health} Health
+ * @typedef {T.WorkflowNotification} WorkflowNotification
+ * @typedef {T.EventNotification} EventNotification
  */
 
 const noop = () => {}
@@ -36,7 +33,7 @@ const noop = () => {}
  * @extends {Emittery<HomestarEvents>}
  */
 export class Homestar extends Emittery {
-  /** @type {import('./channel/types.js').IChannel<import('./channel/codecs/types.js').IJsonRpcCodec>} */
+  /** @type {T.IChannel<JsonRpcCodec, T.HomestarService>} */
   #channel
   /**
    * @param {HomestarOptions} opts
@@ -44,12 +41,13 @@ export class Homestar extends Emittery {
   constructor(opts) {
     super()
     this.opts = opts
-
-    this.#channel = new Channel({
-      codec: new JsonRpcCodec(),
-      transport: opts.transport,
-      timeout: 5000,
-    })
+    this.#channel = /** @type {T.IChannel<JsonRpcCodec, T.HomestarService>} */ (
+      new Channel({
+        codec: new JsonRpcCodec(),
+        transport: opts.transport,
+        timeout: 5000,
+      })
+    )
 
     this.#channel.on('error', (error) => {
       this.emit('error', error)
@@ -58,8 +56,8 @@ export class Homestar extends Emittery {
 
   /**
    *
-   * @param {string} method
-   * @param {string} subId
+   * @param {'unsubscribe_run_workflow' | 'unsubscribe_network_events' } method
+   * @param { string } subId
    */
   #unsubscribe(method, subId) {
     this.#channel
@@ -86,69 +84,34 @@ export class Homestar extends Emittery {
 
   /**
    * Homestar Prometheus metrics
-   *
-   * @returns {Promise<MaybeResult<Schemas.Metrics, Schemas.MetricsError | Error>>}
    */
   async metrics() {
-    const res = await this.#channel.request({
+    return this.#channel.request({
       method: 'metrics',
     })
-
-    if (res.error) {
-      return { error: res.error }
-    }
-
-    const parsed = Schemas.Metrics.safeParse(res.result)
-
-    if (parsed.success) {
-      return { result: parsed.data }
-    }
-
-    return {
-      error: parsed.error,
-    }
   }
 
   /**
    * Homestar Health info
-   *
-   * @returns {Promise<MaybeResult<Schemas.Health, Schemas.HealthError | Error>>}
    */
-  async health() {
-    const res = await this.#channel.request({
+  health() {
+    return this.#channel.request({
       method: 'health',
     })
-
-    if (res.error) {
-      return { error: res.error }
-    }
-
-    const parsed = Schemas.Health.safeParse(res.result)
-
-    if (parsed.success) {
-      return { result: parsed.data }
-    }
-
-    return {
-      error: parsed.error,
-    }
   }
 
   /**
    * Run a workflow
    *
-   * @param {import('./workflow/index.js').Workflow} workflow
-   * @param {(data: Schemas.WorkflowNotification)=>void} [receiptCb] - Callback for workflow receipts
-   * @returns {Promise<MaybeResult<void, Error>>}
+   * @param {T.Workflow} workflow
+   * @param {(data: T.WorkflowNotification)=>void} [receiptCb] - Callback for workflow receipts
+   * @returns {Promise<T.Codec.Result<void, Error>>}
    */
   async runWorkflow(workflow, receiptCb = noop) {
-    const res = /** @type {MaybeResult<string, Error>} */ (
-      await this.#channel.request({
-        method: 'subscribe_run_workflow',
-        // @ts-ignore
-        params: [workflow],
-      })
-    )
+    const res = await this.#channel.request({
+      method: 'subscribe_run_workflow',
+      params: [workflow],
+    })
 
     if (res.error) {
       return { error: res.error }
@@ -158,28 +121,19 @@ export class Homestar extends Emittery {
     const tasksCount = workflow.workflow.tasks.length
     const subId = res.result
     /** @type {import('emittery').UnsubscribeFunction} */
-    const unsub = this.#channel.on(
-      'notification',
-      // @ts-ignore
-      (/** @type {SubscriptionNotification} */ data) => {
-        if (data.subscription === subId) {
-          receiptCount++
-          const decoded = decode(new Uint8Array(data.result))
-          const r = Schemas.WorkflowNotification.safeParse(decoded)
+    const unsub = this.#channel.on('notification', (data) => {
+      if (data.subscription === subId) {
+        receiptCount++
+        /** @type {T.WorkflowNotification} */
+        const decoded = decode(new Uint8Array(data.result))
+        receiptCb(decoded)
 
-          if (r.success === false) {
-            this.emit('error', r.error)
-          } else {
-            receiptCb(r.data)
-          }
-
-          if (tasksCount === receiptCount) {
-            unsub()
-            this.#unsubscribe('unsubscribe_run_workflow', subId)
-          }
+        if (tasksCount === receiptCount) {
+          unsub()
+          this.#unsubscribe('unsubscribe_run_workflow', subId)
         }
       }
-    )
+    })
 
     return { result: undefined }
   }
@@ -187,15 +141,13 @@ export class Homestar extends Emittery {
   /**
    * Subscribe to a network events
    *
-   * @param {(data: Schemas.EventNotification)=>void} [eventCb] - Callback for network events
-   * @returns {Promise<MaybeResult<() => void, Error>>}
+   * @param {(data: T.EventNotification)=>void} [eventCb] - Callback for network events
+   * @returns {Promise<T.Codec.Result<() => void, Error>>}
    */
   async networkEvents(eventCb = noop) {
-    const res = /** @type {MaybeResult<string, Error>} */ (
-      await this.#channel.request({
-        method: 'subscribe_network_events',
-      })
-    )
+    const res = await this.#channel.request({
+      method: 'subscribe_network_events',
+    })
 
     if (res.error) {
       return { error: res.error }
@@ -203,21 +155,13 @@ export class Homestar extends Emittery {
 
     const subId = res.result
     /** @type {import('emittery').UnsubscribeFunction} */
-    const unsub = this.#channel.on(
-      'notification',
-      // @ts-ignore
-      (/** @type {SubscriptionNotification} */ data) => {
-        if (data.subscription === subId) {
-          const decoded = decode(new Uint8Array(data.result))
-          const r = Schemas.EventNotification.safeParse(decoded)
-          if (r.success === false) {
-            this.emit('error', r.error)
-          } else {
-            eventCb(r.data)
-          }
-        }
+    const unsub = this.#channel.on('notification', (data) => {
+      if (data.subscription === subId) {
+        /** @type {T.EventNotification} */
+        const decoded = decode(new Uint8Array(data.result))
+        eventCb(decoded)
       }
-    )
+    })
 
     return {
       result: () => {
@@ -230,24 +174,19 @@ export class Homestar extends Emittery {
   /**
    * Subscribe to a network events iterator
    *
-   * @returns {Promise<MaybeResult<AsyncIterable<Schemas.EventNotification>, Error>>}
+   * @returns {Promise<T.Codec.Result<AsyncIterable<T.EventNotification>, Error>>}
    */
   async networkEventsIterator() {
-    const res = /** @type {MaybeResult<string, Error>} */ (
-      await this.#channel.request({
-        method: 'subscribe_network_events',
-      })
-    )
+    const res = await this.#channel.request({
+      method: 'subscribe_network_events',
+    })
 
     if (res.error) {
       return { error: res.error }
     }
 
     const subId = res.result
-    const notifications =
-      /** @type {AsyncIterableIterator<SubscriptionNotification>} */ (
-        this.#channel.events('notification')
-      )
+    const notifications = this.#channel.events('notification')
     // eslint-disable-next-line unicorn/no-this-assignment
     const instance = this
 
@@ -257,13 +196,9 @@ export class Homestar extends Emittery {
           try {
             for await (const notification of notifications) {
               if (notification.subscription === subId) {
+                /** @type {T.EventNotification} */
                 const decoded = decode(new Uint8Array(notification.result))
-                const r = Schemas.EventNotification.safeParse(decoded)
-                if (r.success === false) {
-                  instance.emit('error', r.error)
-                } else {
-                  yield r.data
-                }
+                yield decoded
               }
             }
           } finally {

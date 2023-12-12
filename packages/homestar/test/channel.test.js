@@ -10,13 +10,15 @@ const URL = 'ws://localhost:8082'
 
 test('should echo and match correct request', async function () {
   const codec = new JsonRpcCodec()
-  const channel = new Channel({
-    codec,
-    transport: new WebsocketTransport(URL + '/echo', {
-      ws: WebSocket,
-    }),
+  /** @type {WebsocketTransport<string>} */
+  const transport = new WebsocketTransport(URL + '/echo', {
+    ws: WebSocket,
   })
 
+  const channel = new Channel({
+    codec,
+    transport,
+  })
   await channel.request({
     method: 'test',
     params: ['first'],
@@ -38,6 +40,7 @@ test('should error with null id', async function () {
   const deferred = pDefer()
   const channel = new Channel({
     codec,
+    /** @type {WebsocketTransport<string>} */
     transport: new WebsocketTransport(URL + '/null-id', {
       ws: WebSocket,
     }),
@@ -65,6 +68,7 @@ test('should timeout', async function () {
   const codec = new JsonRpcCodec()
   const channel = new Channel({
     codec,
+    /** @type {WebsocketTransport<string>} */
     transport: new WebsocketTransport(URL + '/timeout', {
       ws: WebSocket,
     }),
@@ -90,6 +94,7 @@ test('should receive notification', async function () {
   const deferred = pDefer()
   const channel = new Channel({
     codec,
+    /** @type {WebsocketTransport<string>} */
     transport: new WebsocketTransport(URL + '/notify', {
       ws: WebSocket,
     }),
