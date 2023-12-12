@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4](https://github.com/fission-codes/stack/compare/eslint-config-v0.0.3...eslint-config-v0.0.4) (2023-12-12)
+
+
+### Bug Fixes
+
+* update deps ([c0ed761](https://github.com/fission-codes/stack/commit/c0ed76188b6be2ee677feb7c60fa0fbc7e112456))
+
 ## [0.0.3](https://github.com/fission-codes/stack/compare/eslint-config-v0.0.2...eslint-config-v0.0.3) (2023-10-27)
 
 
