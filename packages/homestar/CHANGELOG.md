@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.0](https://github.com/fission-codes/stack/compare/homestar-v1.0.0...homestar-v2.0.0) (2023-12-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* full types and metrics output changes
+
+### Features
+
+* full types and metrics output changes ([fe32107](https://github.com/fission-codes/stack/commit/fe32107146301857d7d39a7db45cc55df27c8eb3))
+* simplify api, add events iterator ([#74](https://github.com/fission-codes/stack/issues/74)) ([653f71f](https://github.com/fission-codes/stack/commit/653f71ff57b0e0cb945277e31fbc9e52c068b829)), closes [#71](https://github.com/fission-codes/stack/issues/71)
+
 ## [1.0.0](https://github.com/fission-codes/stack/compare/homestar-v0.6.2...homestar-v1.0.0) (2023-11-27)
 
 
