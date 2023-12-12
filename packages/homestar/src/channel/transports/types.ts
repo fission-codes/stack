@@ -13,6 +13,6 @@ export interface TransportSendOptions {
   timeout?: number
 }
 export interface Transport<D = any> extends Emittery<TransportEvents<D>> {
-  send: (data: CodecEncoded<D>, options?: TransportSendOptions) => Promise<any>
+  send: (data: CodecEncoded<D>, options?: TransportSendOptions) => void
   close: () => void
 }

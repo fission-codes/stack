@@ -1,20 +1,18 @@
 import Emittery from 'emittery'
 import { WS } from 'iso-websocket'
 
-/**
- * @typedef {import('./types.js').Data} Data
- */
+// eslint-disable-next-line no-unused-vars
+import * as T from '../types.js'
 
 /**
- * @template {Data} [DataType=Data]
- * @typedef {import('./types.js').Transport<DataType>} Transport
+ * @typedef {T.Transport.Transport<T.Transport.Data>} IWebsocketTransport
  */
 
 /**
  * @class WebsocketTransport
- * @template {Data} [DataType=Data]
- * @extends {Emittery<import('./types.js').TransportEvents<DataType>>}
- * @implements {Transport<DataType>}
+ * @template {T.Transport.Data} Data
+ * @extends {Emittery<import('./types.js').TransportEvents<Data>>}
+ * @implements {T.Transport.Transport<Data>}
  */
 export class WebsocketTransport extends Emittery {
   /** @type {WS} */
@@ -58,10 +56,8 @@ export class WebsocketTransport extends Emittery {
     this.clearListeners()
   }
 
-  /**
-   * @param {import('../codecs/types.js').CodecEncoded<DataType>} data
-   */
-  async send(data) {
+  /** @type {T.Transport.Transport<Data>['send']} */
+  send(data) {
     this.#ws.send(data.data)
   }
 }

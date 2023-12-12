@@ -44,7 +44,7 @@ test(
       return assert.fail(error)
     }
 
-    assert.equal(result.length, 17)
+    assert.equal(result.metrics.length, 17)
     hs.close()
   },
   {

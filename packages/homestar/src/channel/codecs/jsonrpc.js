@@ -1,8 +1,9 @@
 /* eslint-disable unicorn/no-null */
+// eslint-disable-next-line no-unused-vars
+import * as T from '../types.js'
+
 /**
- * @typedef {import('./types').IJsonRpcCodec} IJsonRpcCodec
- * @typedef {import('./types').JsonRpcRequest} JsonRpcRequest
- * @typedef {import('./types').JsonRpcResponse} JsonRpcResponse
+ * @typedef {T.Codec.IJsonRpcCodec} IJsonRpcCodec
  */
 
 /**
@@ -17,7 +18,7 @@ function defaultNextID() {
  * Check if the value is a JsonRpcRequest
  *
  * @param {unknown} value
- * @returns {value is JsonRpcRequest}
+ * @returns {value is T.Codec.JsonRpcRequest}
  */
 function isJsonRpcRequest(value) {
   return (
@@ -31,6 +32,8 @@ function isJsonRpcRequest(value) {
 }
 
 /**
+ * JSON RPC Codec
+ *
  * @implements {IJsonRpcCodec}
  */
 export class JsonRpcCodec {
@@ -61,15 +64,17 @@ export class JsonRpcCodec {
       return {
         data: {
           error: new Error(
-            `Invalid channel data type expected string got ${typeof data}.`
+            `Invalid channel data type expected string got ${typeof data}.`,
+            { cause: data }
           ),
         },
       }
     }
 
-    const parsed = /** @type {JsonRpcResponse | JsonRpcRequest} */ (
-      JSON.parse(data)
-    )
+    const parsed =
+      /** @type {T.Codec.JsonRpcResponse | T.Codec.JsonRpcRequest} */ (
+        JSON.parse(data)
+      )
 
     // Handle notifications
     if (isJsonRpcRequest(parsed)) {
@@ -87,7 +92,7 @@ export class JsonRpcCodec {
         id: parsed.id,
         data: {
           error: new Error(parsed.error.message, {
-            cause: parsed.error.data,
+            cause: parsed.error,
           }),
         },
       }

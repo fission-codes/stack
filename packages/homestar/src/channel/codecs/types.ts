@@ -1,6 +1,7 @@
-import type { JsonArray, JsonObject, JsonValue } from 'type-fest'
+import type { JsonValue, Jsonifiable } from 'type-fest'
+import type { IO } from '../types'
 
-export type MaybeResult<ResultType = unknown, ErrorType = Error> =
+export type Result<ResultType = unknown, ErrorType = Error> =
   | {
       error: ErrorType
       result?: undefined
@@ -14,16 +15,34 @@ export type MaybeResult<ResultType = unknown, ErrorType = Error> =
  * Codec
  */
 
+/**
+ * Codec encoded data
+ *
+ * @template DataType Data type for the transport
+ */
 export interface CodecEncoded<DataType> {
   id: number | string
   data: DataType
 }
 
-export interface CodecDecoded<Out = any, Err extends Error = Error> {
+/**
+ * Codec decoded data
+ *
+ * @template Out Result type
+ * @template Err Error type
+ */
+export interface CodecDecoded<D extends Result> {
   id?: number | string | null
-  data: MaybeResult<Out, Err>
+  data: D
 }
 
+/**
+ * Codec interface
+ *
+ * @template DataType Data type for the transport
+ * @template S Api
+ * @template Err Error type
+ */
 export interface Codec<
   DataType = any,
   In = any,
@@ -31,14 +50,22 @@ export interface Codec<
   Err extends Error = Error,
 > {
   encode: (data: In) => CodecEncoded<DataType>
-  decode: (data: DataType) => CodecDecoded<Out, Err>
+  decode: (data: DataType) => CodecDecoded<Result<Out, Err>>
 }
+
+export type InferCodec<C extends Codec> = C extends Codec<
+  infer D,
+  infer I,
+  infer O,
+  infer E
+>
+  ? { type: D; io: IO<I, O>; error: E }
+  : never
 
 /**
  * JSON-RPC 2.0
  */
 
-export type JsonRpcParams = JsonArray | JsonObject
 export interface JsonRpcError {
   code: number
   message: string
@@ -51,14 +78,14 @@ export interface JsonRpcRequest {
    * A String containing the name of the method to be invoked. Method names that begin with the word rpc followed by a period character (U+002E or ASCII 46) are reserved for rpc-internal methods and extensions and MUST NOT be used for anything else.
    */
   method: string
-  params?: JsonRpcParams
+  params?: JsonValue
 }
 
 export type JsonRpcResponse =
   | {
       jsonrpc: '2.0'
       id: number | string | null
-      result: JsonArray | JsonObject
+      result: JsonValue
       error?: undefined
     }
   | {
@@ -70,10 +97,7 @@ export type JsonRpcResponse =
 
 export type IJsonRpcCodec = Codec<
   string,
-  {
-    method: string
-    params?: JsonRpcParams
-  },
-  JsonValue,
+  { method: string; params?: unknown },
+  Jsonifiable,
   Error
 >
