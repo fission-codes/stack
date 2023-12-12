@@ -1,37 +1,36 @@
 /* eslint-disable unicorn/no-null */
 import Emittery from 'emittery'
 
-/**
- * @typedef {import('./codecs/types').CodecType} CodecType
- * @typedef {import('./codecs/types').Codec} Codec
- */
-
-/**
- * @template {Codec} C
- * @typedef {import('./types').IChannel<C>} IChannel
- */
+// eslint-disable-next-line no-unused-vars
+import * as T from './types.js'
 
 /**
  * @class Channel
- * @template {Codec} C
- * @implements {IChannel<C>}
- * @extends {Emittery<import('./types').ChannelEvents<C>>}
+ * @template {T.Codec.Codec} C
+ * @template {T.Service<Array<T.Codec.InferCodec<C>['io']>, T.Codec.InferCodec<C>['io']['out']>} S
+ * @implements {T.IChannel<C,S>}
+ * @extends {Emittery<T.ChannelEvents<C, S>>}
  */
 export class Channel extends Emittery {
   /** @type {Map<string, {resolve: (value: any) => void}>} */
   #queue = new Map()
   /**
    *
-   * @param {import('./types').ChannelOptions<C>} opts
+   * @param {T.ChannelOptions<C>} opts
    */
   constructor(opts) {
     super()
-    /** @type {Required<import('./types').ChannelOptions<C>>} */
+    /** @type {Required<T.ChannelOptions<C>>} */
     this.opts = { timeout: 5000, ...opts }
 
     this.opts.transport.on('response', this.#handleResponse)
     this.opts.transport.on('error', this.#handleError)
   }
+
+  /**
+   * @param {S} data
+   */
+  test(data) {}
 
   /**
    *
@@ -85,13 +84,13 @@ export class Channel extends Emittery {
     }
   }
 
-  /** @type {IChannel<C>['request']} */
+  /** @type {T.IChannel<C, S>['request']} */
   request(data, timeout = this.opts.timeout) {
-    const { id, data: encoded } = this.opts.codec.encode(data)
+    const encoded = this.opts.codec.encode(data)
 
-    this.opts.transport.send(encoded, timeout)
+    this.opts.transport.send(encoded, { timeout })
 
-    return this.#queueRequest(id.toString(), timeout)
+    return this.#queueRequest(encoded.id.toString(), timeout)
   }
 
   close() {
