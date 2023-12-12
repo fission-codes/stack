@@ -1,6 +1,5 @@
 {
   "separate-pull-requests": true,
-  "plugins": ["node-workspace"],
   "release-type": "node",
   "packages": {
     "packages/homestar": {},
