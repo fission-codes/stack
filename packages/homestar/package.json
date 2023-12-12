@@ -102,7 +102,7 @@
     "testcontainers": "^10.3.2",
     "type-fest": "^4.8.3",
     "unws": "^0.2.4",
-    "ws": "^8.14.2"
+    "ws": "^8.15.0"
   },
   "publishConfig": {
     "provenance": true
