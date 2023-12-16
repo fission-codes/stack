@@ -1,11 +1,10 @@
 import type { ZodTypeAny } from 'zod'
 import { type Opaque } from 'type-fest'
-import type { Transport } from './channel/transports/types'
+import type { IO, Service, Transport } from '@fission-codes/channel/types'
 import type * as Schemas from './schemas'
-import type { IO, Service } from './channel/types'
 import type { Workflow } from './workflow/types'
 
-export * from './channel/types'
+export * from '@fission-codes/channel/types'
 // Export schemas types
 export * from './schemas'
 export * from './workflow/types'
