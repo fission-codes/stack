@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.0](https://github.com/fission-codes/stack/compare/eslint-config-v0.0.4...eslint-config-v0.1.0) (2023-12-16)
+
+
+### Features
+
+* update eslint plugin ([b713548](https://github.com/fission-codes/stack/commit/b7135484e12aaa9abe9481f870e81dc7798559dd))
+
 ## [0.0.4](https://github.com/fission-codes/stack/compare/eslint-config-v0.0.3...eslint-config-v0.0.4) (2023-12-12)
 
 
