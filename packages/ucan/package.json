@@ -1,0 +1,74 @@
+{
+  "name": "@fission-codes/ucan",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "UCAN (User Controlled Authorization Networks) is a decentralized authorization protocol for the web.",
+  "author": "Hugo Dias <hugomrdias@gmail.com> (hugodias.me)",
+  "license": "MIT",
+  "homepage": "https://github.com/fission-codes/stack/tree/main/packages/ucan",
+  "repository": {
+    "url": "fission-codes/stack",
+    "directory": "packages/ucan"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./src/index.js"
+    }
+  },
+  "main": "src/index.js",
+  "types": "dist/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "dist/src/index"
+      ]
+    }
+  },
+  "files": [
+    "src",
+    "dist/src/*.d.ts",
+    "dist/src/*.d.ts.map"
+  ],
+  "scripts": {
+    "lint": "tsc --build && eslint . && prettier --check '**/*.{js,ts,yml,json}' --ignore-path ../../.gitignore",
+    "build": "tsc --build",
+    "test": "pnpm run test:node && pnpm run test:browser",
+    "test:node": "playwright-test 'test/**/!(*.browser).test.js'",
+    "test:browser": "playwright-test 'test/**/!(*.node).test.js'"
+  },
+  "dependencies": {
+    "iso-base": "^2.0.1",
+    "iso-did": "^1.4.0",
+    "iso-signatures": "^0.2.0",
+    "multiformats": "^12.1.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "playwright-test": "^14.0.0",
+    "type-fest": "^4.8.3"
+  },
+  "publishConfig": {
+    "provenance": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "@fission-codes"
+    ],
+    "env": {
+      "mocha": true
+    },
+    "ignorePatterns": [
+      "dist"
+    ]
+  },
+  "depcheck": {
+    "specials": [
+      "bin"
+    ],
+    "ignores": [
+      "@types/*"
+    ]
+  }
+}
