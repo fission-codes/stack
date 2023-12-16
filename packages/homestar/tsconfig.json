@@ -5,6 +5,11 @@
     "emitDeclarationOnly": true,
     "outDir": "dist"
   },
+  "references": [
+    {
+      "path": "../channel"
+    }
+  ],
   "include": ["src", "test", "package.json"],
   "exclude": ["node_modules", "dist", "out"],
   "typedocOptions": {

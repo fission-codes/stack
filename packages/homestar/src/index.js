@@ -1,7 +1,7 @@
 import { decode } from '@ipld/dag-json'
 import Emittery from 'emittery'
-import { Channel } from './channel/index.js'
-import { JsonRpcCodec } from './channel/codecs/jsonrpc.js'
+import { Channel } from '@fission-codes/channel'
+import { JsonRpcCodec } from '@fission-codes/channel/codecs/jsonrpc.js'
 
 // eslint-disable-next-line no-unused-vars
 import * as T from './types.js'
@@ -9,7 +9,7 @@ import * as T from './types.js'
 /**
  * @template {unknown} [R=unknown]
  * @template {Error} [E=Error]
- * @typedef {T.Codec.Result<R, E>} Result
+ * @typedef {T.Result<R, E>} Result
  */
 
 /**
@@ -105,7 +105,7 @@ export class Homestar extends Emittery {
    *
    * @param {T.Workflow} workflow
    * @param {(data: T.WorkflowNotification)=>void} [receiptCb] - Callback for workflow receipts
-   * @returns {Promise<T.Codec.Result<void, Error>>}
+   * @returns {Promise<T.Result<void, Error>>}
    */
   async runWorkflow(workflow, receiptCb = noop) {
     const res = await this.#channel.request({
@@ -142,7 +142,7 @@ export class Homestar extends Emittery {
    * Subscribe to a network events
    *
    * @param {(data: T.EventNotification)=>void} [eventCb] - Callback for network events
-   * @returns {Promise<T.Codec.Result<() => void, Error>>}
+   * @returns {Promise<T.Result<() => void, Error>>}
    */
   async networkEvents(eventCb = noop) {
     const res = await this.#channel.request({
@@ -174,7 +174,7 @@ export class Homestar extends Emittery {
   /**
    * Subscribe to a network events iterator
    *
-   * @returns {Promise<T.Codec.Result<AsyncIterable<T.EventNotification>, Error>>}
+   * @returns {Promise<T.Result<AsyncIterable<T.EventNotification>, Error>>}
    */
   async networkEventsIterator() {
     const res = await this.#channel.request({

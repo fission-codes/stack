@@ -2,7 +2,7 @@ import { assert, suite } from 'playwright-test/taps'
 import * as Client from 'playwright-test/client'
 import { WebSocket } from 'unws'
 import pDefer from 'p-defer'
-import { WebsocketTransport } from '../src/channel/transports/ws.js'
+import { WebsocketTransport } from '@fission-codes/channel/transports/ws.js'
 import { Homestar } from '../src/index.js'
 import * as Workflow from '../src/workflow/index.js'
 
