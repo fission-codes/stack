@@ -65,6 +65,34 @@ importers:
         specifier: ^4.5.0
         version: 4.5.1(@types/node@20.10.4)
 
+  packages/channel:
+    dependencies:
+      emittery:
+        specifier: ^1.0.1
+        version: 1.0.1
+      iso-websocket:
+        specifier: ^0.1.6
+        version: 0.1.6
+    devDependencies:
+      '@types/node':
+        specifier: ^20.10.4
+        version: 20.10.4
+      p-defer:
+        specifier: ^4.0.0
+        version: 4.0.0
+      playwright-test:
+        specifier: ^14.0.0
+        version: 14.0.0
+      type-fest:
+        specifier: ^4.8.3
+        version: 4.8.3
+      unws:
+        specifier: ^0.2.4
+        version: 0.2.4(ws@8.15.1)
+      ws:
+        specifier: ^8.15.1
+        version: 8.15.1
+
   packages/eslint-config:
     dependencies:
       '@typescript-eslint/eslint-plugin':
@@ -135,8 +163,8 @@ importers:
         specifier: ^1.5.9
         version: 1.5.10
       '@types/eslint':
-        specifier: ^8.44.7
-        version: 8.44.8
+        specifier: ^8.44.9
+        version: 8.44.9
       '@types/mocha':
         specifier: ^10.0.4
         version: 10.0.6
@@ -152,6 +180,9 @@ importers:
 
   packages/homestar:
     dependencies:
+      '@fission-codes/channel':
+        specifier: workspace:^
+        version: link:../channel
       '@ipld/dag-cbor':
         specifier: ^9.0.6
         version: 9.0.6
@@ -173,9 +204,6 @@ importers:
       get-tsconfig:
         specifier: ^4.7.2
         version: 4.7.2
-      iso-websocket:
-        specifier: ^0.1.6
-        version: 0.1.6
       multiformats:
         specifier: ^12.1.3
         version: 12.1.3
@@ -230,10 +258,38 @@ importers:
         version: 4.8.3
       unws:
         specifier: ^0.2.4
-        version: 0.2.4(ws@8.15.0)
+        version: 0.2.4(ws@8.15.1)
       ws:
-        specifier: ^8.15.0
-        version: 8.15.0
+        specifier: ^8.15.1
+        version: 8.15.1
+
+  packages/ucan:
+    dependencies:
+      iso-base:
+        specifier: ^2.0.1
+        version: 2.0.1
+      iso-did:
+        specifier: ^1.4.0
+        version: 1.4.0
+      iso-signatures:
+        specifier: ^0.2.0
+        version: 0.2.0
+      multiformats:
+        specifier: ^12.1.3
+        version: 12.1.3
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+    devDependencies:
+      '@types/node':
+        specifier: ^20.10.4
+        version: 20.10.4
+      playwright-test:
+        specifier: ^14.0.0
+        version: 14.0.0
+      type-fest:
+        specifier: ^4.8.3
+        version: 4.8.3
 
 packages:
 
@@ -1475,6 +1531,10 @@ packages:
     resolution: {integrity: sha512-iR8GBkDt0Q3GyaVcIu7mSsVIqnFbkbRzGLWlvhwunacoLwt4J3swfKhfaM6rN6WY+TBGoYT1GtT1mIh2/jGbRQ==}
     dev: true
 
+  /@noble/ed25519@2.0.0:
+    resolution: {integrity: sha512-/extjhkwFupyopDrt80OMWKdLgP429qLZj+z6sYJz90rF2Iz0gjZh2ArMKPImUl13Kx+0EXI2hN9T/KJV0/Zng==}
+    dev: false
+
   /@noble/secp256k1@1.7.1:
     resolution: {integrity: sha512-hOUk6AyBFmqVrv7k5WAw/LpszxVbj9gGN4JRkIX52fdFAj1UA61KXmZDvqVEm+pOyec3+fIeZB02LYa/pWOArw==}
     dev: true
@@ -1598,8 +1658,8 @@ packages:
       '@types/node': 20.10.4
     dev: true
 
-  /@types/eslint@8.44.8:
-    resolution: {integrity: sha512-4K8GavROwhrYl2QXDXm0Rv9epkA8GBFu0EI+XrrnnuCl7u8CWBRusX7fXJfanhZTDWSAL24gDI/UqXyUM0Injw==}
+  /@types/eslint@8.44.9:
+    resolution: {integrity: sha512-6yBxcvwnnYoYT1Uk2d+jvIfsuP4mb2EdIxFnrPABj5a/838qe5bGkNLFOiipX4ULQ7XVQvTxOh7jO+BTAiqsEw==}
     dependencies:
       '@types/estree': 1.0.5
       '@types/json-schema': 7.0.15
@@ -2357,7 +2417,6 @@ packages:
 
   /base-x@4.0.0:
     resolution: {integrity: sha512-FuwxlW4H5kh37X/oW59pwTzzTKRzfrrQwhmyspRM7swOEZcHtDZSCt45U6oKgtuFE+WYPblePMVIPR4RZrh/hw==}
-    dev: true
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
@@ -2372,7 +2431,6 @@ packages:
   /bigint-mod-arith@3.3.1:
     resolution: {integrity: sha512-pX/cYW3dCa87Jrzv6DAr8ivbbJRzEX5yGhdt8IutnX/PCIXfpx+mabWNK/M8qqh+zQ0J3thftUBHW0ByuUlG0w==}
     engines: {node: '>=10.4.0'}
-    dev: true
 
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
@@ -2897,6 +2955,10 @@ packages:
     resolution: {integrity: sha512-DtCOLG98P007x7wiiOmfI0fi3eIKyWiLTGJ2MDnVi/E04lWGbf+JzrRHMm0rgIIZJGtHpKpbVgLWHrv8xXpc3Q==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /did-resolver@4.1.0:
+    resolution: {integrity: sha512-S6fWHvCXkZg2IhS4RcVHxwuyVejPR7c+a4Go0xbQ9ps5kILa8viiYQgrM4gfTyeTjJ0ekgJH9gk/BawTpmkbZA==}
+    dev: false
 
   /diff@5.0.0:
     resolution: {integrity: sha512-/VTCrvm5Z0JGty/BWHljh+BAiw3IK+2j87NGMu8Nwc/f48WoDAC395uomO9ZD117ZOBaHmkX1oyLvkVM/aIT3w==}
@@ -4729,7 +4791,22 @@ packages:
     dependencies:
       base-x: 4.0.0
       bigint-mod-arith: 3.3.1
-    dev: true
+
+  /iso-did@1.4.0:
+    resolution: {integrity: sha512-aBOpV4PwfgnUHmcIaTI1P3Q0Ksss5FE4iZdSS4fgZAMXXFp0F3CL2dB8UHSAgrNYtdr+2bGx6gphM8B9WiXEaw==}
+    dependencies:
+      did-resolver: 4.1.0
+      iso-base: 2.0.1
+      multiformats: 12.1.3
+    dev: false
+
+  /iso-signatures@0.2.0:
+    resolution: {integrity: sha512-OfgejGIG7GiCwO5QhcjOTSUJx8Fk+oeWG9GTqAT7eBs4IxqAXCXUAUIRSf9FOr4d39R6y4480pCMz+Aht6/Fgg==}
+    dependencies:
+      '@noble/ed25519': 2.0.0
+      iso-base: 2.0.1
+      iso-did: 1.4.0
+    dev: false
 
   /iso-url@1.2.1:
     resolution: {integrity: sha512-9JPDgCN4B7QPkLtYAAOrEuAWvP9rWvR5offAr0/SeF046wIkglqH3VXgYYP6NcsKslH80UIVgmPqNe3j7tG2ng==}
@@ -6839,13 +6916,13 @@ packages:
     dependencies:
       '@types/unist': 2.0.10
 
-  /unws@0.2.4(ws@8.15.0):
+  /unws@0.2.4(ws@8.15.1):
     resolution: {integrity: sha512-/N1ajiqrSp0A/26/LBg7r10fOcPtGXCqJRJ61sijUFoGZMr6ESWGYn7i0cwr7fR7eEECY5HsitqtjGHDZLAu2w==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
       ws: '*'
     dependencies:
-      ws: 8.15.0
+      ws: 8.15.1
     dev: true
 
   /update-browserslist-db@1.0.13(browserslist@4.22.2):
@@ -7049,8 +7126,8 @@ packages:
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  /ws@8.15.0:
-    resolution: {integrity: sha512-H/Z3H55mrcrgjFwI+5jKavgXvwQLtfPCUEp6pi35VhoB0pfcHnSoyuTzkBEZpzq49g1193CUEwIvmsjcotenYw==}
+  /ws@8.15.1:
+    resolution: {integrity: sha512-W5OZiCjXEmk0yZ66ZN82beM5Sz7l7coYxpRkzS+p9PP+ToQry8szKh+61eNktr7EA9DOwvFGhfC605jDHbP6QQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
