@@ -3,6 +3,8 @@
   "release-type": "node",
   "packages": {
     "packages/homestar": {},
+    "packages/channel": {},
+    "packages/ucan": {},
     "packages/eslint-config": {}
   }
 }

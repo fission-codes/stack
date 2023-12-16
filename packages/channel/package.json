@@ -1,0 +1,98 @@
+{
+  "name": "@fission-codes/channel",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Communication channel between two peers over a generic transport using a generic codec to exchange data.",
+  "author": "Hugo Dias <hugomrdias@gmail.com> (hugodias.me)",
+  "license": "MIT",
+  "homepage": "https://github.com/fission-codes/stack/tree/main/packages/channel",
+  "repository": {
+    "url": "fission-codes/stack",
+    "directory": "packages/channel"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./transports/*": {
+      "types": "./dist/src/transports/*",
+      "default": "./src/transports/*"
+    },
+    "./codecs/*": {
+      "types": "./dist/src/codecs/*",
+      "default": "./src/codecs/*"
+    },
+    "./types": {
+      "types": "./dist/src/types.d.ts"
+    }
+  },
+  "main": "src/index.js",
+  "types": "dist/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "dist/src/index"
+      ],
+      "transports/*": [
+        "dist/src/transports/*"
+      ],
+      "codecs/*": [
+        "dist/src/codecs/*"
+      ],
+      "types": [
+        "dist/src/types"
+      ]
+    }
+  },
+  "files": [
+    "src",
+    "dist/src/*.d.ts",
+    "dist/src/*.d.ts.map",
+    "dist/src/codecs/*.d.ts",
+    "dist/src/codecs/*.d.ts.map",
+    "dist/src/transports/*.d.ts",
+    "dist/src/transports/*.d.ts.map"
+  ],
+  "scripts": {
+    "lint": "tsc --build && eslint . && prettier --check '**/*.{js,ts,yml,json}' --ignore-path ../../.gitignore",
+    "build": "tsc --build",
+    "test": "pnpm run test:node && pnpm run test:browser",
+    "test:node": "playwright-test 'test/**/!(*.browser).test.js'",
+    "test:browser": "playwright-test 'test/**/!(*.node).test.js'"
+  },
+  "dependencies": {
+    "emittery": "^1.0.1",
+    "iso-websocket": "^0.1.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "p-defer": "^4.0.0",
+    "playwright-test": "^14.0.0",
+    "type-fest": "^4.8.3",
+    "unws": "^0.2.4",
+    "ws": "^8.15.1"
+  },
+  "publishConfig": {
+    "provenance": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "@fission-codes"
+    ],
+    "env": {
+      "mocha": true
+    },
+    "ignorePatterns": [
+      "dist"
+    ]
+  },
+  "depcheck": {
+    "specials": [
+      "bin"
+    ],
+    "ignores": [
+      "@types/*"
+    ]
+  }
+}
