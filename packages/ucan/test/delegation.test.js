@@ -14,7 +14,7 @@ test('should generate valid jwt', async function () {
 
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     capabilities: { 'ucan:*': { '*': [{}] } },
   })
 
@@ -37,7 +37,7 @@ test('should generate valid json', async function () {
 
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     capabilities: { 'ucan:*': { '*': [{}] } },
   })
 
@@ -50,7 +50,7 @@ test('should default expire', async function () {
 
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     capabilities: { 'ucan:*': { '*': [{}] } },
   })
 
@@ -63,7 +63,7 @@ test('should default should not expire', async function () {
 
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     expiration: 0,
     capabilities: { 'ucan:*': { '*': [{}] } },
   })
@@ -77,7 +77,7 @@ test('should default should expire with ttl', async function () {
 
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     ttl: 30,
     capabilities: { 'ucan:*': { '*': [{}] } },
   })

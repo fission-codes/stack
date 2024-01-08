@@ -13,13 +13,13 @@ const signer = await EdDSASigner.generate()
 const audience = await EdDSASigner.generate()
 const ucan1 = await UCAN.create({
   issuer: signer,
-  audience: audience.did,
+  audience,
   capabilities: { 'ucan:*': { '*': [{}] } },
 })
 
 const ucan2 = await UCAN.create({
   issuer: signer,
-  audience: audience.did,
+  audience,
   nonce: 'ucan2',
   capabilities: { 'ucan:*': { '*': [{}] } },
 })
@@ -33,7 +33,7 @@ store.set(ucan2.cid.toString(), ucan2)
 test('should encode valid headers', async function () {
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     capabilities: { 'ucan:*': { '*': [{}] } },
     proofs: [ucan1.cid, ucan2.cid],
   })
@@ -49,7 +49,7 @@ test('should encode valid headers', async function () {
 test('should encode dedup proofs', async function () {
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     capabilities: { 'ucan:*': { '*': [{}] } },
     proofs: [ucan1.cid, ucan1.cid],
   })
@@ -65,7 +65,7 @@ test('should encode dedup proofs', async function () {
 test('should encode not have ucans without proofs', async function () {
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     capabilities: { 'ucan:*': { '*': [{}] } },
   })
 
@@ -79,7 +79,7 @@ test('should encode not have ucans without proofs', async function () {
 test('should encode works with native Headers', async function () {
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     capabilities: { 'ucan:*': { '*': [{}] } },
   })
 
@@ -102,7 +102,7 @@ test('should encode works with native Headers', async function () {
 test('should decode', async function () {
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     capabilities: { 'ucan:*': { '*': [{}] } },
     proofs: [ucan1.cid, ucan2.cid],
   })
@@ -118,7 +118,7 @@ test('should decode', async function () {
 test('should decode and return missing', async function () {
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     capabilities: { 'ucan:*': { '*': [{}] } },
     proofs: [ucan1.cid, ucan2.cid],
   })
@@ -138,7 +138,7 @@ test('should decode and return missing', async function () {
 test('should decode Headers', async function () {
   const ucan = await UCAN.create({
     issuer: signer,
-    audience: audience.did,
+    audience,
     capabilities: { 'ucan:*': { '*': [{}] } },
     proofs: [ucan1.cid, ucan2.cid],
   })

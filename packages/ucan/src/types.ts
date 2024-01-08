@@ -115,7 +115,7 @@ export type Capabilities = Record<Resource, Abilities>
 export type Principal = Pick<DIDKey, 'alg' | 'did' | 'publicKey' | 'toString'>
 
 export interface UCANOptions<C extends Capabilities = Capabilities> {
-  issuer: ISigner<any>
+  issuer: ISigner<any> & Principal
   audience: Principal
   capabilities: C
   facts?: Facts
