@@ -69,7 +69,7 @@
     "@bytecodealliance/componentize-js": "^0.4.1",
     "@types/get-value": "^3.0.5",
     "@types/json-templates": "^3.0.3",
-    "@types/node": "^20.10.4",
+    "@types/node": "^20.10.7",
     "@types/object-path": "^0.11.4",
     "execa": "^8.0.1",
     "homestar-runtime": "rc",
