@@ -57,7 +57,7 @@ export class UCAN {
 
     /** @type {T.UCANProps} */
     const props = {
-      issuer: issuer.did,
+      issuer,
       audience,
       capabilities,
       // eslint-disable-next-line unicorn/no-null

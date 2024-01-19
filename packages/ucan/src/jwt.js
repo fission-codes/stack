@@ -2,7 +2,7 @@ import { base64url } from 'iso-base/rfc4648'
 import { sha256 } from 'multiformats/hashes/sha2'
 import { code as RAW_CODE } from 'multiformats/codecs/raw'
 import { utf8 } from 'iso-base/utf8'
-import { DIDKey } from 'iso-did/key'
+import * as DID from 'iso-did'
 import { CID } from 'multiformats/cid'
 
 // eslint-disable-next-line no-unused-vars
@@ -57,7 +57,7 @@ export async function encode(data, signer) {
   }
   /** @type {import('type-fest').Jsonify<T.JWTPayload>} */
   const payload = {
-    aud: data.audience.did,
+    aud: data.audience,
     iss: data.issuer.did,
     cap: data.capabilities,
     exp: data.expiration,
@@ -114,7 +114,7 @@ export async function decode(data) {
 
   /** @type {T.JWTPayload} */
   const payloadObject = deserialize(encodedPayload)
-  const issuer = DIDKey.fromString(payloadObject.iss)
+  const issuer = await DID.DID.fromString(payloadObject.iss)
 
   if (header.alg !== issuer.alg) {
     throw new Error(
@@ -126,8 +126,8 @@ export async function decode(data) {
 
   return {
     props: {
-      audience: DIDKey.fromString(payloadObject.aud),
-      issuer: DIDKey.fromString(payloadObject.iss),
+      audience: DID.parse(payloadObject.aud).did,
+      issuer,
       capabilities: payloadObject.cap,
       expiration: payloadObject.exp,
       version: payloadObject.ucv,

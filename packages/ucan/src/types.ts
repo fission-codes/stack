@@ -1,5 +1,4 @@
-import type { SignatureAlgorithm } from 'iso-did/types'
-import type { DIDKey } from 'iso-did/key'
+import type { DID, SignatureAlgorithm, VerifiableDID } from 'iso-did/types'
 import type { CID } from 'multiformats/cid'
 import type { Jsonifiable, Jsonify, Opaque } from 'type-fest'
 import type { IResolver, ISigner } from 'iso-signatures/types'
@@ -20,12 +19,8 @@ export type StringOf<T> = Opaque<string, T>
  * UTC Unix Timestamp
  */
 export type UnixTimestamp = number
-export type Nonce = string
 
-/**
- * A string-encoded decentralized identity document (DID).
- */
-export type DID<Method extends string = string> = `did:${Method}:${string}`
+export type Nonce = string
 
 /**
  * Verifiable facts and proofs of knowledge included in a UCAN {@link JWTPayload} in order to
@@ -109,14 +104,9 @@ export type Resource =
 export type Abilities = Record<Ability, Caveats>
 export type Capabilities = Record<Resource, Abilities>
 
-/**
- * DID object representation with a `did` accessor for the {@link DID}.
- */
-export type Principal = Pick<DIDKey, 'alg' | 'did' | 'publicKey' | 'toString'>
-
 export interface UCANOptions<C extends Capabilities = Capabilities> {
   issuer: ISigner<any>
-  audience: Principal
+  audience: DID
   capabilities: C
   facts?: Facts
   notBefore?: UnixTimestamp
@@ -133,8 +123,8 @@ export interface UCANOptions<C extends Capabilities = Capabilities> {
  * UCAN representation as a JS object.
  */
 export interface UCANProps<C extends Capabilities = Capabilities> {
-  readonly issuer: Principal
-  readonly audience: Principal
+  readonly issuer: VerifiableDID
+  readonly audience: DID
   readonly version: Version
   readonly capabilities: C
   readonly expiration: UnixTimestamp | null
