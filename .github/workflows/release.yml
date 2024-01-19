@@ -1,14 +1,15 @@
 name: Release
 
+env:
+  CI: true
+  FORCE_COLOR: 1
+
 permissions:
   contents: write
   pull-requests: write
   pages: write
   id-token: write
-
-env:
-  CI: true
-  FORCE_COLOR: 1
+  
 on:
   push:
     branches: [main]
