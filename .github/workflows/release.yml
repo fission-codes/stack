@@ -30,7 +30,9 @@ jobs:
     needs: release
     if: |
       contains(fromJson(needs.release.outputs.paths_released), 'packages/eslint-config') ||
-      contains(fromJson(needs.release.outputs.paths_released), 'packages/homestar')
+      contains(fromJson(needs.release.outputs.paths_released), 'packages/homestar') ||
+      contains(fromJson(needs.release.outputs.paths_released), 'packages/channel') ||
+      contains(fromJson(needs.release.outputs.paths_released), 'packages/ucan')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -52,5 +54,7 @@ jobs:
     needs: release
     if: |
       contains(fromJson(needs.release.outputs.paths_released), 'packages/eslint-config')||
-      contains(fromJson(needs.release.outputs.paths_released), 'packages/homestar')
+      contains(fromJson(needs.release.outputs.paths_released), 'packages/homestar') ||
+      contains(fromJson(needs.release.outputs.paths_released), 'packages/channel') ||
+      contains(fromJson(needs.release.outputs.paths_released), 'packages/ucan')
     uses: ./.github/workflows/reusable-docs.yml

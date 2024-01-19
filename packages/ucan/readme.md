@@ -16,6 +16,15 @@ pnpm install @fission-codes/ucan
 
 ```js
 import { UCAN } from '@fission-codes/ucan'
+import { EdDSASigner } from 'iso-signatures/signers/eddsa.js'
+
+const ucan = await UCAN.create({
+  issuer: signer,
+  audience: audience.did,
+  capabilities: { 'ucan:*': { '*': [{}] } },
+})
+
+
 ```
 
 ## Docs
