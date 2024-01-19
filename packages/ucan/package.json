@@ -1,7 +1,7 @@
 {
   "name": "@fission-codes/ucan",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "UCAN (User Controlled Authorization Networks) is a decentralized authorization protocol for the web.",
   "author": "Hugo Dias <hugomrdias@gmail.com> (hugodias.me)",
   "license": "MIT",
