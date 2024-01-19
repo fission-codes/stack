@@ -3,20 +3,20 @@
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
     "emitDeclarationOnly": true,
-    "outDir": "dist",
+    "outDir": "dist"
   },
   "references": [
     {
-      "path": "../channel",
-    },
+      "path": "../channel"
+    }
   ],
   "include": ["src", "test", "package.json"],
   "exclude": ["node_modules", "dist", "out"],
   "typedocOptions": {
     "entryPointStrategy": "resolve",
-    "entryPoints": ["src/index.js", "src/workflow.js"],
+    "entryPoints": ["src/index.js", "src/workflow/index.js"],
     "includeVersion": true,
     "excludeExternals": true,
-    "internalModule": "<internal>",
-  },
+    "internalModule": "<internal>"
+  }
 }
