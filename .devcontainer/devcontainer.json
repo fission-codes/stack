@@ -6,12 +6,12 @@
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {
       "installDirectlyFromGitHubRelease": true,
-      "version": "latest"
+      "version": "latest",
     },
     "ghcr.io/devcontainers/features/node:1": {
       "nodeGypDependencies": true,
-      "version": "lts"
-    }
+      "version": "lts",
+    },
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -22,13 +22,13 @@
 
   "customizations": {
     "codespaces": {
-      "openFiles": ["readme.md"]
+      "openFiles": ["readme.md"],
     },
     "vscode": {
       "extensions": [
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "yoavbls.pretty-ts-errors"
+        "yoavbls.pretty-ts-errors",
       ],
       "settings": {
         "javascript.format.enable": false,
@@ -39,8 +39,8 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "javascript.preferences.importModuleSpecifierEnding": "js",
         "typescript.preferences.importModuleSpecifierEnding": "auto",
-        "typescript.enablePromptUseWorkspaceTsdk": true
-      }
-    }
-  }
+        "typescript.enablePromptUseWorkspaceTsdk": true,
+      },
+    },
+  },
 }
