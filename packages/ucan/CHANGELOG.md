@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/fission-codes/stack/compare/ucan-v0.1.1...ucan-v0.1.2) (2024-01-19)
+
+
+### Bug Fixes
+
+* add bearer to the docs ([463cb36](https://github.com/fission-codes/stack/commit/463cb36f22d22b2a31ae7a1cedaba5b38da5de9e))
+
 ## [0.1.1](https://github.com/fission-codes/stack/compare/ucan-v0.1.0...ucan-v0.1.1) (2024-01-19)
 
 
