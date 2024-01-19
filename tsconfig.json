@@ -6,7 +6,7 @@
     "excludeExternals": true,
     "darkHighlightTheme": "github-dark",
     "navigationLinks": {
-      "Github": "https://github.com/fission-codes/stack"
-    }
-  }
+      "Github": "https://github.com/fission-codes/stack",
+    },
+  },
 }

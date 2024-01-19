@@ -9,7 +9,7 @@ permissions:
   pull-requests: write
   pages: write
   id-token: write
-  
+
 on:
   push:
     branches: [main]
