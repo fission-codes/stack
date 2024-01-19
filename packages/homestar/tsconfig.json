@@ -13,6 +13,7 @@
   "include": ["src", "test", "package.json"],
   "exclude": ["node_modules", "dist", "out"],
   "typedocOptions": {
+    "entryPointStrategy": "resolve",
     "entryPoints": ["src/index.js", "src/workflow.js"],
     "includeVersion": true,
     "excludeExternals": true,
