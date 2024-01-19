@@ -27,6 +27,7 @@ let imageCID
 test.before(async () => {
   // eslint-disable-next-line unicorn/no-await-expression-member
   wasmCID = (await addFileToIPFS('/example_test.wasm')).toString()
+  // @ts-ignore
   imageCID = await addFileToIPFS('/logo.png')
 })
 

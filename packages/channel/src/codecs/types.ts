@@ -53,14 +53,10 @@ export interface Codec<
   decode: (data: DataType) => CodecDecoded<Result<Out, Err>>
 }
 
-export type InferCodec<C extends Codec> = C extends Codec<
-  infer D,
-  infer I,
-  infer O,
-  infer E
->
-  ? { type: D; io: IO<I, O>; error: E }
-  : never
+export type InferCodec<C extends Codec> =
+  C extends Codec<infer D, infer I, infer O, infer E>
+    ? { type: D; io: IO<I, O>; error: E }
+    : never
 
 /**
  * JSON-RPC 2.0
