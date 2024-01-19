@@ -84,3 +84,46 @@ test('should default should expire with ttl', async function () {
 
   assert.equal(ucan.expiration, now() + 30)
 })
+
+test('should delegate', async function () {
+  const signer1 = await EdDSASigner.generate()
+  const signer2 = await EdDSASigner.generate()
+
+  const ucan = await UCAN.create({
+    issuer: signer1,
+    audience: signer2.did,
+    capabilities: { 'ucan:*': { '*': [{}] } },
+  })
+
+  const ucan2 = await UCAN.create({
+    issuer: signer2,
+    audience: 'did:web:example.com',
+    capabilities: { [signer1.toString()]: { '*': [{}] } },
+    proofs: [ucan.cid],
+  })
+
+  assert.deepEqual(ucan2.proofs, [ucan.cid])
+})
+
+test('should delegate from jwt', async function () {
+  const signer1 = await EdDSASigner.generate()
+  const signer2 = await EdDSASigner.generate()
+
+  const ucan = await UCAN.create({
+    issuer: signer1,
+    audience: signer2.did,
+    capabilities: { 'ucan:*': { '*': [{}] } },
+  })
+
+  const jwt = ucan.toString()
+  const proof = await UCAN.fromUcan(jwt)
+
+  const ucan2 = await UCAN.create({
+    issuer: signer2,
+    audience: 'did:web:example.com',
+    capabilities: { [signer1.toString()]: { '*': [{}] } },
+    proofs: [proof.cid],
+  })
+
+  assert.deepEqual(ucan2.proofs, [proof.cid])
+})
