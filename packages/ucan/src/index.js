@@ -61,7 +61,7 @@ export class UCAN {
       audience,
       capabilities,
       // eslint-disable-next-line unicorn/no-null
-      expiration: expiration ?? (ttl ? now() + ttl : null),
+      expiration: expiration ?? (typeof ttl === 'number' ? now() + ttl : null),
       notBefore,
       nonce,
       facts,
