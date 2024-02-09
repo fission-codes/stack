@@ -5,6 +5,7 @@ import type { IResolver, ISigner } from 'iso-signatures/types'
 import type { code as RAW_CODE } from 'multiformats/codecs/raw'
 import type { sha256 } from 'multiformats/hashes/sha2'
 import type { Block } from 'multiformats'
+import type { Driver, IKV } from 'iso-kv'
 
 export { CID } from 'multiformats/cid'
 
@@ -16,7 +17,7 @@ export type HashCode = typeof sha256.code
 export type StringOf<T> = Opaque<string, T>
 
 /**
- * UTC Unix Timestamp
+ * The expiration time is specified as a Unix timestamp in seconds since UNIX epoch
  */
 export type UnixTimestamp = number
 
@@ -97,11 +98,15 @@ export type Resource =
   | `ucan://${string}/*`
   | `ucan://${string}/${string}`
 
+type PartialRecord<K extends keyof any, T> = {
+  [P in K]?: T
+}
+
 /**
  *
  * @see https://github.com/ucan-wg/spec?tab=readme-ov-file#3262-abilities
  */
-export type Abilities = Record<Ability, Caveats>
+export type Abilities = PartialRecord<Ability, Caveats>
 export type Capabilities = Record<Resource, Abilities>
 
 export interface UCANOptions<C extends Capabilities = Capabilities> {
@@ -179,9 +184,17 @@ export type UCANHTTPHeaders = Jsonify<{
   ucans?: string
 }>
 
-export interface IUcanStore {
-  get: (key: string) => IUcan | undefined
-  set: (key: string, ucan: IUcan) => void
-  delete: (key: string) => void
-  clear: () => void
+export type IUcanStore = Map<string, IUcan>
+
+export interface AgentOptions {
+  // identifier: Bip39Identifier
+  store: IKV
+  signer: ISigner<string | CryptoKeyPair>
+}
+
+export interface AgentCreateOptions {
+  driver?: Driver
+  resolveSigner: (
+    exported: string | CryptoKeyPair | undefined
+  ) => Promise<ISigner<string | CryptoKeyPair>>
 }
