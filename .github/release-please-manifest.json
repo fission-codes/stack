@@ -2,5 +2,6 @@
   "packages/homestar": "2.0.0",
   "packages/channel": "0.0.1",
   "packages/ucan": "0.1.2",
+  "packages/client": "0.0.1",
   "packages/eslint-config": "0.1.0"
 }

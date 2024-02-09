@@ -5,6 +5,7 @@
     "packages/homestar": {},
     "packages/channel": {},
     "packages/ucan": {},
+    "packages/client": {},
     "packages/eslint-config": {}
   }
 }

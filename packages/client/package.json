@@ -1,0 +1,94 @@
+{
+  "name": "@fission-codes/client",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Fission server client.",
+  "author": "Hugo Dias <hugomrdias@gmail.com> (hugodias.me)",
+  "license": "MIT",
+  "homepage": "https://github.com/fission-codes/stack/tree/main/packages/client",
+  "repository": {
+    "url": "fission-codes/stack",
+    "directory": "packages/client"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./types": {
+      "types": "./dist/src/types.d.ts"
+    }
+  },
+  "main": "src/index.js",
+  "types": "dist/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "dist/src/index"
+      ],
+      "./types": [
+        "dist/src/types"
+      ]
+    }
+  },
+  "files": [
+    "src",
+    "dist/src/*.d.ts",
+    "dist/src/*.d.ts.map"
+  ],
+  "scripts": {
+    "lint": "tsc --build && eslint . && prettier --check '**/*.{js,ts,yml,json}' --ignore-path ../../.gitignore",
+    "build": "tsc --build",
+    "update-msw": "msw init test/mocks/ --save",
+    "test": "pnpm run test:node && pnpm run test:browser",
+    "test:node": "playwright-test 'test/**/!(*.browser).test.js' --mode node",
+    "test:browser": "playwright-test 'test/**/!(*.node).test.js' --assets test/mocks"
+  },
+  "dependencies": {
+    "@fission-codes/ucan": "workspace:^",
+    "iso-did": "^1.6.0",
+    "iso-signatures": "^0.3.2",
+    "iso-web": "^1.0.4",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@testcontainers/postgresql": "^10.6.0",
+    "@types/node": "^20.11.15",
+    "execa": "^8.0.1",
+    "iso-websocket": "^0.2.0",
+    "msw": "^2.1.5",
+    "p-defer": "^4.0.0",
+    "p-wait-for": "^5.0.2",
+    "playwright-test": "^14.1.0",
+    "tempy": "^3.1.0",
+    "testcontainers": "^10.6.0",
+    "type-fest": "^4.10.2"
+  },
+  "publishConfig": {
+    "provenance": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "@fission-codes"
+    ],
+    "env": {
+      "mocha": true
+    },
+    "ignorePatterns": [
+      "dist"
+    ]
+  },
+  "depcheck": {
+    "specials": [
+      "bin"
+    ],
+    "ignores": [
+      "@types/*"
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "test/mocks"
+    ]
+  }
+}
