@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -267,8 +267,8 @@ importers:
         version: 3.22.4
     devDependencies:
       '@bytecodealliance/componentize-js':
-        specifier: ^0.4.1
-        version: 0.4.1
+        specifier: ^0.7.0
+        version: 0.7.0
       '@types/get-value':
         specifier: ^3.0.5
         version: 3.0.5
@@ -286,7 +286,7 @@ importers:
         version: 8.0.1
       homestar-runtime:
         specifier: rc
-        version: 0.1.1-rc.1706191616
+        version: 0.1.1-rc.1706205643
       iso-base:
         specifier: ^2.0.1
         version: 2.0.1
@@ -611,18 +611,18 @@ packages:
       statuses: 2.0.1
     dev: true
 
-  /@bytecodealliance/componentize-js@0.4.1:
-    resolution: {integrity: sha512-RlpGE8R6Oge4oAvbDXhfvrvZq7UWRmiFgQmubbYByAzGthZo+enzhZfHzQGXcMSDLBrrwcNUximh6vMZrmW8JQ==}
+  /@bytecodealliance/componentize-js@0.7.0:
+    resolution: {integrity: sha512-aNBV0KHBN3u62tEbSQVvLcohh5eY2BEvhscj1w1ZFIuTW9muWnq4XEiYiETqCAp9HsnsWxYuJFF+FoDPg+a0Yw==}
     dependencies:
-      '@bytecodealliance/jco': 0.13.3
+      '@bytecodealliance/jco': 1.0.0
       '@bytecodealliance/wizer': 3.0.1
     dev: true
 
-  /@bytecodealliance/jco@0.13.3:
-    resolution: {integrity: sha512-BuixmVc8P0peSz6NbqAnF+h1Q8Qx6X4SmAIOlgW6vh4SisOamXdEiNycjICxArns9vIhl2QlqIJu9QMJJmTGsQ==}
+  /@bytecodealliance/jco@1.0.0:
+    resolution: {integrity: sha512-7p7Dq8qg7wepTEjoY9Aoxdj40kqNhd8lTRA5UwOJUtUMH98E/LKQzOSDbD3kGs3Byk63uDNhS9zifU5mGFGK6A==}
     hasBin: true
     dependencies:
-      '@bytecodealliance/preview2-shim': 0.0.21
+      '@bytecodealliance/preview2-shim': 0.15.1
       binaryen: 111.0.0
       chalk-template: 0.4.0
       commander: 9.5.0
@@ -631,8 +631,8 @@ packages:
       terser: 5.27.0
     dev: true
 
-  /@bytecodealliance/preview2-shim@0.0.21:
-    resolution: {integrity: sha512-VSqfQ0aAd9CV0KwCtXV8CZnJUMIZLyf3pbDWRNIEbg3YRETYbCrcwCsWDdEXr4qwUAsqjpgY9daCHyicmGlDfQ==}
+  /@bytecodealliance/preview2-shim@0.15.1:
+    resolution: {integrity: sha512-dzdsRvdDTaogMS8rLJhJWtRMMIUwaXcZyxklnsj6o81/PQl5VCPMBqBItRnmbtizTVGPKGxmfRkxZBw86gBkzg==}
     dev: true
 
   /@bytecodealliance/wizer-darwin-arm64@3.0.1:
@@ -1419,7 +1419,7 @@ packages:
     dependencies:
       '@jridgewell/set-array': 1.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
-      '@jridgewell/trace-mapping': 0.3.21
+      '@jridgewell/trace-mapping': 0.3.22
     dev: true
 
   /@jridgewell/resolve-uri@3.1.1:
@@ -1441,13 +1441,6 @@ packages:
 
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
-    dev: true
-
-  /@jridgewell/trace-mapping@0.3.21:
-    resolution: {integrity: sha512-SRfKmRe1KvYnxjEMtxEr+J4HIeMX5YBg/qhRHpxEIGjhX1rshcHlnFUE9K0GazhVKWM7B+nARSkV8LuvJdJ5/g==}
-    dependencies:
-      '@jridgewell/resolve-uri': 3.1.1
-      '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
   /@jridgewell/trace-mapping@0.3.22:
@@ -4316,8 +4309,8 @@ packages:
     dev: true
     optional: true
 
-  /homestar-runtime@0.1.1-rc.1706191616:
-    resolution: {integrity: sha512-GAsKJ31e13ndi8ebPPrfZFXmohDKR0BbOxuKIJF3rONh/bEYO7Auo2PG45TKi8A5+8fteiMDPzM6WpPSZ7c5ww==}
+  /homestar-runtime@0.1.1-rc.1706205643:
+    resolution: {integrity: sha512-K6Z5/gYnYkTjjUkhMW6w8K24xQ2x5i+z/wreKkYuKr3Tv/emrA879aVrdGZ2rPliyVpL9x6S2VlHaQjqSFCddw==}
     hasBin: true
     dependencies:
       execa: 8.0.1
