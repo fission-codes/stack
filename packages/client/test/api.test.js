@@ -24,16 +24,21 @@ const resolveSigner = (
 /**
  * @param {string} email
  */
-async function waitForCode(email) {
+function waitForCode(email) {
   /** @type {import('p-defer').DeferredPromise<string>} */
   const d = pdefer()
+
+  const isReady = pdefer()
   const ws = new WS(`${SERVER_URL}/api/v0/relay/${email}`)
   ws.addEventListener('message', (e) => {
     d.resolve(e.data)
     ws.close()
   })
+  ws.addEventListener('open', () => {
+    isReady.resolve()
+  })
 
-  return d.promise
+  return { isReady: isReady.promise, codePromise: d.promise }
 }
 
 /**
@@ -42,7 +47,7 @@ async function waitForCode(email) {
 async function createAccount() {
   const username = `usernametest-${Date.now()}`
   const email = `${username}@gmail.com`
-  const codePromise = waitForCode(email)
+  const { codePromise, isReady } = waitForCode(email)
 
   const agent = await Agent.create({
     resolveSigner,
@@ -53,6 +58,7 @@ async function createAccount() {
     agent,
   })
 
+  await isReady
   const out = await client.verifyEmail(email)
   assert.ok(out.result?.success)
   const code = await codePromise
@@ -76,7 +82,7 @@ async function createAccount() {
 
 test('should verify email', async function () {
   const email = 'test@mail.com'
-  const codePromise = waitForCode(email)
+  const { codePromise, isReady } = waitForCode(email)
   const agent = await Agent.create({
     resolveSigner,
   })
@@ -85,6 +91,7 @@ test('should verify email', async function () {
     agent,
   })
 
+  await isReady
   const out = await client.verifyEmail(email)
 
   assert.ok(out.result?.success)
@@ -97,7 +104,7 @@ test('should verify email', async function () {
 test('should create account', async function () {
   const username = `usernametest-${Date.now()}`
   const email = `${username}@gmail.com`
-  const codePromise = waitForCode(email)
+  const { codePromise, isReady } = waitForCode(email)
 
   const agent = await Agent.create({
     resolveSigner,
@@ -108,6 +115,7 @@ test('should create account', async function () {
     agent,
   })
 
+  await isReady
   const out = await client.verifyEmail(email)
   assert.ok(out.result?.success)
   const code = await codePromise
@@ -150,7 +158,7 @@ test('should get account member number', async function () {
 
 test('should link new agent to account using email code', async function () {
   const { account, email } = await createAccount()
-  const codePromise = waitForCode(email)
+  const { codePromise, isReady } = waitForCode(email)
   const agent = await Agent.create({
     resolveSigner,
   })
@@ -160,6 +168,7 @@ test('should link new agent to account using email code', async function () {
     agent,
   })
 
+  await isReady
   await client.verifyEmail(email)
   const code = await codePromise
   await client.accountLink(account.did, code)
