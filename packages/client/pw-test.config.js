@@ -120,11 +120,15 @@ function buildConfig(config) {
         {
           retry: {
             retries: 10,
+            onFailedAttempt: (error) => {
+              console.error('Failed to connect to server', error)
+            },
           },
         }
       )
 
       if (error) {
+        console.log('🚀 ~ beforeTests ~ error:', error)
         throw error
       }
 
