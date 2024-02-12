@@ -102,7 +102,7 @@ function buildConfig(config) {
         ],
         {
           // env: {
-          //   RUST_LOG: 'none',
+          //   RUST_LOG: 'fission_server=info',
           // },
           // stdio: 'pipe',
         }
