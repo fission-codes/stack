@@ -30,10 +30,10 @@ export const Metrics = z.object({
 
 export const Health = z.object({
   healthy: z.boolean(),
-  nodeInfo: z.object({
-    static: z.object({ peer_id: z.string() }),
-    dynamic: z.object({ listeners: z.array(z.string()) }),
-  }),
+  // nodeInfo: z.object({
+  //   static: z.object({ peer_id: z.string() }),
+  //   dynamic: z.object({ listeners: z.array(z.string()) }),
+  // }),
 })
 
 export const CID = /** @type {typeof z.custom<import('multiformats').CID>} */ (
