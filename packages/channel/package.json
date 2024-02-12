@@ -1,7 +1,7 @@
 {
   "name": "@fission-codes/channel",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Communication channel between two peers over a generic transport using a generic codec to exchange data.",
   "author": "Hugo Dias <hugomrdias@gmail.com> (hugodias.me)",
   "license": "MIT",

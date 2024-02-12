@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.1](https://github.com/fission-codes/stack/compare/homestar-v2.0.0...homestar-v2.0.1) (2024-02-12)
+
+
+### Bug Fixes
+
+* add bearer to the docs ([463cb36](https://github.com/fission-codes/stack/commit/463cb36f22d22b2a31ae7a1cedaba5b38da5de9e))
+* export wasmify ([14d724b](https://github.com/fission-codes/stack/commit/14d724b80475165b8f737521ed1cf5d5c5e7c686))
+
 ## [2.0.0](https://github.com/fission-codes/stack/compare/homestar-v1.0.0...homestar-v2.0.0) (2023-12-12)
 
 
