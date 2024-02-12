@@ -98,15 +98,20 @@ export type Resource =
   | `ucan://${string}/*`
   | `ucan://${string}/${string}`
 
-type PartialRecord<K extends keyof any, T> = {
-  [P in K]?: T
-}
-
 /**
+ *
+ * @todo TS can't handle Ability type as a key in a Record forces the '*' key to exist in the Record
  *
  * @see https://github.com/ucan-wg/spec?tab=readme-ov-file#3262-abilities
  */
-export type Abilities = PartialRecord<Ability, Caveats>
+export type Abilities =
+  | {
+      [key in `${string}/${string}`]: Caveats
+    }
+  | {
+      [key in `*`]: Caveats
+    }
+
 export type Capabilities = Record<Resource, Abilities>
 
 export interface UCANOptions<C extends Capabilities = Capabilities> {
