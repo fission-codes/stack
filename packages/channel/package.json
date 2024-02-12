@@ -66,9 +66,9 @@
     "iso-websocket": "^0.2.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.15",
+    "@types/node": "^20.11.17",
     "p-defer": "^4.0.0",
-    "playwright-test": "^14.1.0",
+    "playwright-test": "^14.1.1",
     "type-fest": "^4.10.2",
     "unws": "^0.2.4",
     "ws": "^8.16.0"

@@ -77,14 +77,14 @@ async function wit(filePath) {
         const name = d.name
         const returnType = primitiveType(d.signatures[0].return.type)
 
-        return `  export ${name}: func(${params.join(', ')}) -> ${returnType}`
+        return `  export ${name}: func(${params.join(', ')}) -> ${returnType};`
       }
 
       return ''
     })
 
     const wit = `
-package local:${world}
+package local:${world};
 
 world ${world} {
 ${exports.join('\n')}

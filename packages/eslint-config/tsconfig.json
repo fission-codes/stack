@@ -36,7 +36,7 @@
     "noImplicitReturns": false,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
-  "include": ["src", "test/mocks"],
+  "include": ["src", "test/mocks"]
 }
