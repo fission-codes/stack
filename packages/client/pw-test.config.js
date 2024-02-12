@@ -91,7 +91,7 @@ function buildConfig(config) {
 
       await fs.writeFile(settingsPath, serverConfig(dbURL, keypairPath))
 
-      const bin = process.CI
+      const bin = process.env.CI
         ? path.join(__dirname, 'test/mocks/fission-server-ci')
         : path.join(__dirname, 'test/mocks/fission-server')
 
