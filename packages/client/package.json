@@ -75,7 +75,8 @@
       "mocha": true
     },
     "ignorePatterns": [
-      "dist"
+      "dist",
+      "test/mocks/mockServiceWorker.js"
     ]
   },
   "depcheck": {
