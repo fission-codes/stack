@@ -101,19 +101,20 @@ function buildConfig(config) {
           settingsPath,
         ],
         {
-          // env: {
-          //   RUST_LOG: 'fission_server=info',
-          // },
+          env: {
+            RUST_LOG: 'fission_server=info',
+          },
           // stdio: 'pipe',
         }
       )
-      // server.stderr.on('data', (data) => {
-      //   console.error(data.toString())
-      // })
+      server.stderr.on('data', (data) => {
+        console.error(data.toString())
+      })
 
-      // server.stdout.on('data', (data) => {
-      //   console.log(data.toString())
-      // })
+      server.stdout.on('data', (data) => {
+        // eslint-disable-next-line no-console
+        console.log(data.toString())
+      })
 
       const { error } = await request.json(
         'http://localhost:3000/healthcheck',
