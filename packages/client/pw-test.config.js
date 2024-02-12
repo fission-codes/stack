@@ -91,8 +91,12 @@ function buildConfig(config) {
 
       await fs.writeFile(settingsPath, serverConfig(dbURL, keypairPath))
 
+      const bin = process.CI
+        ? path.join(__dirname, 'test/mocks/fission-server-ci')
+        : path.join(__dirname, 'test/mocks/fission-server')
+
       server = execa(
-        path.join(__dirname, 'test/mocks/fission-server'),
+        bin,
         [
           '--ephemeral-db',
           '--close-on-stdin-close',

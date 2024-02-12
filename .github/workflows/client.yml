@@ -26,11 +26,6 @@ jobs:
         with:
           node-version: lts/*
           cache: pnpm
-      - name: Setup docker (missing on MacOS)
-        if: runner.os == 'macos'
-        run: |
-          brew install docker
-          colima start
       - run: pnpm install
       - run: pnpm run build
       - run: pnpm -r --filter @fission-codes/client run lint
