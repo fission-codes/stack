@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://github.com/fission-codes/stack/compare/ucan-v0.1.2...ucan-v0.2.0) (2024-02-12)
+
+
+### Features
+
+* add agent impl and identifiers(wip) ([043d179](https://github.com/fission-codes/stack/commit/043d179c65bf5af2cdb82c1f0f3f842ce3427080))
+
+
+### Bug Fixes
+
+* export wasmify ([14d724b](https://github.com/fission-codes/stack/commit/14d724b80475165b8f737521ed1cf5d5c5e7c686))
+
 ## [0.1.2](https://github.com/fission-codes/stack/compare/ucan-v0.1.1...ucan-v0.1.2) (2024-01-19)
 
 
