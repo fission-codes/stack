@@ -69,7 +69,7 @@ async function createAccount() {
     username,
   })
   if (createAccount.error) {
-    assert.fail(createAccount.error)
+    return assert.fail(createAccount.error)
   }
 
   return {
@@ -187,7 +187,7 @@ test('should change username', async function () {
   assert.deepEqual(accountInfo.result?.username, `${changedUsername}.localhost`)
 })
 
-test('should fail changing username without conflict', async function () {
+test('should fail changing username with conflict', async function () {
   const account1 = await createAccount()
   const account2 = await createAccount()
 

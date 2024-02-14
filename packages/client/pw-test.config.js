@@ -125,9 +125,6 @@ function buildConfig(config) {
         {
           retry: {
             retries: 10,
-            onFailedAttempt: (error) => {
-              console.error('Failed to connect to server', error)
-            },
           },
         }
       )
