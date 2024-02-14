@@ -129,9 +129,6 @@ importers:
       p-defer:
         specifier: ^4.0.0
         version: 4.0.0
-      p-wait-for:
-        specifier: ^5.0.2
-        version: 5.0.2
       playwright-test:
         specifier: ^14.1.1
         version: 14.1.1
@@ -141,9 +138,6 @@ importers:
       testcontainers:
         specifier: ^10.7.1
         version: 10.7.1
-      type-fest:
-        specifier: ^4.10.2
-        version: 4.10.2
 
   packages/eslint-config:
     dependencies:
@@ -5642,13 +5636,6 @@ packages:
   /p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
-
-  /p-wait-for@5.0.2:
-    resolution: {integrity: sha512-lwx6u1CotQYPVju77R+D0vFomni/AqRfqLmqQ8hekklqZ6gAY9rONh7lBQ0uxWMkC2AuX9b2DVAl8To0NyP1JA==}
-    engines: {node: '>=12'}
-    dependencies:
-      p-timeout: 6.1.2
-    dev: true
 
   /package-json-type@1.0.3:
     resolution: {integrity: sha512-Bey4gdRuOwDbS8Fj1qA3/pTq5r8pqiI5E3tjSqCdhaLSsyGG364VFzXLTIexN5AaNGe/vgdBzLfoKdr7EVg2KQ==}
