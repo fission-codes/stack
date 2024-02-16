@@ -108,6 +108,7 @@ async function bundle(filePath) {
     platform: 'browser',
     write: false,
   })
+  // console.log('🚀 ~ bundle ~ result:', result.outputFiles[0].hash)
   return result.outputFiles[0].text
 }
 

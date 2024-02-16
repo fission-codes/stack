@@ -27,7 +27,6 @@ const resolveSigner = (
 function waitForCode(email) {
   /** @type {import('p-defer').DeferredPromise<string>} */
   const d = pdefer()
-
   const isReady = pdefer()
   const ws = new WS(`${SERVER_URL}/api/v0/relay/${email}`)
   ws.addEventListener('message', (e) => {
