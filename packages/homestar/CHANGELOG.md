@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/fission-codes/stack/compare/homestar-v2.0.1...homestar-v2.0.2) (2024-02-21)
+
+
+### Bug Fixes
+
+* update homestar and add componentize ([d455502](https://github.com/fission-codes/stack/commit/d4555024b0080109a0633dbbd825a92f1cc9fcfa))
+
 ## [2.0.1](https://github.com/fission-codes/stack/compare/homestar-v2.0.0...homestar-v2.0.1) (2024-02-12)
 
 
