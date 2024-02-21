@@ -21,8 +21,9 @@ export function qrpng(data: string, output: string): string {
  *
  * @param a
  * @param b
+ * @param more
  * @returns string
  */
-export function concat(a: string, b: string): string {
-  return a + b
+export function concat(a: string, b: string, more: string[]): string {
+  return a + b + more.join('')
 }

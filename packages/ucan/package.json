@@ -64,10 +64,10 @@
     "iso-did": "^1.6.0",
     "iso-kv": "^3.0.1",
     "iso-signatures": "^0.3.2",
-    "multiformats": "^13.0.1"
+    "multiformats": "^13.1.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17",
+    "@types/node": "^20.11.19",
     "playwright-test": "^14.1.1",
     "type-fest": "^4.10.2"
   },
