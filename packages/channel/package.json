@@ -62,11 +62,11 @@
     "test:browser": "playwright-test 'test/**/!(*.node).test.js'"
   },
   "dependencies": {
-    "emittery": "^1.0.2",
+    "emittery": "^1.0.3",
     "iso-websocket": "^0.2.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17",
+    "@types/node": "^20.11.19",
     "p-defer": "^4.0.0",
     "playwright-test": "^14.1.1",
     "type-fest": "^4.10.2",

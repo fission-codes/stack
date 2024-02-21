@@ -12,17 +12,17 @@
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
-    "@bytecodealliance/jco": "^1.0.0",
+    "@bytecodealliance/jco": "^1.0.1",
     "@bytecodealliance/preview2-shim": "^0.15.1",
     "@fission-codes/channel": "workspace:^",
     "@fission-codes/homestar": "workspace:^",
-    "@hono/node-server": "^1.7.0",
+    "@hono/node-server": "^1.8.1",
     "@paulmillr/qr": "^0.1.1",
     "ajv": "^8.12.0",
     "execa": "^8.0.1",
     "exit-hook": "^4.0.0",
-    "homestar-runtime": "0.1.1-rc.1706205643",
-    "hono": "^4.0.2",
+    "homestar-runtime": "0.2.0",
+    "hono": "^4.0.5",
     "iso-web": "^1.0.4",
     "kubo-rpc-client": "^3.0.3",
     "listhen": "^1.6.0",
@@ -33,7 +33,7 @@
     "ts-json-schema-generator": "^1.5.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17"
+    "@types/node": "^20.11.19"
   },
   "eslintConfig": {
     "extends": [

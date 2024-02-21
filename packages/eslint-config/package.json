@@ -24,8 +24,8 @@
     "test": "mocha 'test/**/*.test.js' --timeout 10000"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard": "^17.1.0",
@@ -50,7 +50,7 @@
     "@types/assert": "^1.5.9",
     "@types/eslint": "^8.44.9",
     "@types/mocha": "^10.0.4",
-    "@types/node": "^20.11.17",
+    "@types/node": "^20.11.19",
     "assert": "^2.1.0",
     "mocha": "^10.3.0"
   },
