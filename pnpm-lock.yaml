@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -68,8 +68,8 @@ importers:
   examples/homestar-gateway:
     dependencies:
       '@bytecodealliance/jco':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.2
+        version: 1.0.2
       '@bytecodealliance/preview2-shim':
         specifier: ^0.15.1
         version: 0.15.1
@@ -672,12 +672,12 @@ packages:
   /@bytecodealliance/componentize-js@0.7.0:
     resolution: {integrity: sha512-aNBV0KHBN3u62tEbSQVvLcohh5eY2BEvhscj1w1ZFIuTW9muWnq4XEiYiETqCAp9HsnsWxYuJFF+FoDPg+a0Yw==}
     dependencies:
-      '@bytecodealliance/jco': 1.0.1
+      '@bytecodealliance/jco': 1.0.2
       '@bytecodealliance/wizer': 3.0.1
     dev: false
 
-  /@bytecodealliance/jco@1.0.1:
-    resolution: {integrity: sha512-zVuV5+TIBT+KpGNgyVIsiNT7CQD7vT0cy+dyeiehNvJVLHj0C2UhZWamALyqw+4nPCwF015zTQuEE6fFhL/EKw==}
+  /@bytecodealliance/jco@1.0.2:
+    resolution: {integrity: sha512-DAHnX+nW+ppHRkqh7WpTVF8fWD99Ctl8KgJ51rSan2DFu0qJ00hWBHplAokYaW1m81LbjbMom5k24FnvTwKoNA==}
     hasBin: true
     dependencies:
       '@bytecodealliance/preview2-shim': 0.15.1
@@ -1494,7 +1494,7 @@ packages:
     dependencies:
       '@jridgewell/set-array': 1.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
-      '@jridgewell/trace-mapping': 0.3.21
+      '@jridgewell/trace-mapping': 0.3.22
 
   /@jridgewell/resolve-uri@3.1.1:
     resolution: {integrity: sha512-dSYZh7HhCDtCKm4QakX0xFpsRDqjjtZf/kjI/v3T3Nwt5r8/qz/M19F9ySyOqU94SXBmeG9ttTul+YnR4LOxFA==}
@@ -1513,12 +1513,6 @@ packages:
 
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
-
-  /@jridgewell/trace-mapping@0.3.21:
-    resolution: {integrity: sha512-SRfKmRe1KvYnxjEMtxEr+J4HIeMX5YBg/qhRHpxEIGjhX1rshcHlnFUE9K0GazhVKWM7B+nARSkV8LuvJdJ5/g==}
-    dependencies:
-      '@jridgewell/resolve-uri': 3.1.1
-      '@jridgewell/sourcemap-codec': 1.4.15
 
   /@jridgewell/trace-mapping@0.3.22:
     resolution: {integrity: sha512-Wf963MzWtA2sjrNt+g18IAln9lKnlRp+K2eH4jjIoF1wYeq3aMREpG09xhlhdzS0EjwU7qmUJYangWa+151vZw==}
@@ -1819,6 +1813,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -6145,6 +6140,10 @@ packages:
     engines: {node: ^18 || >=20}
     hasBin: true
     dev: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
 
   /native-fetch@3.0.0(node-fetch@2.7.0):
     resolution: {integrity: sha512-G3Z7vx0IFb/FQ4JxvtqGABsOTIqRWvgQz6e+erkB+JJD6LrszQtMozEHI4EkmgZQvnGHrpLVzUWk7t4sJCIkVw==}
