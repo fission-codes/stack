@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
-    "@bytecodealliance/jco": "^1.0.1",
+    "@bytecodealliance/jco": "^1.0.2",
     "@bytecodealliance/preview2-shim": "^0.15.1",
     "@fission-codes/channel": "workspace:^",
     "@fission-codes/homestar": "workspace:^",
