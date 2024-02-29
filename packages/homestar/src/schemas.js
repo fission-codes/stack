@@ -62,7 +62,10 @@ export const Receipt = z.object({
 export const Task = z.object({
   op: z.string(),
   rsc: z.string().url(),
-  nnc: z.string(),
+  nnc: z.union([
+    z.string(),
+    z.object({ '/': z.object({ bytes: z.string() }) }),
+  ]),
   input: z.object({
     func: z.string(),
     args: z.array(z.any()),
