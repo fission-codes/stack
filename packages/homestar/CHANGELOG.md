@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.3](https://github.com/fission-codes/stack/compare/homestar-v2.0.2...homestar-v2.0.3) (2024-03-01)
+
+
+### Features
+
+* add union type to nnc field ([#153](https://github.com/fission-codes/stack/issues/153)) ([6e881a6](https://github.com/fission-codes/stack/commit/6e881a618f1e16a82f9f392e31c89ab92435f25d))
+
 ## [2.0.2](https://github.com/fission-codes/stack/compare/homestar-v2.0.1...homestar-v2.0.2) (2024-02-21)
 
 
