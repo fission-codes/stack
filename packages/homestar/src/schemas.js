@@ -63,7 +63,7 @@ export const Task = z.object({
   op: z.string(),
   rsc: z.string().url(),
   nnc: z.union([
-    z.string(),
+    z.string().length(0),
     z.object({ '/': z.object({ bytes: z.string() }) }),
   ]),
   input: z.object({
