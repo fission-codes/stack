@@ -148,8 +148,8 @@ importers:
         specifier: ^14.1.1
         version: 14.1.1
       type-fest:
-        specifier: ^4.10.2
-        version: 4.10.2
+        specifier: ^4.11.0
+        version: 4.11.0
       unws:
         specifier: ^0.2.4
         version: 0.2.4(ws@8.16.0)
@@ -364,8 +364,8 @@ importers:
         specifier: ^10.7.1
         version: 10.7.1
       type-fest:
-        specifier: ^4.10.2
-        version: 4.10.2
+        specifier: ^4.11.0
+        version: 4.11.0
       unws:
         specifier: ^0.2.4
         version: 0.2.4(ws@8.16.0)
@@ -404,8 +404,8 @@ importers:
         specifier: ^14.1.1
         version: 14.1.1
       type-fest:
-        specifier: ^4.10.2
-        version: 4.10.2
+        specifier: ^4.11.0
+        version: 4.11.0
 
 packages:
 
@@ -6084,7 +6084,7 @@ packages:
       outvariant: 1.4.2
       path-to-regexp: 6.2.1
       strict-event-emitter: 0.5.1
-      type-fest: 4.10.2
+      type-fest: 4.11.0
       typescript: 5.3.3
       yargs: 17.7.2
     dev: true
@@ -7618,8 +7618,8 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /type-fest@4.10.2:
-    resolution: {integrity: sha512-anpAG63wSpdEbLwOqH8L84urkL6PiVIov3EMmgIhhThevh9aiMQov+6Btx0wldNcvm4wV+e2/Rt1QdDwKHFbHw==}
+  /type-fest@4.11.0:
+    resolution: {integrity: sha512-DPsoHKtnCUqqoB5Y4OPyat7ObSLz1XOkhHTmz+gOkz2p1xs+BBneTvHWriTwc313eozfBWh8b45EpaV3ZrrPPQ==}
     engines: {node: '>=16'}
     dev: true
 

@@ -69,7 +69,7 @@
   "devDependencies": {
     "@types/node": "^20.11.19",
     "playwright-test": "^14.1.1",
-    "type-fest": "^4.10.2"
+    "type-fest": "^4.11.0"
   },
   "publishConfig": {
     "provenance": true
