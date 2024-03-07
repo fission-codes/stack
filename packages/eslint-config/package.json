@@ -44,13 +44,13 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unicorn": "^49.0.0",
     "eslint-plugin-yml": "^1.11.0",
-    "typescript": "^5.3.3"
+    "typescript": "5.3.3"
   },
   "devDependencies": {
     "@types/assert": "^1.5.9",
-    "@types/eslint": "^8.44.9",
+    "@types/eslint": "^8.56.5",
     "@types/mocha": "^10.0.4",
-    "@types/node": "^20.11.19",
+    "@types/node": "^20.11.25",
     "assert": "^2.1.0",
     "mocha": "^10.3.0"
   },

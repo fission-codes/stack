@@ -45,9 +45,8 @@
     "test:node": "playwright-test 'test/**/!(*.browser).test.js' --mode node",
     "test:browser": "playwright-test 'test/**/!(*.node).test.js'"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@types/node": "^20.11.19",
+    "@types/node": "^20.11.25",
     "playwright-test": "^14.1.1"
   },
   "publishConfig": {
