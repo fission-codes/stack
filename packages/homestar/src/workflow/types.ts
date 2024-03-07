@@ -47,12 +47,14 @@ export interface TemplateInvocation<Args extends any[] = any[]>
 export type Placeholder = `{{${string}${`:${string}` | ''}}}`
 export type DataURI = `data:${string};base64,${string}`
 export type Resource = `ipfs://${string}`
+export type NNC = string | { '/': { bytes: string } }
 
 export interface InvocationOptions<Args extends any[] = any[]> {
   name: string
   args: Args
   func: string
   resource: Resource
+  nnc?: NNC
 }
 
 export interface TemplateOptions<
@@ -60,6 +62,7 @@ export interface TemplateOptions<
 > {
   name: string
   args: Args
+  nnc?: NNC
   /**
    * The resource URI to use for the invocation.
    *

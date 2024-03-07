@@ -510,3 +510,74 @@ test(
     timeout: 30_000,
   }
 )
+
+test(
+  'should run workflow with nnc and deps',
+  async function () {
+    /** @type {import('p-defer').DeferredPromise<number>} */
+    const prom = pDefer()
+    const hs = new Homestar({
+      transport: new WebsocketTransport(HS1_URL, {
+        ws: WebSocket,
+      }),
+    })
+    let count = 0
+    const { dataUrl } = await getImgBlob()
+    const workflow = await Workflow.workflow({
+      name: 'test-template',
+      workflow: {
+        tasks: [
+          Workflow.cropBase64({
+            name: 'crop64',
+            resource: `ipfs://${wasmCID}`,
+            args: {
+              data: dataUrl,
+              height: 10,
+              width: 10,
+              x: 1,
+              y: 1,
+            },
+            nnc: {
+              '/': {
+                bytes: 'JQ4e1hbfPqD63N4a',
+              },
+            },
+          }),
+          Workflow.blur({
+            name: 'blur',
+            resource: `ipfs://${wasmCID}`,
+            args: {
+              sigma: 0.1,
+              data: '{{needs.crop64.output}}',
+            },
+            nnc: {
+              '/': {
+                bytes: '7wY+ZBNnj97HY/tY',
+              },
+            },
+          }),
+        ],
+      },
+    })
+
+    const { error } = await hs.runWorkflow(workflow, (data) => {
+      count++
+      if (count === 2) {
+        prom.resolve(2)
+      }
+    })
+
+    if (error) {
+      hs.close()
+      return assert.fail(error)
+    }
+
+    await prom.promise
+    assert.equal(count, 2)
+    hs.close()
+  },
+  {
+    timeout: 30_000,
+    skip: Client.mode === 'node',
+  }
+)

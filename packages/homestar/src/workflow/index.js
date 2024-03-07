@@ -280,7 +280,7 @@ export function invocation(opts) {
         args: opts.args,
         func: opts.func,
       },
-      nnc: '',
+      nnc: opts.nnc ?? '',
       op: 'wasm/run',
       rsc: opts.resource,
     },
