@@ -1,5 +1,6 @@
 'use strict'
 
+/** @type {import('eslint').Linter.RulesRecord} */
 const offRules = {
   'unicorn/no-process-exit': 'off',
   'jsdoc/require-jsdoc': 'off',
@@ -11,7 +12,8 @@ const offRules = {
   'unicorn/filename-case': 'off',
 }
 
-exports.config = [
+/** @type {import('eslint').Linter.ConfigOverride<import('eslint').Linter.RulesRecord>[]} */
+const config = [
   {
     files: ['*.md'],
     extends: ['plugin:markdown/recommended'],
@@ -33,3 +35,5 @@ exports.config = [
     plugins: ['@typescript-eslint'],
   },
 ]
+
+module.exports = { config }

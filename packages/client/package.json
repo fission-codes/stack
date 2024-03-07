@@ -52,15 +52,15 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@testcontainers/postgresql": "^10.7.1",
-    "@types/node": "^20.11.19",
+    "@testcontainers/postgresql": "^10.7.2",
+    "@types/node": "^20.11.25",
     "execa": "^8.0.1",
     "iso-websocket": "^0.2.0",
     "msw": "^2.1.5",
     "p-defer": "^4.0.0",
     "playwright-test": "^14.1.1",
     "tempy": "^3.1.0",
-    "testcontainers": "^10.7.1"
+    "testcontainers": "^10.7.2"
   },
   "publishConfig": {
     "provenance": true

@@ -17,7 +17,7 @@ pnpm install @fission-codes/homestar-wit
 ```js
 import { log } from '@fission-codes/homestar-wit/logging'
 
-log('error', 'http', `error message`)
+log('error', 'http', `error message here`)
 ```
 
 ## Docs
