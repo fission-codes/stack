@@ -6,6 +6,7 @@
       "packages/channel",
       "packages/client",
       "packages/homestar",
+      "packages/homestar-wit",
       "packages/ucan"
     ],
     "excludeExternals": true,
