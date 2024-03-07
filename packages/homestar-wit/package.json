@@ -1,7 +1,7 @@
 {
   "name": "@fission-codes/homestar-wit",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "WIT for Homestar",
   "author": "Hugo Dias <hugomrdias@gmail.com> (hugodias.me)",
   "license": "MIT",
