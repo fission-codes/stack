@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "emitDeclarationOnly": true,
+    "outDir": "dist"
+  },
+  "include": ["src", "test", "package.json"],
+  "exclude": ["node_modules", "dist", "out"],
+  "typedocOptions": {
+    "entryPointStrategy": "resolve",
+    "entryPoints": ["src/logging.js"],
+    "includeVersion": true,
+    "excludeExternals": true,
+    "internalModule": "<internal>"
+  }
+}

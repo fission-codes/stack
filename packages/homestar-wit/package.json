@@ -1,0 +1,75 @@
+{
+  "name": "@fission-codes/homestar-wit",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "WIT for Homestar",
+  "author": "Hugo Dias <hugomrdias@gmail.com> (hugodias.me)",
+  "license": "MIT",
+  "homepage": "https://github.com/fission-codes/stack/tree/main/packages/homestar-wit",
+  "repository": {
+    "url": "fission-codes/stack",
+    "directory": "packages/homestar-wit"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./logging": {
+      "types": "./dist/src/logging.d.ts",
+      "default": "./src/logging.js"
+    }
+  },
+  "main": "src/index.js",
+  "types": "dist/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "dist/src/index"
+      ],
+      "logging": [
+        "dist/src/logging"
+      ]
+    }
+  },
+  "files": [
+    "src",
+    "wit",
+    "dist/src/*.d.ts",
+    "dist/src/*.d.ts.map"
+  ],
+  "scripts": {
+    "lint": "tsc --build && eslint . && prettier --check '**/*.{js,ts,yml,json}' --ignore-path ../../.gitignore",
+    "build": "tsc --build",
+    "test": "pnpm run test:node && pnpm run test:browser",
+    "test:node": "playwright-test 'test/**/!(*.browser).test.js' --mode node",
+    "test:browser": "playwright-test 'test/**/!(*.node).test.js'"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "playwright-test": "^14.1.1"
+  },
+  "publishConfig": {
+    "provenance": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "@fission-codes"
+    ],
+    "env": {
+      "mocha": true
+    },
+    "ignorePatterns": [
+      "dist"
+    ]
+  },
+  "depcheck": {
+    "specials": [
+      "bin"
+    ],
+    "ignores": [
+      "@types/*"
+    ]
+  }
+}

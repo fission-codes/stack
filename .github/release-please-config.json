@@ -3,6 +3,7 @@
   "release-type": "node",
   "packages": {
     "packages/homestar": {},
+    "packages/homestar-wit": {},
     "packages/channel": {},
     "packages/ucan": {},
     "packages/client": {},
