@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/fission-codes/stack/compare/homestar-v2.0.3...homestar-v2.1.0) (2024-03-07)
+
+
+### Features
+
+* support more types in wasmify and wasi logging ([1c993c0](https://github.com/fission-codes/stack/commit/1c993c0a814b02d4a90e0a095aedff2f31bcd4e5)), closes [#159](https://github.com/fission-codes/stack/issues/159)
+
 ## [2.0.3](https://github.com/fission-codes/stack/compare/homestar-v2.0.2...homestar-v2.0.3) (2024-03-01)
 
 
