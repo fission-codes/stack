@@ -31,6 +31,7 @@ jobs:
     if: |
       contains(fromJson(needs.release.outputs.paths_released), 'packages/eslint-config') ||
       contains(fromJson(needs.release.outputs.paths_released), 'packages/homestar') ||
+      contains(fromJson(needs.release.outputs.paths_released), 'packages/homestar-wit') ||
       contains(fromJson(needs.release.outputs.paths_released), 'packages/channel') ||
       contains(fromJson(needs.release.outputs.paths_released), 'packages/ucan') ||
       contains(fromJson(needs.release.outputs.paths_released), 'packages/client')
@@ -56,6 +57,7 @@ jobs:
     if: |
       contains(fromJson(needs.release.outputs.paths_released), 'packages/eslint-config')||
       contains(fromJson(needs.release.outputs.paths_released), 'packages/homestar') ||
+      contains(fromJson(needs.release.outputs.paths_released), 'packages/homestar-wit') ||
       contains(fromJson(needs.release.outputs.paths_released), 'packages/channel') ||
       contains(fromJson(needs.release.outputs.paths_released), 'packages/ucan') ||
       contains(fromJson(needs.release.outputs.paths_released), 'packages/client')
