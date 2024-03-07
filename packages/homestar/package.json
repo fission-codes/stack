@@ -64,13 +64,17 @@
   "dependencies": {
     "@bytecodealliance/componentize-js": "^0.7.0",
     "@fission-codes/channel": "workspace:^",
+    "@fission-codes/homestar-wit": "workspace:^",
     "@ipld/dag-cbor": "^9.2.0",
     "@ipld/dag-json": "^10.2.0",
     "@multiformats/sha3": "^3.0.2",
     "@ts-ast-parser/core": "^0.7.0",
+    "del": "^7.1.0",
     "emittery": "^1.0.3",
     "esbuild": "^0.20.1",
+    "esbuild-plugin-replace-regex": "^0.0.2",
     "get-tsconfig": "^4.7.2",
+    "just-kebab-case": "^4.2.0",
     "multiformats": "^13.1.0",
     "object-path": "^0.11.8",
     "zod": "^3.22.4"

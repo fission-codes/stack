@@ -59,3 +59,10 @@ export type HomestarService = Service<
       result: Opaque<number[], Schemas.EventNotification>
     }
 >
+
+export interface WitOptions {
+  filePath?: string
+  source?: string
+  worldName: string
+  wasiImports?: Set<string>
+}

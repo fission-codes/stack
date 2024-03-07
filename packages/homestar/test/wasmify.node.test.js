@@ -1,7 +1,6 @@
 import * as url from 'url'
 import path from 'path'
 import { assert, suite } from 'playwright-test/taps'
-import { WebSocket } from 'unws'
 import pDefer from 'p-defer'
 import { base64 } from 'iso-base/rfc4648'
 import { utf8 } from 'iso-base/utf8'
@@ -16,6 +15,13 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 const test = suite('wasmify')
 const HS1_URL = process.env.HS1_URL || 'ws://localhost:8060'
+const hs = new Homestar({
+  transport: new WebsocketTransport(HS1_URL),
+})
+
+test.after(() => {
+  hs.close()
+})
 
 test(
   'should wasmify',
@@ -27,11 +33,6 @@ test(
 
     /** @type {import('p-defer').DeferredPromise<string>} */
     const prom = pDefer()
-    const hs = new Homestar({
-      transport: new WebsocketTransport(HS1_URL, {
-        ws: WebSocket,
-      }),
-    })
 
     const args = ['hello']
 
@@ -60,7 +61,6 @@ test(
     const r = await prom.promise
     const actual = utf8.encode(base64.decode(r))
     assert.equal(actual, 'hello')
-    hs.close()
   },
   {
     timeout: 30_000,
@@ -77,12 +77,6 @@ test(
 
     /** @type {import('p-defer').DeferredPromise<Uint8Array>} */
     const prom = pDefer()
-    const hs = new Homestar({
-      transport: new WebsocketTransport(HS1_URL, {
-        ws: WebSocket,
-      }),
-    })
-
     const args = ['aGVsbG8']
 
     const wasmCID = await addFSFileToIPFS(outPath)
@@ -110,9 +104,50 @@ test(
     const r = await prom.promise
     const actual = base64.encode(r)
     assert.equal(actual, 'aGVsbG8')
-    hs.close()
   },
   {
     timeout: 30_000,
+  }
+)
+
+test(
+  'should wasmify with wit logging',
+  async function () {
+    const { outPath } = await build(
+      path.join(__dirname, 'fixtures', 'wasmify', 'wit-test.ts'),
+      temporaryDirectory()
+    )
+
+    /** @type {import('p-defer').DeferredPromise<number>} */
+    const prom = pDefer()
+    const args = [1.1, 1.1]
+    const wasmCID = await addFSFileToIPFS(outPath)
+    const workflow1 = await workflow({
+      name: 'hash',
+      workflow: {
+        tasks: [
+          invocation({
+            name: 'hash',
+            func: 'subtract',
+            args,
+            resource: `ipfs://${wasmCID}`,
+          }),
+        ],
+      },
+    })
+
+    const { error } = await hs.runWorkflow(workflow1, (data) => {
+      prom.resolve(data.receipt.out[1])
+    })
+
+    if (error) {
+      return assert.fail(error)
+    }
+
+    const r = await prom.promise
+    assert.equal(r, 0)
+  },
+  {
+    timeout: 120_000,
   }
 )

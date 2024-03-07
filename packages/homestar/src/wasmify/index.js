@@ -1,134 +1,104 @@
 import { writeFile } from 'node:fs/promises'
 import path from 'path'
-import { parseFromFiles } from '@ts-ast-parser/core'
+import { createRequire } from 'node:module'
+import { base32 } from 'iso-base/rfc4648'
 import * as esbuild from 'esbuild'
-import { getTsconfig } from 'get-tsconfig'
+import { deleteAsync } from 'del'
+
+// @ts-ignore
+import replacePlugin from 'esbuild-plugin-replace-regex'
 
 // @ts-ignore
 import { componentize } from '@bytecodealliance/componentize-js'
+import { wit } from './wit.js'
+
+const require = createRequire(import.meta.url)
 
 /**
- * @param {import('@ts-ast-parser/core').Type} type
- * @returns {string}
- */
-function primitiveType(type) {
-  if (type.text === 'string') {
-    return 'string'
-  }
-
-  if (type.text === 'boolean') {
-    return 'bool'
-  }
-
-  if (type.text === 'number') {
-    return 's64'
-  }
-
-  if (type.text === 'Uint8Array') {
-    return 'list<u8>'
-  }
-
-  if (type.kind === 'Array' && type.elementType) {
-    return `list<${primitiveType(type.elementType)}>`
-  }
-
-  throw new Error(`Unknown type: ${JSON.stringify(type)}`)
-}
-
-/**
+ * Bundle the js code with WASI support
  *
- * Generate a WIT file from a TypeScript file
- *
- * @param {string} filePath - Path to a TypeScript file
- */
-async function wit(filePath) {
-  const cfg = getTsconfig(filePath)
-  if (!cfg) {
-    throw new Error('No tsconfig found')
-  }
-
-  const { project, errors } = await parseFromFiles([filePath], {
-    tsConfigFilePath: cfg.path,
-  })
-
-  if (errors.length > 0) {
-    console.error(errors)
-    // Handle the errors
-
-    // process.exit(1)
-  }
-
-  const result = project?.getModules().map((m) => m.serialize()) ?? []
-  if (result.length > 0) {
-    // console.log(
-    //   '🚀 ~ file: cli.js:23 ~ reflectedModules:',
-    //   JSON.stringify(result, null, 2)
-    // )
-    const { sourcePath, declarations } = result[0]
-    const world = path.basename(sourcePath).replace('.ts', '')
-    const exports = declarations.map((d) => {
-      if (d.kind === 'Function') {
-        /** @type {string[]} */
-        const params = d.signatures[0].parameters
-          ? d.signatures[0].parameters.map(
-              (p) => `${p.name}: ${primitiveType(p.type)}`
-            )
-          : []
-        const name = d.name
-        const returnType = primitiveType(d.signatures[0].return.type)
-
-        return `  export ${name}: func(${params.join(', ')}) -> ${returnType};`
-      }
-
-      return ''
-    })
-
-    const wit = `
-package local:${world};
-
-world ${world} {
-${exports.join('\n')}
-}
-    `
-    // console.log('🚀 ~ WIT World\n\n', wit)
-    return wit
-  } else {
-    throw new Error('No modules found')
-  }
-}
-
-/**
  * @param {string} filePath - Path to a TypeScript file
  */
 async function bundle(filePath) {
+  const wasiImports = new Set()
+  /** @type {import('esbuild').Plugin} */
+  const wasiPlugin = {
+    name: 'wasi imports',
+    setup(build) {
+      // @ts-ignore
+      build.onResolve({ filter: /^wasi:.*/ }, (args) => {
+        wasiImports.add(`import ${args.path};`)
+      })
+    },
+  }
+
   const result = await esbuild.build({
     entryPoints: [filePath],
     bundle: true,
     format: 'esm',
     platform: 'browser',
     write: false,
+    plugins: [
+      replacePlugin({
+        filter: /homestar-wit\/src\/logging.js$/,
+        patterns: [
+          ['let wasiLog', '// let wasiLog'],
+          [
+            "// import { log as wasiLog } from 'wasi:logging/logging'",
+            "import { log as wasiLog } from 'wasi:logging/logging'",
+          ],
+        ],
+      }),
+      wasiPlugin,
+    ],
+    external: ['wasi:*'],
   })
-  // console.log('🚀 ~ bundle ~ result:', result.outputFiles[0].hash)
-  return result.outputFiles[0].text
+  return {
+    src: result.outputFiles[0].text,
+    hash: result.outputFiles[0].hash,
+    wasiImports,
+  }
 }
 
 /**
+ * Generate wasm component from a TypeScript file
+ *
  * @param {string} filePath - Path to a TypeScript file
  * @param {string} outDir - Path to a directory to write the Wasm component file
  */
 export async function build(filePath, outDir = process.cwd()) {
-  const outName = path
-    .basename(filePath)
-    .replace(path.extname(filePath), '.wasm')
-  const outPath = path.join(outDir, outName)
+  const pkgPath = require.resolve('@fission-codes/homestar-wit')
+  const witPath = path.join(pkgPath, '..', '..', 'wit')
+  let witHash
 
-  const { component } = await componentize(
-    await bundle(filePath),
-    await wit(filePath)
-  )
-  await writeFile(outPath, component)
+  // Clean up any old WIT files in the wit directory
+  // componentize process.exit(1) if it fails so we can't clean up after it
+  await deleteAsync([`${witPath}/*.wit`], { force: true })
 
-  return {
-    outPath,
+  try {
+    const { hash, src, wasiImports } = await bundle(filePath)
+    witHash = base32.encode(hash).toLowerCase()
+
+    // TODO: check the wit hash and only componentize if it has changed
+    const witSource = await wit({ filePath, worldName: witHash, wasiImports })
+    const witFile = path.join(witPath, `${witHash}.wit`)
+    await writeFile(witFile, witSource, 'utf8')
+    const { component } = await componentize(src, {
+      witPath,
+      worldName: witHash,
+      // debug: true,
+      sourceName: filePath,
+    })
+    const outPath = path.join(outDir, `${witHash}.wasm`)
+    await writeFile(outPath, component)
+
+    return {
+      outPath,
+      witHash,
+    }
+  } finally {
+    if (witHash) {
+      await deleteAsync([path.join(witPath, `${witHash}.wit`)], { force: true })
+    }
   }
 }

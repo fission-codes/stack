@@ -8,6 +8,9 @@
   "references": [
     {
       "path": "../channel"
+    },
+    {
+      "path": "../homestar-wit"
     }
   ],
   "include": ["src", "test", "package.json"],
