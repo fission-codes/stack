@@ -355,8 +355,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1
       homestar-runtime:
-        specifier: ^0.2.0
-        version: 0.2.0
+        specifier: rc
+        version: 0.2.0-rc.1709907613
       iso-base:
         specifier: ^2.0.1
         version: 2.0.1
@@ -719,7 +719,7 @@ packages:
   /@bytecodealliance/componentize-js@0.7.1:
     resolution: {integrity: sha512-U7LCzFR7N02YDsjaIwmxUNE9eqGVwORSzNOdz2UNk43kSvku0hHg65jLCvZ3bkVd9vABdfdtyi5sxSkSAr1WQg==}
     dependencies:
-      '@bytecodealliance/jco': 1.0.2
+      '@bytecodealliance/jco': 1.0.3
       '@bytecodealliance/wizer': 3.0.1
     dev: false
 
@@ -736,8 +736,25 @@ packages:
       terser: 5.27.2
     dev: false
 
+  /@bytecodealliance/jco@1.0.3:
+    resolution: {integrity: sha512-i5PGJcp+K+EiTLq1/yisiSr0L9KewPd9iCUEj3L0bzLR4T+XJu3q3Iw9ANyIqFL2Q2iaJ7yAL0E3Gu5PluP1zQ==}
+    hasBin: true
+    dependencies:
+      '@bytecodealliance/preview2-shim': 0.16.0
+      binaryen: 116.0.0
+      chalk-template: 1.1.0
+      commander: 12.0.0
+      mkdirp: 3.0.1
+      ora: 8.0.1
+      terser: 5.29.1
+    dev: false
+
   /@bytecodealliance/preview2-shim@0.15.1:
     resolution: {integrity: sha512-dzdsRvdDTaogMS8rLJhJWtRMMIUwaXcZyxklnsj6o81/PQl5VCPMBqBItRnmbtizTVGPKGxmfRkxZBw86gBkzg==}
+    dev: false
+
+  /@bytecodealliance/preview2-shim@0.16.0:
+    resolution: {integrity: sha512-8gajvNpwHu8127PZuv56wpZQutEFmQL7F/BnwVleME1oUA9yXky2uIEK3HWN0inU2PUW8GLl4h4uLSP6/b8/eA==}
     dev: false
 
   /@bytecodealliance/wizer-darwin-arm64@3.0.1:
@@ -1498,14 +1515,14 @@ packages:
     resolution: {integrity: sha512-N14oMy0q4gM6OuZkIpisKe0JBSjf1Jb39VI+7jMLiWX9124u1Z3Fdj/Tag1NA0cVxxqWDh0CqsjcVfOKtelPDA==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
-      cborg: 4.0.9
+      cborg: 4.1.0
       multiformats: 13.1.0
 
   /@ipld/dag-json@10.2.0:
     resolution: {integrity: sha512-O9YLUrl3d3WbVz7v1WkajFkyfOLEe2Fep+wor4fgVe0ywxzrivrj437NiPcVyB+2EDdFn/Q7tCHFf8YVhDf8ZA==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
-      cborg: 4.0.9
+      cborg: 4.1.0
       multiformats: 13.1.0
 
   /@ipld/dag-pb@4.1.0:
@@ -2048,8 +2065,8 @@ packages:
       '@types/ssh2': 1.11.19
     dev: true
 
-  /@types/dockerode@3.3.24:
-    resolution: {integrity: sha512-679y69OYusf7Fr2HtdjXPUF6hnHxSA9K4EsuagsMuPno/XpJHjXxCOy2I5YL8POnWbzjsQAi0pyKIYM9HSpQog==}
+  /@types/dockerode@3.3.25:
+    resolution: {integrity: sha512-AnC6M3AT7AnXCW0bSHpxA1HTa2CHAW4+zghLIuCykqD97AHZ67Q5GGU3shrD1WqifyGFlv7op9iwA8uqnv6rXQ==}
     dependencies:
       '@types/docker-modem': 3.0.6
       '@types/node': 20.11.25
@@ -2999,6 +3016,11 @@ packages:
     hasBin: true
     dev: false
 
+  /binaryen@116.0.0:
+    resolution: {integrity: sha512-Hp0dXC6Cb/rTwWEoUS2BRghObE7g/S9umKtxuTDt3f61G6fNTE/YVew/ezyy3IdHcLx3f17qfh6LwETgCfvWkQ==}
+    hasBin: true
+    dev: false
+
   /bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
     dependencies:
@@ -3146,8 +3168,8 @@ packages:
     resolution: {integrity: sha512-zpkZ+kEr6We7w63ORkoJ2pOfBwBkY/bJrG/UZ90qNb45Isblu8wzDgevEOrRL1r9dWayHjYiiyCMEXPn4DweGQ==}
     dev: true
 
-  /cborg@4.0.9:
-    resolution: {integrity: sha512-xAuZbCDUOZxCe/ZJuIrnlG1Bk1R0qhwCXdnPYxVmqBSqm9M3BeE3G6Qoj5Zq+8epas36bT3vjiInDTJ6BVH6Rg==}
+  /cborg@4.1.0:
+    resolution: {integrity: sha512-hbWI4lRY0SdkTBbAH1STpY60rqR1gqGz4XaGZ6BXxncqCaAAOtmg2UNLA/6AJ8WG+p14J5P9t7Ul8f0u2ZLOhg==}
     hasBin: true
 
   /chalk-template@0.4.0:
@@ -3155,6 +3177,13 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       chalk: 4.1.2
+    dev: false
+
+  /chalk-template@1.1.0:
+    resolution: {integrity: sha512-T2VJbcDuZQ0Tb2EWwSotMPJjgpy1/tGee1BTpUNsGZ/qgNjV2t7Mvu+d4600U564nbLesN1x2dPL+xii174Ekg==}
+    engines: {node: '>=14.16'}
+    dependencies:
+      chalk: 5.3.0
     dev: false
 
   /chalk@2.4.2:
@@ -3341,6 +3370,11 @@ packages:
   /commander@11.1.0:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
+
+  /commander@12.0.0:
+    resolution: {integrity: sha512-MwVNWlYjDTtOjX5PiD7o5pK0UrFU/OYgcJfjjK4RaHZETNtjJqrZa9Y9ds88+A+f+d5lv+561eZ+yCKoS3gbAA==}
+    engines: {node: '>=18'}
+    dev: false
 
   /commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
@@ -4557,7 +4591,7 @@ packages:
       human-signals: 4.3.1
       is-stream: 3.0.0
       merge-stream: 2.0.0
-      npm-run-path: 5.2.0
+      npm-run-path: 5.3.0
       onetime: 6.0.0
       signal-exit: 3.0.7
       strip-final-newline: 3.0.0
@@ -4572,7 +4606,7 @@ packages:
       human-signals: 5.0.0
       is-stream: 3.0.0
       merge-stream: 2.0.0
-      npm-run-path: 5.2.0
+      npm-run-path: 5.3.0
       onetime: 6.0.0
       signal-exit: 4.1.0
       strip-final-newline: 3.0.0
@@ -5012,6 +5046,15 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
+    dev: false
+    optional: true
+
+  /homestar-darwin-arm64@0.2.0-rc.1709907539:
+    resolution: {integrity: sha512-CekOqvNf/BcVZELvoeDmgvuHD77GxCcIUTGec7GQC1qsecbT9D/nsXOcOWPlYNiqF5Tgd4oQ7NZqhxN6/mbULg==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
     optional: true
 
   /homestar-darwin-x64@0.2.0:
@@ -5019,6 +5062,15 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
+    dev: false
+    optional: true
+
+  /homestar-darwin-x64@0.2.0-rc.1709907545:
+    resolution: {integrity: sha512-FkHi9G3T2/W9I08rg/bSZtph2FY7JcmoygZ5GnJyRANt/ln7Pxpz4yjuD1BnULw/ub3VAgVZIQoSblMzZStO0g==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
     optional: true
 
   /homestar-linux-arm64@0.2.0:
@@ -5026,6 +5078,15 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
+    dev: false
+    optional: true
+
+  /homestar-linux-arm64@0.2.0-rc.1709907553:
+    resolution: {integrity: sha512-lFJ/LS0Bn7D3KZ1Iez7HvfDYrVb+YMdqCN4Eh3RHemtQ1B7iD6OaewgtCT5sf1RhHZqTcPJoVQ4c4bi2jkcOzA==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
     optional: true
 
   /homestar-linux-x64@0.2.0:
@@ -5033,6 +5094,15 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
+    dev: false
+    optional: true
+
+  /homestar-linux-x64@0.2.0-rc.1709907551:
+    resolution: {integrity: sha512-OBTlNbRhGvzV2oUXsc/Tg2E46GWJMwrm83D9pZv1BY+L52LO83xX4WPs56c3XphJZ34RifZiE9R9tbtPstpE3Q==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
     optional: true
 
   /homestar-runtime@0.2.0:
@@ -5046,12 +5116,35 @@ packages:
       homestar-linux-arm64: 0.2.0
       homestar-linux-x64: 0.2.0
       homestar-windows-x64: 0.2.0
+    dev: false
+
+  /homestar-runtime@0.2.0-rc.1709907613:
+    resolution: {integrity: sha512-jxtcUk08UHzEEiDb6P3VBsFfliZdXQvrqYFhwjzLMjkgJISzBREHeoGxQlurnNj1Cd6RU5AET22Ujk/zOsNdng==}
+    hasBin: true
+    dependencies:
+      execa: 8.0.1
+    optionalDependencies:
+      homestar-darwin-arm64: 0.2.0-rc.1709907539
+      homestar-darwin-x64: 0.2.0-rc.1709907545
+      homestar-linux-arm64: 0.2.0-rc.1709907553
+      homestar-linux-x64: 0.2.0-rc.1709907551
+      homestar-windows-x64: 0.2.0-rc.1709907539
+    dev: true
 
   /homestar-windows-x64@0.2.0:
     resolution: {integrity: sha512-MAapENicxGCLR0kFm3GnfIxh4ABiBQv6ZvRVHye4W4Ikia00UXs8IRIfoU1TgcMYgAaLdnQ1PQlc8HM5uuZggw==}
     cpu: [x64]
     os: [windows]
     requiresBuild: true
+    dev: false
+    optional: true
+
+  /homestar-windows-x64@0.2.0-rc.1709907539:
+    resolution: {integrity: sha512-wZ98TfTeu5XJJTHQDiRYUzOcGgEuEIc9L5zsK4tIK2lMNCEfGG6NClxuZM3GlyebLc/EfsPgW8cdfnxjY72S0Q==}
+    cpu: [x64]
+    os: [windows]
+    requiresBuild: true
+    dev: true
     optional: true
 
   /hono@4.0.10:
@@ -5874,6 +5967,11 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
+  /lilconfig@3.1.1:
+    resolution: {integrity: sha512-O18pf7nyvHTckunPWCV1XUNXU1piu01y2b7ATJ0ppkUkk8ocqVWBrYjJBCwHDjD/ZWcfyrA0P4gKhzWGi5EINQ==}
+    engines: {node: '>=14'}
+    dev: true
+
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
@@ -6209,6 +6307,12 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  /mkdirp@3.0.1:
+    resolution: {integrity: sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dev: false
+
   /mlly@1.6.1:
     resolution: {integrity: sha512-vLgaHvaeunuOXHSmEbZ9izxPx3USsk8KCQ8iC+aTlp5sKRSoZvwhHh5L9VbKSaVC6sJDqbyohIS76E2VmHIPAA==}
     dependencies:
@@ -6334,8 +6438,8 @@ packages:
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
 
-  /nanoid@5.0.5:
-    resolution: {integrity: sha512-/Veqm+QKsyMY3kqi4faWplnY1u+VuKO3dD2binyPIybP31DRO29bPF+1mszgLnrR2KqSLceFLBNw0zmvDzN1QQ==}
+  /nanoid@5.0.6:
+    resolution: {integrity: sha512-rRq0eMHoGZxlvaFOUdK1Ev83Bd1IgzzR+WJ3IbDJ7QOSdAxYjlurSPqFs9s4lJg29RT6nPwizFtJhQS6V5xgiA==}
     engines: {node: ^18 || >=20}
     hasBin: true
     dev: true
@@ -6397,8 +6501,8 @@ packages:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
 
-  /npm-run-path@5.2.0:
-    resolution: {integrity: sha512-W4/tgAXFqFA0iL7fk0+uQ3g7wkL8xJmx3XdK0VGb4cHW//eZTtKGvFBBoRKVTpY7n6ze4NL9ly7rgXcHufqXKg==}
+  /npm-run-path@5.3.0:
+    resolution: {integrity: sha512-ppwTtiJZq0O/ai0z7yfudtBpWIoxM8yE6nHi1X47eFR2EWORqfbu6CnPlNsjeN683eT0qG6H/Pyf9fCcvjnnnQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       path-key: 4.0.0
@@ -6779,10 +6883,10 @@ packages:
       exit-hook: 4.0.0
       globby: 14.0.1
       kleur: 4.1.5
-      lilconfig: 3.0.0
+      lilconfig: 3.1.1
       lodash: 4.17.21
       merge-options: 3.0.4
-      nanoid: 5.0.5
+      nanoid: 5.0.6
       ora: 7.0.1
       p-timeout: 6.1.2
       path-browserify: 1.0.1
@@ -7621,6 +7725,17 @@ packages:
       source-map-support: 0.5.21
     dev: false
 
+  /terser@5.29.1:
+    resolution: {integrity: sha512-lZQ/fyaIGxsbGxApKmoPTODIzELy3++mXhS5hOqaAWZjQtpq/hFHAc+rm29NND1rYRxRWKcjuARNwULNXa5RtQ==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      '@jridgewell/source-map': 0.3.5
+      acorn: 8.11.3
+      commander: 2.20.3
+      source-map-support: 0.5.21
+    dev: false
+
   /test-exclude@6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
     engines: {node: '>=8'}
@@ -7634,7 +7749,7 @@ packages:
     resolution: {integrity: sha512-7d+LVd/4YKp/cutiVMLL5cnj/8p8oYELAVRRyNUM4FyUDz1OLQuwW868nDl7Vd1ZAQxzGeCR+F86FlR9Yw9fMA==}
     dependencies:
       '@balena/dockerignore': 1.0.2
-      '@types/dockerode': 3.3.24
+      '@types/dockerode': 3.3.25
       archiver: 5.3.2
       async-lock: 1.4.1
       byline: 5.0.0
