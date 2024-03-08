@@ -1,9 +1,10 @@
 import { writeFile } from 'node:fs/promises'
+import fs from 'node:fs'
 import path from 'path'
 import { createRequire } from 'node:module'
 import { base32 } from 'iso-base/rfc4648'
 import * as esbuild from 'esbuild'
-import { deleteAsync } from 'del'
+import { deleteSync } from 'del'
 
 // @ts-ignore
 import replacePlugin from 'esbuild-plugin-replace-regex'
@@ -63,42 +64,60 @@ async function bundle(filePath) {
 /**
  * Generate wasm component from a TypeScript file
  *
- * @param {string} filePath - Path to a TypeScript file
- * @param {string} outDir - Path to a directory to write the Wasm component file
+ * @param {import('../types.js').WasmifyOptions} options
  */
-export async function build(filePath, outDir = process.cwd()) {
-  const pkgPath = require.resolve('@fission-codes/homestar-wit')
-  const witPath = path.join(pkgPath, '..', '..', 'wit')
-  let witHash
+export async function build(options) {
+  let {
+    entryPoint,
+    outDir = process.cwd(),
+    debug = false,
+    worldName,
+    witPath,
+  } = options
+
+  if (!witPath) {
+    const pkgPath = require.resolve('@fission-codes/homestar-wit')
+    witPath = path.join(pkgPath, '..', '..', 'wit')
+  }
+
+  if (!worldName) {
+    worldName = path.basename(entryPoint, path.extname(entryPoint))
+  }
 
   // Clean up any old WIT files in the wit directory
   // componentize process.exit(1) if it fails so we can't clean up after it
-  await deleteAsync([`${witPath}/*.wit`], { force: true })
+  deleteSync([`${witPath}/*.wit`], { force: true })
 
+  let witFile
   try {
-    const { hash, src, wasiImports } = await bundle(filePath)
-    witHash = base32.encode(hash).toLowerCase()
+    const { hash, src, wasiImports } = await bundle(entryPoint)
+    const witHash = base32.encode(hash).toLowerCase()
+    const outPath = path.join(outDir, `${worldName}-${witHash}.wasm`)
+    witFile = path.join(witPath, `${worldName}-${witHash}.wit`)
 
-    // TODO: check the wit hash and only componentize if it has changed
-    const witSource = await wit({ filePath, worldName: witHash, wasiImports })
-    const witFile = path.join(witPath, `${witHash}.wit`)
-    await writeFile(witFile, witSource, 'utf8')
-    const { component } = await componentize(src, {
-      witPath,
-      worldName: witHash,
-      // debug: true,
-      sourceName: filePath,
-    })
-    const outPath = path.join(outDir, `${witHash}.wasm`)
-    await writeFile(outPath, component)
+    if (!fs.existsSync(outPath)) {
+      const witSource = await wit({
+        entryPoint,
+        worldName,
+        wasiImports,
+      })
+      await writeFile(witFile, witSource, 'utf8')
+      const { component } = await componentize(src, {
+        witPath,
+        worldName,
+        debug,
+        sourceName: entryPoint,
+      })
+      await writeFile(outPath, component)
+    }
 
     return {
       outPath,
       witHash,
     }
   } finally {
-    if (witHash) {
-      await deleteAsync([path.join(witPath, `${witHash}.wit`)], { force: true })
+    if (witFile) {
+      deleteSync([witFile], { force: true })
     }
   }
 }

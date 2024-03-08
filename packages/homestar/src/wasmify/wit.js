@@ -62,42 +62,6 @@ function witType(type, msg = '') {
     return 'list<u8>'
   }
 
-  if (type.text === 'Int8Array') {
-    return 'list<s8>'
-  }
-
-  if (type.text === 'Uint16Array') {
-    return 'list<u16>'
-  }
-
-  if (type.text === 'Int16Array') {
-    return 'list<s16>'
-  }
-
-  if (type.text === 'Uint32Array') {
-    return 'list<u32>'
-  }
-
-  if (type.text === 'Int32Array') {
-    return 'list<s32>'
-  }
-
-  if (type.text === 'Float32Array') {
-    return 'list<float32>'
-  }
-
-  if (type.text === 'Float64Array') {
-    return 'list<float64>'
-  }
-
-  if (type.text === 'BigUint64Array') {
-    return 'list<u64>'
-  }
-
-  if (type.text === 'BigInt64Array') {
-    return 'list<s64>'
-  }
-
   if (type.kind === 'Array' && type.elementType) {
     return `list<${witType(type.elementType, msg)}>`
   }
@@ -133,7 +97,7 @@ function msg(name, loc, line) {
  * @param {import('../types').WitOptions} options
  */
 export async function wit(options) {
-  const { filePath, source, wasiImports, worldName } = options
+  const { entryPoint: filePath, source, wasiImports, worldName } = options
 
   /** @type {import('@ts-ast-parser/core').AnalyserResult } */
   let result

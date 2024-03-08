@@ -18,6 +18,7 @@ const HS1_URL = process.env.HS1_URL || 'ws://localhost:8060'
 const hs = new Homestar({
   transport: new WebsocketTransport(HS1_URL),
 })
+const outDir = temporaryDirectory()
 
 test.after(() => {
   hs.close()
@@ -26,10 +27,10 @@ test.after(() => {
 test(
   'should wasmify',
   async function () {
-    const { outPath } = await build(
-      path.join(__dirname, 'fixtures', 'wasmify', 'hello.ts'),
-      temporaryDirectory()
-    )
+    const { outPath } = await build({
+      entryPoint: path.join(__dirname, 'fixtures', 'wasmify', 'hello.ts'),
+      outDir,
+    })
 
     /** @type {import('p-defer').DeferredPromise<string>} */
     const prom = pDefer()
@@ -70,10 +71,10 @@ test(
 test(
   'should wasmify with bytes',
   async function () {
-    const { outPath } = await build(
-      path.join(__dirname, 'fixtures', 'wasmify', 'hello.ts'),
-      temporaryDirectory()
-    )
+    const { outPath } = await build({
+      entryPoint: path.join(__dirname, 'fixtures', 'wasmify', 'hello.ts'),
+      outDir,
+    })
 
     /** @type {import('p-defer').DeferredPromise<Uint8Array>} */
     const prom = pDefer()
@@ -113,14 +114,14 @@ test(
 test(
   'should wasmify with wit logging',
   async function () {
-    const { outPath } = await build(
-      path.join(__dirname, 'fixtures', 'wasmify', 'wit-test.ts'),
-      temporaryDirectory()
-    )
+    const { outPath } = await build({
+      entryPoint: path.join(__dirname, 'fixtures', 'wasmify', 'wit-test.ts'),
+      outDir,
+    })
 
     /** @type {import('p-defer').DeferredPromise<number>} */
     const prom = pDefer()
-    const args = [1.1, 1.1]
+    const args = [1, 1]
     const wasmCID = await addFSFileToIPFS(outPath)
     const workflow1 = await workflow({
       name: 'hash',

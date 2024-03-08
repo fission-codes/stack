@@ -61,8 +61,44 @@ export type HomestarService = Service<
 >
 
 export interface WitOptions {
-  filePath?: string
+  entryPoint?: string
   source?: string
   worldName: string
   wasiImports?: Set<string>
+}
+
+export interface WasmifyOptions {
+  /**
+   * The entry point of the js module
+   */
+  entryPoint: string
+  /**
+   * The directory to output the generated files
+   *
+   * @default '<cwd>'
+   */
+  outDir?: string
+
+  /**
+   * The name of the generated Wit World
+   *
+   * @default '<bundle-hash>'
+   */
+  worldName?: string
+
+  /**
+   * Wit dependencies directory
+   *
+   * NOTE: this should be the directory where you run `wit-deps` and this script maybe delete any top level .wit files not inside the deps directory
+   *
+   * @default '<path-to-@fission-codes/homestar-wit>'
+   */
+  witPath?: string
+
+  /**
+   * Componentize JS debug flag
+   *
+   * @default false
+   */
+  debug?: boolean
 }
