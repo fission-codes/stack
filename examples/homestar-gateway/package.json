@@ -12,8 +12,8 @@
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
-    "@bytecodealliance/jco": "^1.0.2",
-    "@bytecodealliance/preview2-shim": "^0.15.1",
+    "@bytecodealliance/jco": "^1.0.3",
+    "@bytecodealliance/preview2-shim": "^0.16.0",
     "@fission-codes/channel": "workspace:^",
     "@fission-codes/homestar": "workspace:^",
     "@hono/node-server": "^1.8.2",
