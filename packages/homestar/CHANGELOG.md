@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/fission-codes/stack/compare/homestar-v2.2.0...homestar-v2.2.1) (2024-03-08)
+
+
+### Bug Fixes
+
+* add missing iso-base to deps ([e91ae4e](https://github.com/fission-codes/stack/commit/e91ae4eab12063765857f9964d7993530707e865))
+
 ## [2.2.0](https://github.com/fission-codes/stack/compare/homestar-v2.1.0...homestar-v2.2.0) (2024-03-08)
 
 
