@@ -307,7 +307,7 @@ importers:
         version: 3.0.2
       '@ts-ast-parser/core':
         specifier: ^0.7.0
-        version: 0.7.0(typescript@5.4.2)
+        version: 0.7.0(typescript@5.3.3)
       del:
         specifier: ^7.1.0
         version: 7.1.0
@@ -2114,7 +2114,7 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@ts-ast-parser/core@0.7.0(typescript@5.4.2):
+  /@ts-ast-parser/core@0.7.0(typescript@5.3.3):
     resolution: {integrity: sha512-9pB/ATFBsLw3ZZWuVTh7dlDPehbpdSb0s35AGfgPS8BCkMVCxZSi1t37ZK1EReA5L+Mctp4aUFQmAj+0OjqJFA==}
     engines: {node: ^18.0.0 || ^20.0.0}
     peerDependencies:
@@ -2124,7 +2124,7 @@ packages:
       globby: 14.0.1
       package-json-type: 1.0.3
       tslib: 2.6.2
-      typescript: 5.4.2
+      typescript: 5.3.3
     dev: false
 
   /@types/assert@1.5.10:
@@ -8054,12 +8054,6 @@ packages:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
-
-  /typescript@5.4.2:
-    resolution: {integrity: sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-    dev: false
 
   /ufo@1.4.0:
     resolution: {integrity: sha512-Hhy+BhRBleFjpJ2vchUNN40qgkh0366FWJGqVLYBHev0vpHTrXSA0ryT+74UiW6KWsldNurQMKGqCm1M2zBciQ==}
