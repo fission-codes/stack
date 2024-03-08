@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1](https://github.com/fission-codes/stack/compare/eslint-config-v0.1.0...eslint-config-v0.1.1) (2024-03-08)
+
+
+### Bug Fixes
+
+* export wasmify ([14d724b](https://github.com/fission-codes/stack/commit/14d724b80475165b8f737521ed1cf5d5c5e7c686))
+* update deps ([4feb653](https://github.com/fission-codes/stack/commit/4feb653eb925c8ea4c386b046588b488be7b3412))
+
 ## [0.1.0](https://github.com/fission-codes/stack/compare/eslint-config-v0.0.4...eslint-config-v0.1.0) (2023-12-16)
 
 
