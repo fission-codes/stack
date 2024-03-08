@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/fission-codes/stack/compare/homestar-v2.1.0...homestar-v2.2.0) (2024-03-08)
+
+
+### Features
+
+* Wasmify supports custom wit folder, world name, debug mode and wasm cache ([1dafc13](https://github.com/fission-codes/stack/commit/1dafc139db5d164120ddb15e560f39af228648dc)), closes [#168](https://github.com/fission-codes/stack/issues/168)
+
 ## [2.1.0](https://github.com/fission-codes/stack/compare/homestar-v2.0.3...homestar-v2.1.0) (2024-03-07)
 
 
