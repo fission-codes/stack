@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/fission-codes/stack/compare/homestar-v2.2.1...homestar-v2.3.0) (2024-03-12)
+
+
+### Features
+
+* change nnc to string ([a7b0486](https://github.com/fission-codes/stack/commit/a7b048646d71478d932f42281c5b9b068ed4ca0c))
+
 ## [2.2.1](https://github.com/fission-codes/stack/compare/homestar-v2.2.0...homestar-v2.2.1) (2024-03-08)
 
 
