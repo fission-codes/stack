@@ -2,8 +2,9 @@ import * as url from 'url'
 import path from 'path'
 import { assert, suite } from 'playwright-test/taps'
 import pDefer from 'p-defer'
-import { base64 } from 'iso-base/rfc4648'
+import { base32hex, base64 } from 'iso-base/rfc4648'
 import { utf8 } from 'iso-base/utf8'
+import { randomBytes } from 'iso-base/crypto'
 import { temporaryDirectory } from 'tempy'
 import { WebsocketTransport } from '@fission-codes/channel/transports/ws.js'
 import { build } from '../src/wasmify/index.js'
@@ -150,5 +151,65 @@ test(
   },
   {
     timeout: 120_000,
+  }
+)
+
+test(
+  'should wasmify with multiple tasks and nonce',
+  async function () {
+    const { outPath } = await build({
+      entryPoint: path.join(__dirname, 'fixtures', 'wasmify', 'hello.ts'),
+      outDir,
+    })
+
+    /** @type {import('p-defer').DeferredPromise<string>} */
+    const prom = pDefer()
+
+    const args = ['hello', 1]
+
+    const wasmCID = await addFSFileToIPFS(outPath)
+    const workflow1 = await workflow({
+      name: 'sum',
+      workflow: {
+        tasks: [
+          invocation({
+            name: 'sum1',
+            func: 'sum',
+            args,
+            resource: `ipfs://${wasmCID}`,
+            nnc: base32hex.encode(randomBytes(12), false),
+          }),
+          invocation({
+            name: 'sum2',
+            func: 'sum',
+            args: ['{{needs.sum1.output}}', 2],
+            resource: `ipfs://${wasmCID}`,
+            nnc: base32hex.encode(randomBytes(12), false),
+          }),
+        ],
+      },
+    })
+
+    /**
+     * @type {number}
+     */
+    let count = 0
+    const { error } = await hs.runWorkflow(workflow1, (data) => {
+      count++
+
+      if (count === 2) {
+        prom.resolve(data.receipt.out[1])
+      }
+    })
+
+    if (error) {
+      return assert.fail(error)
+    }
+
+    const r = await prom.promise
+    assert.equal(r, 'hello12')
+  },
+  {
+    timeout: 30_000,
   }
 )

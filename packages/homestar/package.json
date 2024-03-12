@@ -74,7 +74,7 @@
     "esbuild": "^0.20.1",
     "esbuild-plugin-replace-regex": "^0.0.2",
     "get-tsconfig": "^4.7.3",
-    "iso-base": "^2.0.1",
+    "iso-base": "^3.0.0",
     "just-kebab-case": "^4.2.0",
     "multiformats": "^13.1.0",
     "object-path": "^0.11.8",
@@ -83,7 +83,7 @@
   "devDependencies": {
     "@types/get-value": "^3.0.5",
     "@types/json-templates": "^3.0.3",
-    "@types/node": "^20.11.25",
+    "@types/node": "^20.11.26",
     "@types/object-path": "^0.11.4",
     "execa": "^8.0.1",
     "homestar-runtime": "rc",
@@ -92,7 +92,7 @@
     "playwright-test": "^14.1.1",
     "tempy": "^3.1.0",
     "testcontainers": "^10.7.2",
-    "type-fest": "^4.11.1",
+    "type-fest": "^4.12.0",
     "unws": "^0.2.4",
     "ws": "^8.16.0"
   },

@@ -53,6 +53,10 @@ export interface InvocationOptions<Args extends any[] = any[]> {
   args: Args
   func: string
   resource: Resource
+  /**
+   * Base 32 hex (lower) encoded random bytes, either 12 or 16 bytes long
+   */
+  nnc?: string
 }
 
 export interface TemplateOptions<
