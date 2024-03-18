@@ -68,7 +68,7 @@
     "@ipld/dag-cbor": "^9.2.0",
     "@ipld/dag-json": "^10.2.0",
     "@multiformats/sha3": "^3.0.2",
-    "@ts-ast-parser/core": "^0.7.0",
+    "@ts-ast-parser/core": "^0.8.0",
     "del": "^7.1.0",
     "emittery": "^1.0.3",
     "esbuild": "^0.20.1",
