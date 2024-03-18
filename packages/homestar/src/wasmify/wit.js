@@ -70,6 +70,7 @@ function witType(type, msg = '') {
     return `tuple<${type.elements.map((t) => witType(t, msg)).join(', ')}>`
   }
 
+  // @ts-ignore-next-line
   if (type.kind === 'ObjectLiteral' && type.properties) {
     return `record object-literal {${type.properties
       .map((p) => `${witId(p.name)}: ${witType(p.type, msg)}`)
