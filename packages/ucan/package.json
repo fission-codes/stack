@@ -58,9 +58,10 @@
     "test:browser": "playwright-test 'test/**/!(*.node).test.js'"
   },
   "dependencies": {
+    "@ipld/dag-cbor": "^9.2.0",
     "@noble/ed25519": "^2.0.0",
     "@scure/bip39": "^1.2.2",
-    "iso-base": "^3.0.0",
+    "iso-base": "^4.0.0",
     "iso-did": "^1.6.0",
     "iso-kv": "^3.0.1",
     "iso-signatures": "^0.3.2",

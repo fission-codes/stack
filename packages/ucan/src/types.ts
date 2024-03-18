@@ -6,6 +6,7 @@ import type { code as RAW_CODE } from 'multiformats/codecs/raw'
 import type { sha256 } from 'multiformats/hashes/sha2'
 import type { Block } from 'multiformats'
 import type { Driver, IKV } from 'iso-kv'
+import type { ENCODING } from './varsig'
 
 export { CID } from 'multiformats/cid'
 
@@ -202,4 +203,13 @@ export interface AgentCreateOptions {
   resolveSigner: (
     exported: string | CryptoKeyPair | undefined
   ) => Promise<ISigner<string | CryptoKeyPair>>
+}
+
+/**
+ * Varsig types
+ */
+
+export interface VarsigOptions {
+  encoding: keyof typeof ENCODING
+  alg: SignatureAlgorithm
 }

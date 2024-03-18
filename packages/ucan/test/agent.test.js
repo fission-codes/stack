@@ -5,7 +5,7 @@ import { MemoryDriver } from 'iso-kv/drivers/memory.js'
 import { RSASigner } from 'iso-signatures/signers/rsa.js'
 import { Agent } from '../src/agent.js'
 
-const test = suite('agent').only
+const test = suite('agent')
 
 const resolverEdOrEC = (
   /** @type {string | CryptoKeyPair | undefined} */ exported
