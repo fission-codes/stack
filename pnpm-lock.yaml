@@ -393,9 +393,6 @@ importers:
 
   packages/ucan:
     dependencies:
-      '@ipld/dag-cbor':
-        specifier: ^9.2.0
-        version: 9.2.0
       '@noble/ed25519':
         specifier: ^2.0.0
         version: 2.0.0
