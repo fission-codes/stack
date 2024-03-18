@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.1](https://github.com/fission-codes/stack/compare/homestar-v2.3.0...homestar-v2.3.1) (2024-03-18)
+
+
+### Bug Fixes
+
+* release homestar ([d721879](https://github.com/fission-codes/stack/commit/d72187999a37cf1b388065124b5190976703d37e))
+
 ## [2.3.0](https://github.com/fission-codes/stack/compare/homestar-v2.2.1...homestar-v2.3.0) (2024-03-12)
 
 
