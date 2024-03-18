@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -306,8 +306,8 @@ importers:
         specifier: ^3.0.2
         version: 3.0.2
       '@ts-ast-parser/core':
-        specifier: ^0.7.0
-        version: 0.7.0(typescript@5.3.3)
+        specifier: ^0.8.0
+        version: 0.8.0(typescript@5.3.3)
       del:
         specifier: ^7.1.0
         version: 7.1.0
@@ -2139,22 +2139,21 @@ packages:
       - supports-color
     dev: true
 
-  /@ts-ast-parser/comment@0.1.0:
-    resolution: {integrity: sha512-SLN5vUMcu0FwhsW7ngVFhwCI9p5r5MGIRT1nGyVKlrXSXMHGcKnU9oulH5Gz9s6epRQooA2TJmU/4hW9z8zy9A==}
-    engines: {node: ^16.0.0 || ^18.0.0 || ^20.0.0}
+  /@ts-ast-parser/comment@0.2.0:
+    resolution: {integrity: sha512-W/nxZGgoK0HS90Zuy5tg4I2TF6izsW3U8jIHk+M9dEvpBjvVMLOZCmZbaewsOsu8xA11vAiLAD4IMBjLMuUwcQ==}
+    engines: {node: 18.x || 20.x || 21.x}
     dependencies:
       tslib: 2.6.2
     dev: false
 
-  /@ts-ast-parser/core@0.7.0(typescript@5.3.3):
-    resolution: {integrity: sha512-9pB/ATFBsLw3ZZWuVTh7dlDPehbpdSb0s35AGfgPS8BCkMVCxZSi1t37ZK1EReA5L+Mctp4aUFQmAj+0OjqJFA==}
-    engines: {node: ^18.0.0 || ^20.0.0}
+  /@ts-ast-parser/core@0.8.0(typescript@5.3.3):
+    resolution: {integrity: sha512-UN78bQwfayfefhJ5f3Z7GnSTh7/oKC1G/Fp5BIR6NxP8EebEC8DRmtSDIBwO6nnLVJjI69W0R57Fa3/EzgtcvA==}
+    engines: {node: 18.x || 20.x || 21.x}
     peerDependencies:
-      typescript: ^4.6.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x
+      typescript: ^4.6.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x
     dependencies:
-      '@ts-ast-parser/comment': 0.1.0
+      '@ts-ast-parser/comment': 0.2.0
       globby: 14.0.1
-      package-json-type: 1.0.3
       tslib: 2.6.2
       typescript: 5.3.3
     dev: false
@@ -6734,10 +6733,6 @@ packages:
   /p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
-    dev: false
-
-  /package-json-type@1.0.3:
-    resolution: {integrity: sha512-Bey4gdRuOwDbS8Fj1qA3/pTq5r8pqiI5E3tjSqCdhaLSsyGG364VFzXLTIexN5AaNGe/vgdBzLfoKdr7EVg2KQ==}
     dev: false
 
   /parent-module@1.0.1:
