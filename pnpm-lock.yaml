@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -145,8 +145,8 @@ importers:
         specifier: ^14.1.1
         version: 14.1.1
       type-fest:
-        specifier: ^4.11.1
-        version: 4.11.1
+        specifier: ^4.12.0
+        version: 4.12.0
       unws:
         specifier: ^0.2.4
         version: 0.2.4(ws@8.16.0)
@@ -422,8 +422,8 @@ importers:
         specifier: ^14.1.1
         version: 14.1.1
       type-fest:
-        specifier: ^4.11.1
-        version: 4.11.1
+        specifier: ^4.12.0
+        version: 4.12.0
 
 packages:
 
@@ -7993,11 +7993,6 @@ packages:
   /type-fest@3.13.1:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
-    dev: true
-
-  /type-fest@4.11.1:
-    resolution: {integrity: sha512-MFMf6VkEVZAETidGGSYW2B1MjXbGX+sWIywn2QPEaJ3j08V+MwVRHMXtf2noB8ENJaD0LIun9wh5Z6OPNf1QzQ==}
-    engines: {node: '>=16'}
     dev: true
 
   /type-fest@4.12.0:
