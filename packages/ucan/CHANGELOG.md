@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/fission-codes/stack/compare/ucan-v0.2.0...ucan-v0.3.0) (2024-03-18)
+
+
+### Features
+
+* varsig initial impl ([af82318](https://github.com/fission-codes/stack/commit/af823186f88e676c0798290e3a219a4cba076dbc))
+
 ## [0.2.0](https://github.com/fission-codes/stack/compare/ucan-v0.1.2...ucan-v0.2.0) (2024-02-12)
 
 
