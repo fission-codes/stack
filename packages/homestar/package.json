@@ -74,7 +74,7 @@
     "esbuild": "^0.20.1",
     "esbuild-plugin-replace-regex": "^0.0.2",
     "get-tsconfig": "^4.7.3",
-    "iso-base": "^3.0.0",
+    "iso-base": "^4.0.0",
     "just-kebab-case": "^4.2.0",
     "multiformats": "^13.1.0",
     "object-path": "^0.11.8",

@@ -324,8 +324,8 @@ importers:
         specifier: ^4.7.3
         version: 4.7.3
       iso-base:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^4.0.0
+        version: 4.0.0
       just-kebab-case:
         specifier: ^4.2.0
         version: 4.2.0
@@ -393,6 +393,9 @@ importers:
 
   packages/ucan:
     dependencies:
+      '@ipld/dag-cbor':
+        specifier: ^9.2.0
+        version: 9.2.0
       '@noble/ed25519':
         specifier: ^2.0.0
         version: 2.0.0
@@ -400,8 +403,8 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
       iso-base:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^4.0.0
+        version: 4.0.0
       iso-did:
         specifier: ^1.6.0
         version: 1.6.0
@@ -2899,8 +2902,8 @@ packages:
     dev: true
     optional: true
 
-  /bare-fs@2.2.1:
-    resolution: {integrity: sha512-+CjmZANQDFZWy4PGbVdmALIwmt33aJg8qTkVjClU6X4WmZkTPBDxRHiBn7fpqEWEfF3AC2io++erpViAIQbSjg==}
+  /bare-fs@2.2.2:
+    resolution: {integrity: sha512-X9IqgvyB0/VA5OZJyb5ZstoN62AzD7YxVGog13kkfYWYqJYcK0kcqLZ6TrmH5qr4/8//ejVcX4x/a0UvaogXmA==}
     requiresBuild: true
     dependencies:
       bare-events: 2.2.1
@@ -5656,8 +5659,8 @@ packages:
       bigint-mod-arith: 3.3.1
     dev: false
 
-  /iso-base@3.0.0:
-    resolution: {integrity: sha512-6+6r3X0lFZTyjE9a72KMtBcJdM7xRdyJTNBFNNrza+12w1s081lqf/Cz8zCOgl4+wM7Rj7poQX3c/aeJS/wTkQ==}
+  /iso-base@4.0.0:
+    resolution: {integrity: sha512-Vf+6r7XlP+LQD0HSR0ZBLSj/mwuP+59ElbgMKT+iFSnkBW2RzRohQScgKfPCYbaGZAjEdbi40eYq28E/RAnrVA==}
     dependencies:
       base-x: 4.0.0
       bigint-mod-arith: 3.3.1
@@ -7759,7 +7762,7 @@ packages:
       pump: 3.0.0
       tar-stream: 3.1.7
     optionalDependencies:
-      bare-fs: 2.2.1
+      bare-fs: 2.2.2
       bare-path: 2.1.0
     dev: true
 
