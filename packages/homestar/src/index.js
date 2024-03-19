@@ -21,6 +21,7 @@ import * as T from './types.js'
  * @typedef {T.HomestarEvents} HomestarEvents
  * @typedef {T.HomestarOptions} HomestarOptions
  * @typedef {T.Metrics} Metrics
+ * @typedef {T.Node} Node
  * @typedef {T.Health} Health
  * @typedef {T.WorkflowNotification} WorkflowNotification
  * @typedef {T.EventNotification} EventNotification
@@ -88,6 +89,15 @@ export class Homestar extends Emittery {
   async metrics() {
     return this.#channel.request({
       method: 'metrics',
+    })
+  }
+
+  /**
+   * Homestar Node info
+   */
+  async node() {
+    return this.#channel.request({
+      method: 'node',
     })
   }
 

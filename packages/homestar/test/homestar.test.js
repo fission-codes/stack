@@ -54,6 +54,30 @@ test(
 )
 
 test(
+  'should fetch node info from homestar',
+  async function () {
+    const hs = new Homestar({
+      transport: new WebsocketTransport(HS1_URL, {
+        ws: WebSocket,
+      }),
+    })
+
+    const { error, result } = await hs.node()
+
+    if (error) {
+      return assert.fail(error)
+    }
+
+    assert.ok(typeof result.static.peer_id === 'string')
+    assert.ok(Array.isArray(result.dynamic.listeners))
+    hs.close()
+  },
+  {
+    timeout: 30_000,
+  }
+)
+
+test(
   'should fetch health from homestar',
   async function () {
     const hs = new Homestar({
@@ -69,9 +93,7 @@ test(
     }
 
     assert.equal(result.healthy, true)
-    // assert.ok(result.nodeInfo)
-    // assert.ok(typeof result.nodeInfo.static.peer_id === 'string')
-    // assert.ok(Array.isArray(result.nodeInfo.dynamic.listeners))
+
     hs.close()
   },
   {
