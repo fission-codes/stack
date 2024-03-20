@@ -31,6 +31,7 @@ export interface Receipt<Out> extends Schemas.Receipt {
 export type HomestarService = Service<
   [
     IO<{ method: 'metrics' }, Schemas.Metrics>,
+    IO<{ method: 'node' }, Schemas.Node>,
     IO<{ method: 'health' }, Schemas.Health>,
     IO<{ method: 'subscribe_run_workflow'; params: Workflow[] }, string>,
     IO<{ method: 'subscribe_network_events' }, string>,

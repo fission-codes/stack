@@ -4,6 +4,7 @@ import { CID as _CID } from 'multiformats/cid'
 /**
  * @typedef {import('zod').z.infer<typeof Receipt>} Receipt
  * @typedef {import('zod').z.infer<typeof Metrics>} Metrics
+ * @typedef {import('zod').z.infer<typeof Node>} Node
  * @typedef {import('zod').z.infer<typeof Health>} Health
  * @typedef {import('zod').z.infer<typeof Invocation>} Invocation
  * @typedef {import('zod').z.infer<typeof Task>} Task
@@ -30,10 +31,11 @@ export const Metrics = z.object({
 
 export const Health = z.object({
   healthy: z.boolean(),
-  // nodeInfo: z.object({
-  //   static: z.object({ peer_id: z.string() }),
-  //   dynamic: z.object({ listeners: z.array(z.string()) }),
-  // }),
+})
+
+export const Node = z.object({
+  static: z.object({ peer_id: z.string() }),
+  dynamic: z.object({ listeners: z.array(z.string()) }),
 })
 
 export const CID = /** @type {typeof z.custom<import('multiformats').CID>} */ (
