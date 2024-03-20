@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.4.0](https://github.com/fission-codes/stack/compare/homestar-v2.3.1...homestar-v2.4.0) (2024-03-20)
+
+
+### Features
+
+* add node method to fetch node info ([adb1b5e](https://github.com/fission-codes/stack/commit/adb1b5e436d054391c76d387ff432c71bf5908b6))
+* add node method to fetch node info ([adb1b5e](https://github.com/fission-codes/stack/commit/adb1b5e436d054391c76d387ff432c71bf5908b6))
+
 ## [2.3.1](https://github.com/fission-codes/stack/compare/homestar-v2.3.0...homestar-v2.3.1) (2024-03-18)
 
 
