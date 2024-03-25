@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -145,8 +145,8 @@ importers:
         specifier: ^14.1.1
         version: 14.1.1
       type-fest:
-        specifier: ^4.11.1
-        version: 4.11.1
+        specifier: ^4.14.0
+        version: 4.14.0
       unws:
         specifier: ^0.2.4
         version: 0.2.4(ws@8.16.0)
@@ -373,8 +373,8 @@ importers:
         specifier: ^10.7.2
         version: 10.7.2
       type-fest:
-        specifier: ^4.12.0
-        version: 4.12.0
+        specifier: ^4.14.0
+        version: 4.14.0
       unws:
         specifier: ^0.2.4
         version: 0.2.4(ws@8.16.0)
@@ -422,8 +422,8 @@ importers:
         specifier: ^14.1.1
         version: 14.1.1
       type-fest:
-        specifier: ^4.11.1
-        version: 4.11.1
+        specifier: ^4.14.0
+        version: 4.14.0
 
 packages:
 
@@ -6356,7 +6356,7 @@ packages:
       outvariant: 1.4.2
       path-to-regexp: 6.2.1
       strict-event-emitter: 0.5.1
-      type-fest: 4.12.0
+      type-fest: 4.14.0
       typescript: 5.3.3
       yargs: 17.7.2
     dev: true
@@ -7995,13 +7995,8 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /type-fest@4.11.1:
-    resolution: {integrity: sha512-MFMf6VkEVZAETidGGSYW2B1MjXbGX+sWIywn2QPEaJ3j08V+MwVRHMXtf2noB8ENJaD0LIun9wh5Z6OPNf1QzQ==}
-    engines: {node: '>=16'}
-    dev: true
-
-  /type-fest@4.12.0:
-    resolution: {integrity: sha512-5Y2/pp2wtJk8o08G0CMkuFPCO354FGwk/vbidxrdhRGZfd0tFnb4Qb8anp9XxXriwBgVPjdWbKpGl4J9lJY2jQ==}
+  /type-fest@4.14.0:
+    resolution: {integrity: sha512-on5/Cw89wwqGZQu+yWO0gGMGu8VNxsaW9SB2HE8yJjllEk7IDTwnSN1dUVldYILhYPN5HzD7WAaw2cc/jBfn0Q==}
     engines: {node: '>=16'}
     dev: true
 
