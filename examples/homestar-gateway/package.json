@@ -15,15 +15,19 @@
     "@bytecodealliance/jco": "^1.0.3",
     "@bytecodealliance/preview2-shim": "^0.16.0",
     "@fission-codes/channel": "workspace:^",
+    "@fission-codes/client": "workspace:^",
     "@fission-codes/homestar": "workspace:^",
+    "@fission-codes/ucan": "workspace:^",
     "@hono/node-server": "^1.8.2",
     "@paulmillr/qr": "^0.1.1",
     "ajv": "^8.12.0",
     "execa": "^8.0.1",
     "exit-hook": "^4.0.0",
     "homestar-runtime": "0.2.0",
-    "hono": "^4.0.10",
-    "iso-web": "^1.0.4",
+    "hono": "^4.1.4",
+    "iso-kv": "^3.0.2",
+    "iso-signatures": "^0.3.2",
+    "iso-web": "^1.0.5",
     "kubo-rpc-client": "^3.0.4",
     "listhen": "^1.7.2",
     "ora": "^8.0.1",
@@ -33,7 +37,7 @@
     "ts-json-schema-generator": "^1.5.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.25"
+    "@types/node": "^20.11.30"
   },
   "eslintConfig": {
     "extends": [

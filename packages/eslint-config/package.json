@@ -48,9 +48,9 @@
   },
   "devDependencies": {
     "@types/assert": "^1.5.9",
-    "@types/eslint": "^8.56.5",
+    "@types/eslint": "^8.56.6",
     "@types/mocha": "^10.0.4",
-    "@types/node": "^20.11.25",
+    "@types/node": "^20.11.30",
     "assert": "^2.1.0",
     "mocha": "^10.3.0"
   },

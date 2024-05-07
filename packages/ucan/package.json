@@ -62,14 +62,14 @@
     "@scure/bip39": "^1.2.2",
     "iso-base": "^4.0.0",
     "iso-did": "^1.6.0",
-    "iso-kv": "^3.0.1",
+    "iso-kv": "^3.0.2",
     "iso-signatures": "^0.3.2",
     "multiformats": "^13.1.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.25",
+    "@types/node": "^20.11.30",
     "playwright-test": "^14.1.1",
-    "type-fest": "^4.11.1"
+    "type-fest": "^4.14.0"
   },
   "publishConfig": {
     "provenance": true

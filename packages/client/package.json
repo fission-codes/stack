@@ -48,12 +48,12 @@
     "@fission-codes/ucan": "workspace:^",
     "iso-did": "^1.6.0",
     "iso-signatures": "^0.3.2",
-    "iso-web": "^1.0.4",
+    "iso-web": "^1.0.5",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@testcontainers/postgresql": "^10.7.2",
-    "@types/node": "^20.11.25",
+    "@types/node": "^20.11.30",
     "execa": "^8.0.1",
     "iso-websocket": "^0.2.0",
     "msw": "^2.1.5",

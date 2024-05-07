@@ -280,3 +280,25 @@ test.skip('should fetch capabilities', async function () {
   }
   // console.log('🚀 ~ caps:', caps.error?.cause)
 })
+
+test('should login', async function () {
+  const { account, client, email } = await createAccount()
+  const { codePromise, isReady } = waitForCode(email)
+
+  await client.logout()
+  const accountInfo = await client.accountInfo(account.did)
+  assert.ok(accountInfo.error)
+
+  await isReady
+  await client.verifyEmail(email)
+  const code = await codePromise
+
+  await client.login({
+    code,
+    username: account.username,
+  })
+
+  const accountInfo2 = await client.accountInfo(account.did)
+
+  assert.deepEqual(account, accountInfo2.result)
+})

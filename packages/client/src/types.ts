@@ -22,7 +22,7 @@ export interface AccountInfo {
   email: string
 }
 
-export interface Account {
+export interface Session {
   account: AccountInfo
   ucans: JWT[]
 }

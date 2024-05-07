@@ -4,6 +4,7 @@ import { DID } from 'iso-did'
 import * as DIDFission from 'iso-did/fission'
 import { UCAN } from '@fission-codes/ucan'
 import * as Bearer from '@fission-codes/ucan/bearer'
+import * as Schemas from './schemas.js'
 
 // eslint-disable-next-line no-unused-vars
 import * as T from './types.js'
@@ -23,6 +24,11 @@ const TTL = 15 // 15 seconds
 
 export class Client {
   #baseUrl = ''
+
+  /**
+   * @type {T.Session | undefined}
+   */
+  session = undefined
 
   /**
    * @param {T.ClientOptions} opts
@@ -88,7 +94,7 @@ export class Client {
 
     const headers = Bearer.encode(delegation, store)
     const account =
-      await /** @type {typeof request.json.post<import('./types.js').Account>} */ (
+      await /** @type {typeof request.json.post<import('./types.js').Session>} */ (
         request.json.post
       )(new URL('/api/v0/account', this.#baseUrl), {
         body: input,
@@ -103,6 +109,7 @@ export class Client {
       await Promise.all(account.result.ucans.map((ucan) => UCAN.fromUcan(ucan)))
     )
 
+    this.session = account.result
     return { result: account.result.account }
   }
 
@@ -159,12 +166,41 @@ export class Client {
   }
 
   /**
+   *
+   * @param {T.LoginInput} input
+   */
+  async login(input) {
+    const parsed = Schemas.LoginInput.safeParse(input)
+    if (!parsed.success) {
+      return { error: parsed.error }
+    }
+
+    const accountDid = await this.resolveHandle(input.username)
+
+    if (accountDid.error) {
+      return { error: accountDid.error }
+    }
+
+    const link = await this.accountLink(accountDid.result[0], input.code)
+
+    if (link.error) {
+      return { error: link.error }
+    }
+
+    return { result: link.result }
+  }
+
+  async logout() {
+    return this.agent.store.clear()
+  }
+
+  /**
    * Get a UCAN for a DID that hasn't been associated with this account yet, given an email verification code.
    *
    * @see https://github.com/fission-codes/fission-server/blob/main/design/api.md#post-apiv0accountdidlink
    * @param {T.DID} accountDid
    * @param {string} code
-   * @returns {Promise<T.MaybeResult<T.Account, T.ClientErrors>>}
+   * @returns {Promise<T.MaybeResult<T.AccountInfo, T.ClientErrors>>}
    */
   async accountLink(accountDid, code) {
     const { delegation, store } = await this.agent.delegate({
@@ -179,7 +215,7 @@ export class Client {
 
     const headers = Bearer.encode(delegation, store)
     const account =
-      await /** @type {typeof request.json.post<import('./types.js').Account>} */ (
+      await /** @type {typeof request.json.post<import('./types.js').Session>} */ (
         request.json.post
       )(new URL(`/api/v0/account/${accountDid}/link`, this.#baseUrl), {
         body: {
@@ -196,7 +232,8 @@ export class Client {
       await Promise.all(account.result.ucans.map((ucan) => UCAN.fromUcan(ucan)))
     )
 
-    return account
+    this.session = account.result
+    return { result: account.result.account }
   }
 
   /**
@@ -295,12 +332,14 @@ export class Client {
    * Resolve account DID from account handle
    *
    * @param {string} handle - The account handle <username>.<domain>
-   * @returns
    */
   async resolveHandle(handle) {
-    return await resolve(`_did.${handle}`, 'TXT', {
+    /** @type {T.MaybeResult<T.DID[], import('iso-web/doh').Errors>} */
+    const out = await resolve(`_did.${handle}`, 'TXT', {
       server: new URL(`/dns-query`, this.#baseUrl).toString(),
     })
+
+    return out
   }
 
   /**
